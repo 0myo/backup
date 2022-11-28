@@ -1,0 +1,20 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Syllabus-Mapper">
+
+	<select id="selectSyllabusList" resultType="syllabus">
+		select *
+		from SYLLABUS
+	</select>
+	
+	<select id="selectSyllabusBySylCd" parameterType="String" resultType="syllabus">
+		select *
+		from SYLLABUS
+		where SYL_CD = #{SYL_CD}
+		and seme_cd = '202202'
+	</select>
+	
+	
+</mapper>

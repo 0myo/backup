@@ -1,0 +1,21 @@
+package kr.or.ddit.dao.prof;
+
+import org.apache.ibatis.session.SqlSession;
+
+import kr.or.ddit.dto.prof.LecManageVO;
+
+public class LecManageDAOImpl implements LecManageDAO {
+
+	private SqlSession session;
+
+	public void setSqlSession(SqlSession session) {
+		this.session = session;
+	}
+	
+	@Override
+	public LecManageVO selectLecManageBySubjCd(String subjCd) {
+		LecManageVO lecManageVO = session.selectOne("LecManage-Mapper.selectLecManageBySubjCd", subjCd);
+		return lecManageVO;
+	}
+
+}

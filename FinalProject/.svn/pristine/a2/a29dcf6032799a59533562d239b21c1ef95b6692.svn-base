@@ -1,0 +1,37 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="LecOpen-Mapper">
+
+	<select id="selectOne" parameterType="String" resultType="lecOpen">
+		select *
+		from lec_open
+		where lec_cd = #{lecCd}
+	</select>
+	
+	<select id="selectList" parameterType="String" resultType="lecOpen">
+		select *
+		from lec_open
+		where lec_open_status_cd = 'open'
+	</select>
+	
+	
+	
+	<update id="addStuNum" parameterType="String">
+		UPDATE lec_open
+		SET 
+		stu_num = stu_num +1
+		WHERE
+		lec_cd = #{lecCd}
+	</update>
+	
+	<update id="subtractStuNum" parameterType="String">
+		UPDATE lec_open
+		SET 
+		stu_num = stu_num - 1
+		WHERE
+		lec_cd = #{lecCd}
+	</update>
+	
+</mapper>

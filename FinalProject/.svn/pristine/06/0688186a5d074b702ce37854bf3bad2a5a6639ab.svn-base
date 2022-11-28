@@ -1,0 +1,44 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Reply-Mapper">
+	
+	<select id="selectReplyList" resultType="stuShaReply" parameterType="stuShaReply">
+		select *
+		from stu_sha_reply
+		where sha_bno=#{shaBno}
+		order by cdate
+	</select>
+	<!-- 	
+	<select id="selectReplySeqNextValue" resultType="int" >
+		select reply_seq.nextval
+		from dual		
+	</select>
+	 -->
+	<select id="countReply" resultType="int" parameterType="stuShaReply">
+		select count(sha_bno) 
+		from stu_sha_reply
+		where sha_bno=#{shaBno}
+	</select>
+	
+	<update id="insertReply" parameterType="stuShaReply">
+		insert into stu_sha_reply(sha_rno,sha_bno,content,stu_id)
+		values(#{shaRno},#{shaBno},#{content},#{stuId})
+	</update>
+	
+	<update id="updateReply" parameterType="stuShaReply">
+		update stu_sha_reply
+		set 
+		content = #{content},
+		cdate = sysdate
+		where sha_rno=#{shaRno}		
+	</update>
+	
+	<update id="deleteReply" parameterType="int">
+		delete from stu_sha_reply
+		where sha_rno=#{shaRno}		
+	</update>			 
+		
+	
+</mapper>

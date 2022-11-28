@@ -1,0 +1,65 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+	<div class="card">
+		<div class="card-body" style="width:650px;">
+			<form method="post" action="${webPath}/common/sendSimpleNote">
+				<div class="row">
+					<label for="receiverId" class="form-control col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">받는 사람</label>
+					<input id="receiverId" name="receiverId" type="text" value="${receiverId}" class="form-control col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
+				</div>
+				<div class="row">
+					<label for="title" class="form-control col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">제목</label>
+					<input id="title" type="text" class="form-control col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
+				</div>
+				<textarea style="display: inline"
+								class="form-control col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6"
+								id="content" name="content" rows="3">${myAssignSub.subContent} </textarea>
+				<button class="btn btn-primary float-right">전송</button>
+			</form>
+		</div>
+	</div>
+
+<script>
+window.onload=function(){
+  summernote($('#content'),'<%=request.getContextPath()%>');	
+
+ }
+	 
+
+function summernote(target,context){
+	
+	contextPath = context;
+	
+	target.summernote({
+		placeholder:'여기에 내용을 적으세요.',
+		lang:'ko-KR',
+		height:400,
+		width:600,
+		disableResizeEditor: true,
+		callbacks:{
+			onImageUpload : function(files, editor, welEditable) {
+				for(var file of files){
+					//alert(file.name);
+					
+					if(file.name.substring(file.name.lastIndexOf(".")+1).toUpperCase() != "JPG"){
+						alert("JPG 이미지형식만 가능합니다.");
+						return;
+					}
+					if(file.size > 1024*1024*5){
+						alert("이미지는 5MB 미만입니다.");
+						return;
+					}	
+					
+				}
+				
+				for (var file of files) {
+					sendFile(file,this);
+				}
+			},
+			onMediaDelete : function(target) {
+				deleteFile(target[0].src);	
+			}
+		}
+	});
+}
+</script>

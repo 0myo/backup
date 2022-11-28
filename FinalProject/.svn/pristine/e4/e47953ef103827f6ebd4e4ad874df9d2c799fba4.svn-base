@@ -1,0 +1,46 @@
+package kr.or.ddit.service.stu.counsel;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import kr.or.ddit.dao.stu.counsel.CounselApplyDAO;
+import kr.or.ddit.dto.stu.CounselProfListVO;
+import kr.or.ddit.dto.stu.CsApplyVO;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+public class CounselApplyServiceImpl implements CounselApplyService {
+
+	private CounselApplyDAO counselApplyDAO;
+
+	public void setCounselApplyDAO(CounselApplyDAO counselApplyDAO) {
+		this.counselApplyDAO = counselApplyDAO;
+
+	}
+
+	@Override
+	public List<CounselProfListVO> selectCounselProfList(String stuId) throws SQLException {
+		List<CounselProfListVO> counselProfList = counselApplyDAO.selectCounselProfList(stuId);
+		return counselProfList;
+	}
+
+	@Override
+	public CounselProfListVO selectCounselProfInfo(String stuId) throws SQLException {
+		CounselProfListVO counselProfInfo = counselApplyDAO.selectCounselProfInfo(stuId);
+		return counselProfInfo;
+
+	}
+	
+	@Override
+	public void insertCounselApply(CsApplyVO csApply) throws SQLException {
+		int counselNo = counselApplyDAO.selectCouncelNoNextVal();
+		csApply.setCounselNo(counselNo);
+		log.debug("서비스 들어옴");
+		counselApplyDAO.insertCounselApply(csApply);
+		log.debug("서비스 나감.");
+	}
+
+
+
+	
+}

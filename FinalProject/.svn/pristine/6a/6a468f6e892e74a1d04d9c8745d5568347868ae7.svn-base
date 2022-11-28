@@ -1,0 +1,70 @@
+package kr.or.ddit.dao.staff;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+
+import kr.or.ddit.command.Criteria;
+import kr.or.ddit.dto.staff.ScNoticeVO;
+
+public class ScNoticeDAOImpl implements ScNoticeDAO{
+
+	private SqlSession session;
+	
+	public void setSqlSession(SqlSession session) {
+		this.session = session;
+	}
+	@Override
+	public List<ScNoticeVO> selectScNoticeList(Criteria cri) throws SQLException {
+		List<ScNoticeVO> selectList = session.selectList("Staff-Mapper.selectScNoticeList");
+		
+		return selectList;
+	}
+	@Override
+	public ScNoticeVO selectOneScNotice(int scNno) throws SQLException {
+		ScNoticeVO selectOne = session.selectOne("Staff-Mapper.selectOneScNotice", scNno);
+		return selectOne;
+	}
+
+	@Override
+	public void insertscNotice(ScNoticeVO scNotice) throws SQLException {
+		session.update("Staff-Mapper.insertScNotice", scNotice);
+		
+	}
+	@Override
+	public void updatescNotice(ScNoticeVO scNotice) throws SQLException {
+		session.update("Staff-Mapper.updateScNotice", scNotice);
+		
+	}
+	@Override
+	public void deletescNotice(int scNno) throws SQLException {
+		session.update("Staff-Mapper.deleteScNotice", scNno);
+		
+	}
+	@Override
+	public int selectScNnoNextValue() throws SQLException {
+		int sc_nno = session.selectOne("Staff-Mapper.selectScNnoNextValue");
+		return sc_nno;
+	}
+	@Override
+	public int selectScNoticeTotalCountByScNno(Criteria cri, String scNno) throws SQLException {
+		int count = session.selectOne("Staff-Mapper.selectScNoticeTotalCountByScNno",scNno);
+		return count;
+	}
+	@Override
+	public ScNoticeVO selectScNoticeByScNoticeNo(String scNno, int scNoticeNo) throws SQLException {
+		ScNoticeVO scNotice = session.selectOne("Staff-Mapper.selectScNoticeByScNoticeNo",scNno);
+		return scNotice;
+	}
+	@Override
+	public void increaseViewCnt(int scNoticeNo) throws SQLException {
+		session.update("Staff-Mapper.increaseViewCnt",scNoticeNo);
+		
+	}
+	
+	
+
+	
+
+}

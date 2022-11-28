@@ -1,0 +1,59 @@
+package kr.or.ddit.dao.prof;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import kr.or.ddit.dto.prof.MarkVO;
+import lombok.extern.slf4j.Slf4j;
+
+@Repository
+@Slf4j
+public class MarkDAOImpl implements MarkDAO {
+
+	@Autowired
+	private SqlSession session;
+	
+	@Override
+	public List<MarkVO> selectAllStudent(String LecCd) throws SQLException {
+		
+
+		List<MarkVO> allStudent = session.selectList("Mark-Mapper.selectAllStudents", LecCd);
+		return allStudent;
+	}
+
+	@Override
+	public List<MarkVO> selectMidScore(String LecCd) throws SQLException {
+		List<MarkVO> midList = session.selectList("Mark-Mapper.selectMidScore", LecCd);
+		return midList;
+	}
+
+	@Override
+	public List<MarkVO> selectFinScore(String LecCd) throws SQLException {
+		List<MarkVO> finList = session.selectList("Mark-Mapper.selectFinScore", LecCd);
+		return finList;
+	}
+
+	@Override
+	public List<MarkVO> selectAssScore(String LecCd) throws SQLException {
+		List<MarkVO> assList = session.selectList("Mark-Mapper.selectAssScore", LecCd);
+		return assList;
+	}
+
+	@Override
+	public List<MarkVO> selectAttendScore(String LecCd) throws SQLException {
+		List<MarkVO> attendList = session.selectList("Mark-Mapper.selectAttendInfo", LecCd);
+		
+		return attendList;
+	}
+
+	@Override
+	public MarkVO selectRatio(String lecCd) throws SQLException {
+		MarkVO vo = session.selectOne("Mark-Mapper.selectRatio",lecCd);
+		return vo;
+	}
+
+}

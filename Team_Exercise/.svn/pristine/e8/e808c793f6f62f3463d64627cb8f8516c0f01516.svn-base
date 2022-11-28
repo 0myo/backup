@@ -1,0 +1,40 @@
+<beans>
+	<!-- datasource -->
+	<bean id="sqlSessionFactory"
+		  class="com.team.datasource.OracleMybatisSqlSessionFactory" />
+		  
+	<!-- Repository -->
+	<bean id="memberDAO" class="com.team.dao.MemberDAOImpl" >
+		<property name="sqlSessionFactory" ref-value="sqlSessionFactory" />
+	</bean>
+	<bean id = "noticeDAO" class="com.team.dao.NoticeDAOImpl" />
+	<bean id = "boardDAO" class="com.team.dao.BoardDAOImpl" />
+	<bean id = "replyDAO" class="com.team.dao.ReplyDAOImpl" />
+			
+	<!-- Service -->
+	<bean id="memberService" class="com.team.service.MemberServiceImpl" >
+		<property name="memberDAO" ref-value="memberDAO" /> 
+	</bean>
+	<bean id="noticeService" class="com.team.service.NoticeServiceImpl" >
+		<property name="sqlSessionFactory" ref-value="sqlSessionFactory" />
+		<property name="noticeDAO" ref-value="noticeDAO" />
+	</bean>
+	<bean id="boardService" class="com.team.service.BoardServiceImpl" >
+		<property name="sqlSessionFactory" ref-value="sqlSessionFactory" />
+		<property name="boardDAO" ref-value="boardDAO" />	
+		<property name="replyDAO" ref-value="replyDAO" />	
+	</bean>
+	<bean id="replyService" class="com.team.service.ReplyServiceImpl" >
+		<property name="sqlSessionFactory" ref-value="sqlSessionFactory" />
+		<property name="replyDAO" ref-value="replyDAO" />
+	</bean>	
+</beans>
+
+
+
+
+
+
+
+
+

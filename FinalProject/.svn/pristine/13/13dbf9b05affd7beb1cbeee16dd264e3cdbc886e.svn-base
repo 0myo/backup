@@ -1,0 +1,98 @@
+package kr.or.ddit.dao.common;
+
+import static org.hamcrest.CoreMatchers.theInstance;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import kr.or.ddit.dao.stu.schol.ManageDAOImpl;
+import kr.or.ddit.dto.common.InboxVO;
+import kr.or.ddit.dto.common.MailVO;
+import kr.or.ddit.dto.common.SentInboxVO;
+import lombok.extern.slf4j.Slf4j;
+@Repository
+@Slf4j
+public class EmailDAOImpl implements EmailDAO {
+	
+	@Autowired
+	private SqlSession session;
+	
+	
+	
+	@Override
+	public List<MailVO> selectReceiveList(String memId) throws SQLException {
+		List<MailVO> ReceiveList = session.selectList("Email-Mapper.selectReceiveList", memId);
+		
+		return ReceiveList;
+	}
+	
+	@Override
+	public List<MailVO> selectSendList(String memId) throws SQLException {
+		List<MailVO> sendList = session.selectList("Email-Mapper.selectSendList", memId);
+		
+		return sendList;
+	}
+	
+	@Override
+	public List<MailVO> selectReceiveBin(String memId) throws SQLException {
+		List<MailVO> receiveBin = session.selectList("Email-Mapper.selectReceiveBin", memId);
+		log.debug("11111111111다오확인"+receiveBin);
+		return receiveBin;
+	}
+
+	@Override
+	public List<MailVO> selectSentBin(String memId) throws SQLException {
+		List<MailVO> sentBin = session.selectList("Email-Mapper.selectSentBin", memId);
+		log.debug("2222222222222다오확인"+sentBin);
+		return sentBin;
+	}
+	
+	@Override
+	public MailVO selectMailDetail(int noteSeq) throws SQLException {
+		MailVO MailDetail = session.selectOne("Email-Mapper.selectMailDetail", noteSeq);
+		
+		return MailDetail;
+	}
+
+	@Override
+	public void insertReceiveInfo(MailVO mail) throws SQLException {
+
+		session.insert("Email-Mapper.insertReceiveInfo", mail);
+		
+	}
+
+	@Override
+	public void insertSendMailInfo(MailVO mail) throws SQLException {
+
+		session.insert("Email-Mapper.insertSendMailInfo", mail);
+		
+	}
+
+	@Override
+	public int selectNoteSeqNextVal() throws SQLException {
+		return session.selectOne("Email-Mapper.selectNoteSeqNextVal");
+	}
+	
+	@Override
+	public int selectSentNoteSeqNextVal() throws SQLException {
+		return session.selectOne("Email-Mapper.selectSentNoteSeqNextVal");
+	}
+
+	@Override
+	public int selectCountMail(String memId) throws SQLException {
+		return session.selectOne("Email-Mapper.selectCountMail", memId);
+	}
+
+	@Override
+	public void updateReadCheck(MailVO mail) throws SQLException {
+		session.update("Email-Mapper.updateReadCheck", mail);
+		
+	}
+
+
+	
+}

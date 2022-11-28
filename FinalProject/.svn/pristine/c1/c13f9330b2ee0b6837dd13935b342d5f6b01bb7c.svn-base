@@ -1,0 +1,126 @@
+package kr.or.ddit.dto.datagenerator;
+
+public class DataGeneratorLectureVO {
+	String lecCd;
+	String lecName;
+	String geCd;
+	String geCategoryNm;
+	
+	String sylCd;
+	int credit;
+	String lecCategoryCd;
+	String approved;
+	String profId;
+	String semeCd;
+	String stuId;
+	private String gradeSeme;
+	
+	private String subjCd;
+	private String subjName;
+	private String targetGrade;
+	
+	String semeStuCd;
+	
+	
+	
+	public String getSubjCd() {
+		return subjCd;
+	}
+	public void setSubjCd(String subjCd) {
+		this.subjCd = subjCd;
+	}
+	public String getSubjName() {
+		return subjName;
+	}
+	public void setSubjName(String subjName) {
+		this.subjName = subjName;
+	}
+	public String getTargetGrade() {
+		return targetGrade;
+	}
+	public void setTargetGrade(String targetGrade) {
+		this.targetGrade = targetGrade;
+	}
+	public String getLecCd() {
+		return lecCd;
+	}
+	public void setLecCd(String lecCd) {
+		this.lecCd = lecCd;
+	}
+	public String getLecName() {
+		return lecName;
+	}
+	public void setLecName(String lecName) {
+		this.lecName = lecName;
+	}
+	public String getGeCd() {
+		return geCd;
+	}
+	public void setGeCd(String geCd) {
+		this.geCd = geCd;
+	}
+	public String getGeCategoryNm() {
+		return geCategoryNm;
+	}
+	public void setGeCategoryNm(String geCategoryNm) {
+		this.geCategoryNm = geCategoryNm;
+	}
+	public String getSylCd() {
+		return sylCd;
+	}
+	public void setSylCd(String sylCd) {
+		this.sylCd = sylCd;
+	}
+	public int getCredit() {
+		return credit;
+	}
+	public void setCredit(int credit) {
+		this.credit = credit;
+	}
+	public String getLecCategoryCd() {
+		return lecCategoryCd;
+	}
+	public void setLecCategoryCd(String lecCategoryCd) {
+		this.lecCategoryCd = lecCategoryCd;
+	}
+	public String getApproved() {
+		return approved;
+	}
+	public void setApproved(String approved) {
+		this.approved = approved;
+	}
+	public String getProfId() {
+		return profId;
+	}
+	public void setProfId(String profId) {
+		this.profId = profId;
+	}
+	public String getSemeCd() {
+		return semeCd;
+	}
+	public void setSemeCd(String semeCd) {
+		this.semeCd = semeCd;
+	}
+	public String getSemeStuCd() {
+		return semeStuCd;
+	}
+	public void setSemeStuCd(String semeStuCd) {
+		this.semeStuCd = semeStuCd;
+	}
+	public String getStuId() {
+		return stuId;
+	}
+	public void setStuId(String stuId) {
+		this.stuId = stuId;
+	}
+	public String getGradeSeme() {
+		return gradeSeme;
+	}
+	public void setGradeSeme(String gradeSeme) {
+		this.gradeSeme = gradeSeme;
+	}
+	
+	
+	
+	
+}

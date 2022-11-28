@@ -1,0 +1,22 @@
+package kr.or.ddit.dto.stu;
+
+import java.util.Date;
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
+public class LecQnaVO {
+	private int lecqBno;
+	private String stuCd;
+	private String lecCd;
+	private String title;
+	private String content;
+	private Date cdate;
+	private int viewCnt;
+	private String secret;
+	
+}

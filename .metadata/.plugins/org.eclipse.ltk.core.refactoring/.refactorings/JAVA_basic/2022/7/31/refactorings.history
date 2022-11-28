@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy 4 packages to &apos;JSP_command_bootstrap/src&apos;&#x0D;&#x0A;- Original project: &apos;JAVA_basic&apos;&#x0D;&#x0A;- Destination element: &apos;JSP_command_bootstrap/src&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     JAVA_basic/src/com.java.dto&#x0D;&#x0A;     JAVA_basic/src/com.java.service&#x0D;&#x0A;     JAVA_basic/src/com.java.datasource&#x0D;&#x0A;     JAVA_basic/src/com.java.dao" description="Copy packages" destination="=JSP_command_bootstrap/src" element1="/src&lt;com.java.dto" element2="/src&lt;com.java.service" element3="/src&lt;com.java.datasource" element4="/src&lt;com.java.dao" flags="589830" fragments="4" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyPackages" stamp="1658820197108" version="1.0"/>
+</session>

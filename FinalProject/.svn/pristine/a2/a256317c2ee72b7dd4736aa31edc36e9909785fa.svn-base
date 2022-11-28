@@ -1,0 +1,179 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+<!-- ================================================= -->
+<!-- MAIN-CONTENT -->
+<!-- ================================================= -->
+
+<style>
+.card-header{
+background-color: #cce5ff;
+height:60px;
+font-size: 30px;
+
+}
+
+</style>
+
+
+
+
+<div class="main-content-jsp">
+	
+	<div class="row">
+		<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
+			<div class="card">
+				<div class="card-header align-items-center" onclick="pageMove('/ai/stu/lec/mylecture/main')">
+					<h2><a  href="#" >컴퓨터 활용 능력</a></h2>
+				</div>
+				<div class="card-body" onclick="pageMove('/ai/stu/lec/mylecture/main')">
+					<p>한태훈 교수님</p>
+					<p>수요일 3교시</p>
+					<p>aa10@ddit.com</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
+			<div class="card">
+				<div class="card-header" onclick="pageMove('/ai/stu/lec/mylecture/main')" >
+					<h2><a  href="#" >컴퓨터 활용 능력</a></h2>
+				</div>
+				<div class="card-body" onclick="pageMove('/ai/stu/lec/mylecture/main')">
+					<p>한태훈 교수님</p>
+					<p>수요일 3교시</p>
+					<p>aa10@ddit.com</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
+			<div class="card">
+				<div class="card-header"  onclick="pageMove('/ai/stu/lec/mylecture/main')">
+					<h2><a  href="#" >컴퓨터 활용 능력</a></h2>
+				</div>
+				<div class="card-body" onclick="pageMove('/ai/stu/lec/mylecture/main')">
+					<p>한태훈 교수님</p>
+					<p>수요일 3교시</p>
+					<p>aa10@ddit.com</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
+			<div class="card">
+				<div class="card-header"  onclick="pageMove('/ai/stu/lec/mylecture/main')">
+					<h2><a  href="#" >컴퓨터 활용 능력</a></h2>
+				</div>
+				<div class="card-body" onclick="pageMove('/ai/stu/lec/mylecture/main')">
+					<p>한태훈 교수님</p>
+					<p>수요일 3교시</p>
+					<p>aa10@ddit.com</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
+			<div class="card">
+				<div class="card-header"  onclick="pageMove('/ai/stu/lec/mylecture/main')">
+					<h2><a  href="#" >컴퓨터 활용 능력</a></h2>
+				</div>
+				<div class="card-body" onclick="pageMove('/ai/stu/lec/mylecture/main')">
+					<p>한태훈 교수님</p>
+					<p>수요일 3교시</p>
+					<p>aa10@ddit.com</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
+			<div class="card">
+				<div class="card-header"  onclick="pageMove('/ai/stu/lec/mylecture/main')">
+					<h2><a  href="#" >컴퓨터 활용 능력</a></h2>
+				</div>
+				<div class="card-body" onclick="pageMove('/ai/stu/lec/mylecture/main')">
+					<p>한태훈 교수님</p>
+					<p>수요일 3교시</p>
+					<p>aa10@ddit.com</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	<div class="row">
+		<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
+			<div class="card">
+				<h3 class="card-header" onclick="pageMove('/ai/stu/lec/mylecture/main')"><i class="fas fa-tasks" ></i>&nbsp;&nbsp;수업진행공지</h3>
+				<div class="card-body">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>과목명</th>
+								<th>제목</th>
+								<th>날짜</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>1</td>
+								<td>Mark</td>
+								<td>Otto</td>
+								<td>@mdo</td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>Jacob</td>
+								<td>Thornton</td>
+								<td>@fat</td>
+							</tr>
+							<tr>
+								<th scope="row">3</th>
+								<td colspan="2">Larry the Bird</td>
+								<td>@twitter</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
+			<div class="card">
+				<h3 class="card-header"><i class="fas fa-edit"></i>&nbsp;&nbsp;과제공지</h3>
+				<div class="card-body">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>번호</th>
+								<th>과목명</th>
+								<th>제목</th>
+								<th>날짜</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>1</td>
+								<td>컴퓨터 활용 능력</td>
+								<td>Otto</td>
+								<td>@mdo</td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>Jacob</td>
+								<td>Thornton</td>
+								<td>@fat</td>
+							</tr>
+							<tr>
+								<th scope="row">3</th>
+								<td colspan="2">Larry the Bird</td>
+								<td>@twitter</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- ================================================= -->
+<!-- MAIN-CONTENT 끝 -->
+<!-- ================================================= -->

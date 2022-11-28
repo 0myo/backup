@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename package &apos;com.java.batis.mappers&apos; to &apos;com.java.mybatis.mappers&apos;&#x0D;&#x0A;- Original project: &apos;JAVA_basic&apos;&#x0D;&#x0A;- Original element: &apos;JAVA_basic/res/com.java.batis.mappers&apos;&#x0D;&#x0A;- Renamed element: &apos;JAVA_basic/res/com.java.mybatis.mappers&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings&#x0D;&#x0A;- Rename subpackages of the package" description="Rename package &apos;com.java.batis.mappers&apos;" flags="589830" hierarchical="true" id="org.eclipse.jdt.ui.rename.package" input="/res&lt;com.java.batis.mappers" name="com.java.mybatis.mappers" qualified="false" references="true" stamp="1657540851270" textual="false" version="1.0"/>
+</session>

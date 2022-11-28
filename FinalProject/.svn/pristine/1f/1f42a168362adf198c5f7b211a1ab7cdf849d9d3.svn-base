@@ -1,0 +1,41 @@
+package kr.or.ddit.controller.staff;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/staff/stuManage")
+public class StuManageController {
+	@GetMapping("/graduate/list.do")
+	public String main(){
+		String url="staff/stuManage/graduateList";
+		return url;
+	}
+	
+	@GetMapping("/list")
+	public String list(){
+		String url="staff/stuManage/list";
+		return url;
+	}
+	
+	@GetMapping("/tl/list")
+	public String tlList(){
+		String url="staff/stuManage/tlList";
+		return url;
+	}
+	
+	@GetMapping("/majorChange/list")
+	public String mcList(){
+		String url="staff/stuManage/majorChangeList";
+		return url;
+	}
+	
+	@GetMapping("/dual/list")
+	public String dualList(){
+		String url="staff/stuManage/dualList";
+		return url;
+	}
+	
+
+}

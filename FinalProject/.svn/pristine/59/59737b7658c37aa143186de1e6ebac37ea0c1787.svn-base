@@ -1,0 +1,40 @@
+package kr.or.ddit.controller.prof;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+@Controller
+@RequestMapping("/prof/counsel")
+public class CounselController {
+
+	@GetMapping("/main")
+	public String main() {
+		String url="prof/counsel/main";
+		return url;
+	}
+	
+	
+	@GetMapping("/apply/list")
+	public String applyList() {
+		String url="prof/counsel/applyList";
+		return url;
+	}
+	
+	@GetMapping("/complete/list")
+	public String completeList() {
+		String url="prof/counsel/completeList";
+		return url;
+	}
+	@GetMapping("/complete/detail")
+	public String completeDetail() {
+		String url="prof/counsel/completeDetail";
+		return url;
+	}
+	
+	@GetMapping("/stu/list")
+	public String stuList() {
+		String url="prof/counsel/stulist";
+		return url;
+	}
+	
+}

@@ -1,0 +1,22 @@
+package kr.or.ddit.service.staff;
+
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
+
+import kr.or.ddit.dto.staff.StaffTlApplyVO;
+
+
+public interface StaffTlApplyService {
+	
+	
+	List<StaffTlApplyVO> selectStaffTlApplyList() throws SQLException;
+	
+	List<StaffTlApplyVO> selectStaffBackApplyList() throws SQLException;
+	
+	void updateTlStatus(Map<String, Object> dataMap) throws SQLException;
+	void updateBackStatus(Map<String, Object> dataMap) throws SQLException;
+	
+	
+
+}

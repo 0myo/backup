@@ -1,0 +1,46 @@
+package kr.or.ddit.dao.stu.aca;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+
+import kr.or.ddit.command.stu.SearchMajorCommand;
+import kr.or.ddit.dto.stu.ChangeMajorVO;
+import kr.or.ddit.dto.stu.CollegeVO;
+import kr.or.ddit.dto.stu.MajorVO;
+import kr.or.ddit.dto.stu.StudentVO;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+public class ChangeMajorDAOImpl implements ChangeMajorDAO{
+	
+	SqlSession session;
+	public void setSqlSession(SqlSession session){
+		this.session=session;
+	}
+	@Override
+	public List<CollegeVO> selectCollegeList() throws SQLException{
+		return session.selectList("ChangeMajor-Mapper.selectCollegeList");
+	}
+
+	@Override
+	public List<MajorVO> selectMajorListByCollegeCd(String collegeCd) throws SQLException{
+		return session.selectList("ChangeMajor-Mapper.selectMajorListByCollegeCd",collegeCd);
+	}
+	@Override
+	public List<ChangeMajorVO> selectSearchMajorList(SearchMajorCommand searchMajorCommand) throws SQLException {
+		return session.selectList("ChangeMajor-Mapper.selectSearchMajorList",searchMajorCommand);
+	}
+	@Override
+	public void updateStuPhone(StudentVO student) throws SQLException {
+		
+		log.info("데이터 전달 성공 여부 : "+student.getPhone());
+		log.info("데이터 전달 성공 여부 : "+student.getStuCd());
+		session.update("ChangeMajor-Mapper.updateStuPhone",student);
+		log.info("업데이트 성공 여부 : "+"성공했나?");
+	}
+	
+	
+
+}

@@ -1,0 +1,26 @@
+package kr.or.ddit.service.stu.tl;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import kr.or.ddit.dao.stu.tl.TlApplyDAO;
+import kr.or.ddit.dto.stu.TlApplyVO;
+
+public class TlApplyServiceImpl implements TlApplyService{
+	
+	@Autowired
+	private TlApplyDAO tlApplyDAO;
+	
+	public void setTlApplyDaO(TlApplyDAO tlApplyDAO) {
+		this.tlApplyDAO = tlApplyDAO;
+	}
+	
+	@Override
+	public List<TlApplyVO> getTl(String id) throws SQLException {
+		List<TlApplyVO> tlList = tlApplyDAO.selectTlListById(id);
+		return tlList;
+	}
+	
+}

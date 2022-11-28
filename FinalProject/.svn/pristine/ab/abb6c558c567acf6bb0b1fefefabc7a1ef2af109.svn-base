@@ -1,0 +1,36 @@
+package kr.or.ddit.controller.stu;
+
+import java.sql.SQLException;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import kr.or.ddit.dto.stu.LecVO;
+import kr.or.ddit.service.common.ScoreService;
+
+@Controller
+@RequestMapping("/stu/score")
+public class StuScoreController {
+	@Autowired
+	ScoreService scoreService;
+
+	@RequestMapping("/semester/list")
+	public String semester() throws SQLException {
+		String url = "stu/score/semester";
+		LecVO lec= new LecVO();
+		lec.setStuCd("mimi");
+		lec.setGradeSemeCd("0101");
+		
+		scoreService.selectSubjTotalScore(lec);
+		return url;
+	}
+	
+	@RequestMapping("/total/list")
+	public String total() {
+		String url = "stu/score/total";
+		return url;
+	}
+
+	
+}

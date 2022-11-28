@@ -1,0 +1,31 @@
+package kr.or.ddit.service.staff;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import kr.or.ddit.dao.staff.StaffMajorChangeDAO;
+import kr.or.ddit.dto.staff.StaffMajorChangeVO;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+public class StaffMajorChangeServiceImpl implements StaffMajorChangeService {
+
+	
+	@Autowired
+	private StaffMajorChangeDAO staffMajorChangeDAO;
+	
+	public void setStaffMajorChangeDAO(StaffMajorChangeDAO staffMajorChangeDAO) {
+		this.staffMajorChangeDAO = staffMajorChangeDAO;
+	} 
+	
+	@Override
+	public List<StaffMajorChangeVO> selectStaffMajorChangeList() throws SQLException {
+		
+		return staffMajorChangeDAO.selectStaffMajorChangeList();
+	}
+	
+	
+
+}

@@ -1,0 +1,17 @@
+package kr.or.ddit.dao.staff;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import kr.or.ddit.dto.staff.StaffTlApplyVO;
+
+public interface StaffTlApplyDAO {
+
+	List<StaffTlApplyVO> selectStaffTlApplyList() throws SQLException;
+	
+	List<StaffTlApplyVO> selectStaffBackApplyList() throws SQLException;
+	
+	void updateTlStatus(StaffTlApplyVO staffTlApplyVO);
+	void updateBackStatus(StaffTlApplyVO staffTlApplyVO);
+	
+}

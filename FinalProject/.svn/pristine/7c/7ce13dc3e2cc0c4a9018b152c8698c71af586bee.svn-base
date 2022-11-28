@@ -1,0 +1,20 @@
+package kr.or.ddit.dao.common;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import kr.or.ddit.dto.common.AttachVO;
+
+public interface AttachDAO {
+
+	public List<AttachVO> selectAttachList(int anoCd) throws SQLException;
+	
+	public AttachVO selectAttach(AttachVO attach) throws SQLException;
+	
+	public void insertAttach(AttachVO attach)throws SQLException;
+	
+	public void deleteAllAttach(int anoCd)throws SQLException;
+
+	public void deleteAttach(AttachVO attach)throws SQLException;
+	
+}

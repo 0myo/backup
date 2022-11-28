@@ -1,0 +1,54 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Syllabus-Mapper">
+<sql id="search">
+		<if test="searchType == 'name'.toString()">
+			and subj_name like '%'||#{keyword}||'%'			
+		</if>
+		<if test="searchType == 'prof'.toString()">
+			and name like '%'||#{keyword}||'%'			
+		</if>
+		</sql>
+
+
+	<select id="selectSyllabusList" resultType="syllabus" parameterType="String">
+		select *
+		from SYLLABUS
+		where prof_id = #{profId}
+	</select>
+	
+	<select id="selectSyllabusBySylCd" parameterType="String" resultType="syllabus">
+		select *
+		from SYLLABUS
+		where SYL_CD = #{SYL_CD}
+		and seme_cd = '202202'
+	</select>
+	
+	<select id="selectManageSyllabus" resultType="syllabusManege">
+		select a.subj_cd, a.subj_name,c.name,b.syl_cd,
+        	comm_cd_func('lecCategoryCd',a.lec_category_cd) as lec_category_cd,b.max_stu_num,
+        	a.credit,comm_cd_func('applyStatusCd',b.apply_status_cd) as apply_status_cd
+		from lec_manage a,syllabus b,prof c
+		where a.subj_cd=b.subj_cd and b.prof_id =c.prof_cd
+		<include refid="search" />
+	</select>
+	
+	<select id="selectSyllabusCount" resultType="int">
+		select count(*) from (select a.subj_cd, a.subj_name,c.name,b.syl_cd,
+       		comm_cd_func('lecCategoryCd',a.lec_category_cd) as lec_category_cd,b.max_stu_num,
+        	a.credit,comm_cd_func('applyStatusCd',b.apply_status_cd) as apply_status_cd
+		from lec_manage a,syllabus b,prof c
+		where a.subj_cd=b.subj_cd and b.prof_id =c.prof_cd
+		<include refid="search" />)
+	</select>
+	
+	<update id="updateSyllabusApply" parameterType="syllabus" >
+		UPDATE SYLLABUS
+		SET APPLY_STATUS_CD = #{applyStatusCd}
+		WHERE syl_cd= #{sylCd}
+	</update>
+	
+	
+</mapper>

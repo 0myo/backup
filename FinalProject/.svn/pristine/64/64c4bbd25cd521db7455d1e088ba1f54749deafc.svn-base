@@ -1,0 +1,17 @@
+package kr.or.ddit.controller.staff;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/staff/tuition")
+public class TuitionController {
+
+	
+	@GetMapping("/list.do")
+	public String main(){
+		String url="staff/tuition/payList";
+		return url;
+	}
+}

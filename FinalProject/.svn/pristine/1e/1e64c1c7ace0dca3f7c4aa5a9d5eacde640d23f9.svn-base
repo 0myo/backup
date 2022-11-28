@@ -1,0 +1,113 @@
+package kr.or.ddit.service.stu.lec;
+
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import kr.or.ddit.command.CriteriaLec;
+import kr.or.ddit.command.PageMakerLec;
+import kr.or.ddit.controller.MakeFileName;
+import kr.or.ddit.dao.common.AttachDAO;
+import kr.or.ddit.dao.stu.lec.MyLecAssignmentDAO;
+import kr.or.ddit.dto.common.AttachVO;
+import kr.or.ddit.dto.stu.AssSubmitVO;
+import kr.or.ddit.dto.stu.MyLecAssignmentVO;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+public class MyLecAssignmentServiceImpl implements MyLecAssignmentService {
+	MyLecAssignmentDAO myLecAssignmentDAO;
+	public void setMyLecAssignmentDAO(MyLecAssignmentDAO myLecAssignmentDAO) {
+		this.myLecAssignmentDAO=myLecAssignmentDAO;
+	}
+	
+	AttachDAO attachDAO;
+	public void setAttachDAO(AttachDAO attachDAO) {
+		this.attachDAO=attachDAO;
+	}
+	
+	
+	@Override
+	public  Map<String, Object> selectMyAssignmentList(CriteriaLec cri) throws SQLException{
+		List<MyLecAssignmentVO> assignmentList=myLecAssignmentDAO.selectMyAssignmentList(cri);
+		 PageMakerLec pageMaker = new PageMakerLec();
+		 pageMaker.setCri(cri);
+		 pageMaker.setTotalCount(myLecAssignmentDAO.selectMyAssignmentTotalCount(cri));
+		 Map<String, Object> dataMap = new HashMap<String, Object>();
+		 dataMap.put("assignmentList",assignmentList);
+		 dataMap.put("pageMaker",pageMaker);
+		 
+		 return dataMap;
+	}
+
+	@Override
+	public MyLecAssignmentVO selectMyAssignMentFromList(int assBno) throws SQLException{
+		MyLecAssignmentVO lecAssign = myLecAssignmentDAO.selectMyAssignMent(assBno);
+		log.debug("lecAssign1 : "+lecAssign);
+		myLecAssignmentDAO.increaseAssignmentViewCnt(assBno);
+		log.debug("lecAssign2 : "+lecAssign);
+		addAttachList(lecAssign);
+		
+		return lecAssign;
+	}
+	
+	@Override
+	public MyLecAssignmentVO selectMyAssignMent(int assBno) throws SQLException{
+		
+		MyLecAssignmentVO lecAssign = myLecAssignmentDAO.selectMyAssignMent(assBno);
+		addAttachList(lecAssign);
+		if(lecAssign!=null&&lecAssign.getAttachList()!=null) {
+			for(AttachVO attach:lecAssign.getAttachList()) {
+				String originalFileName
+					= MakeFileName.parseFileNameFromUUID(attach.getFilename(), "\\$\\$");
+				attach.setFilename(originalFileName);
+			}
+		}
+		return lecAssign;
+	}
+	
+	private void addAttachList(MyLecAssignmentVO lecAssign) throws SQLException {
+
+		if (lecAssign == null)
+			return;
+
+		int anoCd = lecAssign.getAnoCd();
+		log.debug("anoCd : "+anoCd);
+		List<AttachVO> attachList = attachDAO.selectAttachList(anoCd);
+
+		lecAssign.setAttachList(attachList);
+	}
+
+	@Override
+	public void submitAssign(MyLecAssignmentVO assSub) throws SQLException {
+		//attach 테이블 db내용 추가
+		if (assSub.getAttachList() != null) {
+			int anoCd = attachDAO.selectAnoNextval();
+			int anoSeq=1;
+			for (AttachVO attach : assSub.getAttachList()) {
+				attach.setAnoCd(anoCd);
+				attach.setAnoSeq(anoSeq);
+				attachDAO.insertAttach(attach);
+				anoSeq++;
+			}
+			assSub.setAnoCd(anoCd);
+		}
+		
+		MyLecAssignmentVO assSubChk = myLecAssignmentDAO.assSubmitDuplicateChk(assSub);
+		if(assSubChk!=null) {
+			myLecAssignmentDAO.updateAssSubmit(assSub);
+		}else {
+			myLecAssignmentDAO.insertAssSubmit(assSub);
+		}
+	}
+
+
+	@Override
+	public MyLecAssignmentVO selectAssSubmit(MyLecAssignmentVO assSub) throws SQLException {
+		return myLecAssignmentDAO.assSubmitDuplicateChk(assSub);
+	}
+
+	
+
+}

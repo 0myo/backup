@@ -1,0 +1,51 @@
+package kr.or.ddit.service.stu.lec;
+
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import kr.or.ddit.command.CriteriaLec;
+import kr.or.ddit.command.PageMakerLec;
+import kr.or.ddit.dao.stu.lec.MyLectureDAO;
+import kr.or.ddit.dto.LecNoticeVO;
+import kr.or.ddit.dto.common.MyLectureVO;
+import kr.or.ddit.dto.stu.AttendVO;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+public class MyLectureServiceImpl implements MyLectureService {
+	
+	private MyLectureDAO myLectureDAO;
+	public void setMyLectureDAO(MyLectureDAO myLectureDAO) {
+		this.myLectureDAO = myLectureDAO;
+	}
+	
+	@Override
+	public MyLectureVO selectMyLectureInfo(String lecCd) throws SQLException {
+		return myLectureDAO.selectMyLectureInfo(lecCd);
+	}
+
+	@Override
+	public List<AttendVO> selectTotalAttendInfo(AttendVO attendVO) throws SQLException {
+		return myLectureDAO.selectTotalAttendInfo(attendVO);
+	}
+
+	@Override
+	public Map<String, Object> selectLecNoticeList(CriteriaLec cri) throws SQLException {
+		log.debug("CriteriaLec서비스확인 : "+cri); 
+		List<LecNoticeVO> lecNoticeList=myLectureDAO.selectLecNoticeList(cri);
+		log.debug("lecNoticeList확인 서비스"+lecNoticeList);
+		log.debug("CriteriaLec다오거쳐옴확인 : "+cri);
+		 PageMakerLec pageMaker = new PageMakerLec();
+		 pageMaker.setCri(cri);
+		 pageMaker.setTotalCount(myLectureDAO.selectLectureNoticeTotalCountByLecCd(cri));
+		 log.info("pageMaker확인합시다."+pageMaker);
+		 Map<String, Object> dataMap = new HashMap<String, Object>();
+		 dataMap.put("lecNoticeList",lecNoticeList);
+		 dataMap.put("pageMaker",pageMaker);
+		return dataMap;
+	}
+	
+
+}

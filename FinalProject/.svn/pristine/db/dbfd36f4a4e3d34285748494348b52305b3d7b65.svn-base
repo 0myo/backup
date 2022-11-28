@@ -1,0 +1,26 @@
+package kr.or.ddit.service.common;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import kr.or.ddit.dao.common.PortletDAO;
+import kr.or.ddit.dto.common.PortletVO;
+
+public interface PortletService {
+
+	List<PortletVO> getWidgetList(String memId) throws SQLException;
+	
+	int getTotalCountWidgetList(String memId) throws SQLException;
+	
+	PortletVO getWidgetById(PortletVO portlet) throws SQLException;
+	
+	void registWidgetList(String memId,String memClassCd) throws SQLException;
+	
+	void saveWidgetNewUser(PortletVO portlet) throws SQLException;
+	
+	void saveWidgetExistingUser(PortletVO portlet) throws SQLException;
+	
+	
+}

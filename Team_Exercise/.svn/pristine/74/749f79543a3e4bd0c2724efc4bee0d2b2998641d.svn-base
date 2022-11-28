@@ -1,0 +1,11 @@
+/member/list.do = com.team.action.member.MemberListAction
+/member/registForm.do=com.team.action.member.MemberRegistFormAction
+/member/regist.do=com.team.action.member.MemberRegistAction
+/member/detail.do=com.team.action.member.MemberDetailAction
+/member/remove.do=com.team.action.member.MemberRemoveAction
+#/member/modify.do=com.team.action.member.MembermodifyAction
+
+
+
+
+

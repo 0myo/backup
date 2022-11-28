@@ -1,0 +1,35 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Info-Mapper">
+
+	<select id="selectInfo" parameterType="String" resultType="member">
+		select *
+		from MEMBER
+		where id = #{id}
+	</select>
+	
+	
+	<update id="updateInfo" parameterType="student" >
+		update student
+		   set nation=#{nation}, 
+			   add1=#{add1}, 
+			   add2=#{add2}, 
+			   email=#{email}, 
+			   phone=#{phone},
+			   bank_name=#{bankName}, 
+			   acc_num=#{accNum}
+		 where stu_cd=#{stuCd}
+	</update>
+	
+	<update id="updateAccount" parameterType="student" >
+		update student
+		   set bank_name=#{bankName}, 
+			   acc_num=#{accNum}
+		 where stu_cd=#{stuCd}
+	</update>
+	
+	
+	
+</mapper>

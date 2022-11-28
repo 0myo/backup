@@ -1,0 +1,22 @@
+package kr.or.ddit.service.stu;
+
+import java.sql.SQLException;
+
+import kr.or.ddit.dao.stu.StudentDAO;
+import kr.or.ddit.dto.stu.StudentVO;
+
+public class StudentServiceImpl implements StudentService {
+
+	private StudentDAO studentDAO;
+	
+	public void setStudentDAO(StudentDAO studentDAO) {
+		this.studentDAO = studentDAO;
+	}
+
+	@Override
+	public StudentVO getStudentByStuCd(String stuCd) throws SQLException {
+		StudentVO studentVO = studentDAO.selectStudentByStuCd(stuCd);
+		return studentVO;
+	}
+
+}

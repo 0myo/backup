@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item key="selection" value="fas"/>
+		<item key="wrap" value="true"/>
+		<item key="casesensitive" value="false"/>
+		<item key="wholeword" value="false"/>
+		<item key="incremental" value="false"/>
+		<item key="isRegEx" value="false"/>
+		<list key="findhistory">
+			<item value="fas"/>
+			<item value="header"/>
+			<item value="aside-header"/>
+			<item value="파일전송"/>
+			<item value="파일 전송"/>
+			<item value="cancel"/>
+			<item value="button"/>
+			<item value="confirm"/>
+			<item value="alert"/>
+			<item value="simpleNoteSend"/>
+			<item value="insertReceiveInfo"/>
+			<item value="insertSendMailInfo"/>
+			<item value="simple"/>
+			<item value="simp"/>
+			<item value="null2"/>
+		</list>
+		<list key="replacehistory">
+			<item value="chkList2"/>
+			<item value="chkNode2"/>
+			<item value="checkAll2"/>
+			<item value="checked2"/>
+			<item value="checkboxes2"/>
+			<item value="memId"/>
+			<item value="mem"/>
+			<item value="sChkNode"/>
+			<item value=""/>
+			<item value="sChkList"/>
+			<item value="sChk"/>
+			<item value="쪽지"/>
+			<item value="payStatusCd"/>
+			<item value="${status.index}"/>
+			<item value="Dual"/>
+		</list>
+	</section>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+		<item key="DIALOG_X_ORIGIN" value="1428"/>
+		<item key="DIALOG_Y_ORIGIN" value="219"/>
+		<item key="DIALOG_WIDTH" value="340"/>
+		<item key="DIALOG_HEIGHT" value="480"/>
+		<item key="DIALOG_FONT_NAME" value="1|맑은 고딕|9.0|0|WINDOWS|1|-15|0|0|0|400|0|0|0|1|0|0|0|0|맑은 고딕"/>
+	</section>
+</section>

@@ -1,0 +1,33 @@
+package kr.or.ddit.controller.staff;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/staff/lecManage")
+public class LecManageController {
+
+	@GetMapping("/applyList.do")
+	public String list() {
+		String url="staff/lecManage/applyList";
+		return url;
+	}
+	
+	@GetMapping("/list.do")
+	public String lecManageList() {
+		String url="staff/lecManage/applyList";
+		return url;
+	}
+	
+	
+	@GetMapping("/applyDetail.do") 
+	public String applyDetail() { 
+		String url="staff/lecManage/applyDetail"; 
+		return url; 
+		
+	}
+	 
+	
+	
+}

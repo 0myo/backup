@@ -1,0 +1,18 @@
+package kr.or.ddit.service.stu.support;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import kr.or.ddit.command.Criteria;
+
+import kr.or.ddit.dto.stu.StudyShareVO;
+
+public interface ShareService {
+
+	List<StudyShareVO> getShareList(Criteria cri) throws SQLException;
+	
+	List<StudyShareVO> getShareListByLec(Criteria cri) throws SQLException;
+	
+	void updateShareByLec(StudyShareVO StudyShare) throws SQLException;
+
+}

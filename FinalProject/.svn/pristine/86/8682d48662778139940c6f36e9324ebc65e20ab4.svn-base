@@ -1,0 +1,18 @@
+package kr.or.ddit.dto.stu;
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
+public class ChangeMajorVO {
+	
+	private String colName;
+	private String majorName;
+	private int inPersonnel;
+	private int outPersonnel;
+	private String majorWeb;
+	
+}

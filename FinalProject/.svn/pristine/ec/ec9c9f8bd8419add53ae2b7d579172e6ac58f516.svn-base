@@ -1,0 +1,11 @@
+package kr.or.ddit.service.stu.lec;
+
+import java.util.List;
+
+import kr.or.ddit.dto.stu.LecVO;
+import kr.or.ddit.dto.stu.MyLecAssignmentVO;
+
+public interface MyLecAssignmentService {
+
+	List<MyLecAssignmentVO> selectMyAssignmentList(LecVO lec);
+}

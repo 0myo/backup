@@ -1,0 +1,50 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Menu-Mapper">
+
+	<select id="selectMainMenu" resultType="menu">
+		select *
+		from menu
+		where mCode like '%'||'0000'||'%'
+		and isnav=1 
+		order by mCode asc 
+	</select>
+	
+	<select id="selectSubMenu" resultType="menu">
+		select *
+		from menu
+		where upCode = #{mCode} and isNav=1
+		order by mCode asc
+	</select>
+	
+	<select id="selectMenuByMcode" resultType="menu">
+		select *
+		from menu
+		where mCode = #{mCode}
+	</select>
+	<select id="selectMenuByMname" resultType="menu">
+		select *
+		from menu
+		where mName = #{mName}
+	</select>
+	
+	<select id="getLecListByProf" parameterType="str" resultType="mylecture">
+		select syl_cd as lec_cd,subj_name as lec_name
+		from syllabus a,lec_manage b
+		where a.subj_cd=b.subj_cd
+		and prof_id=#{profId}
+		and apply_status_cd='ok'
+		order by syl_cd
+	</select>
+	<select id="getLecListByStu" parameterType="str" resultType="mylecture">
+		select lec_cd,(select subj_name
+                from lec_manage
+                where subj_cd = (select subj_cd from syllabus where syl_cd=lec_cd)) as lec_name
+		    from lec
+		where stu_cd = #{stuCd}
+		and MYLEC_STATUS_CD='s'
+	</select>
+	
+</mapper>

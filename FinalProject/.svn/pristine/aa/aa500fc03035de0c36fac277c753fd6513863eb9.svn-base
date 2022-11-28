@@ -1,0 +1,31 @@
+package kr.or.ddit.dao.staff;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+
+import kr.or.ddit.dto.staff.StaffTlApplyVO;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+public class StaffTlApplyDAOImpl implements StaffTlApplyDAO{
+	
+	private SqlSession session;
+	
+	public void setSqlSession(SqlSession session) {
+		this.session = session;
+	}
+
+	@Override
+	public List<StaffTlApplyVO> selectStaffTlApplyList1(String tlApplySeq) throws SQLException {
+		
+		return session.selectList("StaffTlApply-Mapper.selectStaffTlApplyList1");
+	}
+
+	@Override
+	public List<StaffTlApplyVO> selectStaffTlApplyList2(String tlApplySeq) throws SQLException {
+		return session.selectList("StaffTlApply-Mapper.selectStaffTlApplyList2");
+	}
+
+}

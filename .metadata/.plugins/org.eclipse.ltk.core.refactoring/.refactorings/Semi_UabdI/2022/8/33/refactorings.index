@@ -1,0 +1,64 @@
+1659952860405	Move 'res' to 'WEB-INF'
+1659952938509	Move 'res' to 'WebContent'
+1659953179959	Copy package
+1659953223598	Move folder
+1659953226766	Delete element
+1659953264228	Copy package
+1659953451504	Delete element
+1659953454424	Delete element
+1659953692355	Delete elements
+1659953695568	Delete element
+1659953697870	Delete element
+1659953701575	Delete element
+1659953706807	Delete elements
+1659953771272	Rename package 'com.jsp.dao'
+1659953777976	Rename package 'com.jsp.datasource'
+1659953784589	Rename package 'com.jsp.dto'
+1659953791433	Rename package 'com.jsp.exception'
+1659953796487	Rename package 'com.jsp.service'
+1659953824731	Delete element
+1659954063101	Delete element
+1659954065005	Move 'lib' to 'WEB-INF'
+1659954068173	Delete element
+1659954087494	Delete element
+1659954267086	Delete element
+1659954843990	Rename resource 'res'
+1659955170668	Move 'resources' to 'WebContent'
+1659957038323	Rename resource 'image'
+1659958554199	Rename resource 'macthing.jsp'
+1659959248081	Move 'styles.css' to 'css'
+1659961341363	Delete element
+1659961343343	Delete element
+1660041584660	Delete elements
+1660041590857	Delete element
+1660041606571	Delete elements
+1660041613284	Delete element
+1660042842723	Copy compilation unit
+1660042854615	Rename type 'MaleProfile2'
+1660042976780	Copy compilation unit
+1660043538884	Copy package
+1660043548153	Delete element
+1660043567736	Copy package
+1660044453524	Delete element
+1660044459578	Move 2 resources to 'matching'
+1660044494910	Rename resource 'matching.jsp'
+1660044526916	Rename resource 'matchingPage.jsp'
+1660044536498	Rename resource 'matching2.jsp'
+1660044649167	Rename type 'MatchAction'
+1660044988886	Delete elements
+1660044991077	Delete element
+1660045443982	Delete elements
+1660045484558	Delete elements
+1660045488486	Delete element
+1660045490225	Delete element
+1660045558539	Delete elements
+1660045560502	Delete element
+1660045563813	Delete elements
+1660045566382	Delete element
+1660045586515	Copy package
+1660045610550	Delete element
+1660045624596	Delete element
+1660045626035	Delete element
+1660045684950	Delete element
+1660045694214	Delete element
+1660045854269	Delete element

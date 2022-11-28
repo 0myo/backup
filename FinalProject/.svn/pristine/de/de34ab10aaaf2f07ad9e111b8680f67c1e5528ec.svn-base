@@ -1,0 +1,353 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
+
+<!-- ================================================= -->
+<!-- MAIN-CONTENT -->
+<!-- ================================================= -->
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-xl-8 pr-2 pl-0">
+
+
+			<div class="card mb-0">
+				<div class="card-header tab-regular">
+					<ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+						<li class="nav-item"><a class="nav-link active show"
+							id="card-tab-1" data-toggle="tab" href="#card-1" role="tab"
+							aria-controls="card-1" aria-selected="true">전체강의</a></li>
+						<li class="nav-item"><a class="nav-link" id="card-tab-2"
+							data-toggle="tab" href="#card-2" role="tab"
+							aria-controls="card-2" aria-selected="false">신청강의</a></li>
+
+					</ul>
+				</div>
+				
+				<!-- 탭1탭1탭1탭1탭1탭1탭1탭1탭1탭1탭1탭1탭1탭1탭1탭1탭1탭1탭1 -->
+				<div class="card-body mb-0" style="height:675px;">
+					<div class="tab-content" id="myTabContent">
+						<div class="tab-pane fade active show" id="card-1" role="tabpanel"
+							aria-labelledby="card-tab-1">
+							<div class="card">
+								<div class="card-body">
+									<table class="table table">
+										<tr>
+
+
+
+											<th><center>
+													<div class="form-group row">
+														<label class="col-3 col-lg-3 col-form-label text-right">단과</label>
+														<div class="col-8">
+															<select class="form-control form-control-sm">
+																<option>인문사회</option>
+																<option>자연과학</option>
+																<option>공과대학</option>
+																<option>경영대학</option>
+															</select>
+														</div>
+													</div></th>
+											<th><center>
+													<div class="form-group row">
+														<label class="col-3 col-lg-3 col-form-label text-right">전공</label>
+														<div class="col-7">
+															<select class="form-control form-control-sm">
+																<option>경영학과</option>
+																<option>수학과</option>
+																<option>언론정보학과</option>
+																<option>원예학과</option>
+															</select>
+														</div>
+													</div></th>
+											<th><center>
+													<div class="form-group row">
+														<label class="col-3 col-lg-3 col-form-label text-right">이수</label>
+														<div class="col-6">
+															<select class="form-control form-control-sm">
+																<option>전공필수</option>
+																<option>전공선택</option>
+																<option>교양필수</option>
+																<option>교양선택</option>
+															</select>
+														</div>
+													</div></th>
+
+										</tr>
+
+									</table>
+
+									<table class="table table-hover">
+										<thead>
+											<tr>
+												<th>강의번호</th>
+												<th>현재인원</th>
+												<th>최대인원</th>
+												<th>일자</th>
+												<th>신청</th>
+											</tr>
+										</thead>
+										<tbody>
+											<c:forEach var="list" items="${list }" varStatus="status">
+												<tr class="allList">
+													<!-- 													times={list.lecDate1} -->
+													<td style="width: 10%">${list.lecCd }</td>
+													<td num-id="${list.lecCd}" style="width: 10%">${list.stuNum}</td>
+													<td style="width: 10%">${sylList[status.index].maxStuNum}</td>
+													<td style="width: 10%" class="lecTimes">${sylList[status.index].lecDate1 }</br>${sylList[status.index].lecDate2 }</td>
+													<td style="width: 10%">
+														<button type="button"
+															class="btn-sm btn btn-space btn-primary"
+															data-bs-toggle="button" autocomplete="off" title=""
+															id="${list.lecCd}" num-id="${list.lecCd}">신청</button>
+													</td>
+												</tr>
+											</c:forEach>
+
+
+
+										</tbody>
+									</table>
+
+
+								</div>
+
+							</div>
+						</div>
+
+
+						<div class="tab-pane fade" id="card-2" role="tabpanel"
+							aria-labelledby="card-tab-2">
+
+
+							<div class="card">
+								<div class="card-header">
+									<table>
+										<thead>
+											<tr>
+												<th><h4>신청결과</h4></th>
+												<th><h6>13 / 24점 (신청학점/신청가능학점)</h6></th>
+											</tr>
+										</thead>
+									</table>
+								</div>
+								<div class="card-body">
+
+									<table class="table table-hover">
+										<thead>
+											<tr>
+												<th style="width: 10%">학년</th>
+												<th style="width: 20%">교과목명</th>
+												<th style="width: 10%">학점</th>
+												<th style="width: 20%">이수구분</th>
+												<th style="width: 15%">교수명</th>
+												<th style="width: 20%">신청취소</th>
+											</tr>
+										</thead>
+										<!-- 								<tbody> -->
+										<!-- 									<tr> -->
+										<!-- 										<td>2</td> -->
+										<!-- 										<td>상담심리학</td> -->
+										<!-- 										<td>2</td> -->
+										<!-- 										<td>교양선택</td> -->
+										<!-- 										<td>이상권</td> -->
+										<!-- 										<td> -->
+										<!-- 											<button type="button" class="btn btn-secondary" -->
+										<!-- 												data-toggle="popover" title="">취소</button> -->
+										<!-- 										</td> -->
+										<!-- 									</tr> -->
+										<!-- 								</tbody> -->
+
+
+
+
+
+									</table>
+								</div>
+							</div>
+
+
+
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+
+			<!-- ================================================= -->
+			<!-- 본문 1 -->
+			<!-- ================================================= -->
+
+			<!-- ================================================= -->
+			<!-- ================================================= -->
+
+			<!-- ================================================= -->
+
+			<!-- ================================================= -->
+
+
+		</div>
+		<div class="col-xl-4 pl-2 pr-0 ">
+			<div class="card mb-0" style="display: inline-block; position: relative;">
+
+				<canvas id="grid" width="600" height="744"
+					style="vertical-align: top; z-index: 3"></canvas>
+				<canvas id="outline" width="600" height="744"
+					style="position: absolute; left: 0; top: 0; z-index: 2;"></canvas>
+
+			</div>
+		</div>
+		<!-- ================================================= -->
+		<!-- MAIN-CONTENT 끝 -->
+		<!-- ================================================= -->
+	</div>
+</div>
+<script>
+$(function(){
+	
+var webSocket = new WebSocket("ws://192.168.141.15/<%=request.getContextPath()%>/ws-lectureApply");
+	
+	webSocket.onmessage = function(e){
+		
+		var splitData = e.data.split(":");
+		var lecId = splitData[0];
+		console.log(lecId);
+		var applicatns = splitData[1];
+		
+		$("td[num-id=" +"'" +lecId+"'" +"]").text(applicatns);
+		
+
+	}
+
+
+var applyBtns = document.querySelectorAll('button[data-bs-toggle="button"]');
+
+for (var i = 0; i < applyBtns.length; i++) {
+	
+	applyBtns[i].addEventListener("click",function(e){
+		
+		var lectureId = $(this).attr('id')
+		
+		$.ajax({
+			type:"get",
+			url:"<%=request.getContextPath()%>/stu/lec/apply",
+			data : 'lecCd=' + lectureId,
+			success:function(){
+				
+			},
+			error:function(){
+				
+			}
+		});
+		
+	});
+
+
+	
+}
+	
+})	
+</script>
+<script>
+
+/* 시간표 만들기 */
+
+var dates = ["월","화","수","목","금"];
+var hours = [" 9","10","11","12","13","14","15","16","17"];
+
+    const grid = document.getElementById('grid');
+    const outline = document.getElementById('outline');
+    const gridCtx = grid.getContext("2d");
+    const outlinegridCtx = outline.getContext("2d");
+    
+    for (var i = 50; i < 744; i= i+70) {
+		
+    gridCtx.beginPath();
+    gridCtx.moveTo(50, i);
+    gridCtx.lineTo(505, i);
+    gridCtx.stroke();
+	}
+    
+    for (var i = 50; i <= 600; i= i+91) {
+    gridCtx.beginPath();
+    gridCtx.moveTo(i, 50);
+    gridCtx.lineTo(i, 680);
+    gridCtx.stroke();
+	}
+    var horiIndex = 85;
+    for (var i = 0; i < dates.length; i++) {
+    	gridCtx.font = "20px malgun gothic";
+    	gridCtx.fillStyle = "rgb(162, 162, 162)";
+    	gridCtx.fillText(dates[i], horiIndex, 30);
+    	horiIndex = horiIndex + 91;
+	}
+    
+    var vertiIndex = 65;
+    for (var i = 0; i < hours.length; i++) {
+    	gridCtx.font = "15px malgun gothic";
+    	gridCtx.fillStyle = "rgb(162, 162, 162)";
+    	gridCtx.fillText(hours[i], 30, vertiIndex);
+    	vertiIndex = vertiIndex + 70;
+	}
+   
+
+    /* 호버시  */
+
+$('.allList').mouseover(
+		function(){
+			var schedules = $(this).find("td:eq(3)").html().split("<br>");
+			console.log(schedules[0].substring(0,1));
+			
+			for (var i = 0; i < schedules.length; i++) {
+				
+				if (schedules[i].substring(0,1) == "월") {
+					var x = 50;
+					var y = 50;
+					outlinegridCtx.strokeStyle  = "orange";
+					outlinegridCtx.lineWidth = 5; 
+					outlinegridCtx.strokeRect(x,y,91,70);
+				}
+				if (schedules[i].substring(0,1) == "화") {
+					var x = 50;
+					var y = 50;
+					outlinegridCtx.strokeStyle  = "orange";
+					outlinegridCtx.lineWidth = 5; 
+					outlinegridCtx.strokeRect(x,y,91,70);
+				}
+				if (schedules[i].substring(0,1) == "수") {
+					var x = 50+(91*2);
+					var y = 50+(70*3);
+					outlinegridCtx.strokeStyle  = "orange";
+					outlinegridCtx.lineWidth = 5; 
+					outlinegridCtx.strokeRect(x,y,91,70);
+				}
+				
+				if (schedules[i].substring(0,1) == "목") {
+					var x = 50+(91*3);
+					var y = 50+(70*4);
+					outlinegridCtx.strokeStyle  = "orange";
+					outlinegridCtx.lineWidth = 5; 
+					outlinegridCtx.strokeRect(x,y,91,70);
+				}
+				if (schedules[i].substring(0,1) == "금") {
+					var x = 50+(91*3);
+					var y = 50+(70*4);
+					outlinegridCtx.strokeStyle  = "orange";
+					outlinegridCtx.lineWidth = 5; 
+					outlinegridCtx.strokeRect(x,y,91,70);
+				}
+			}
+			
+		})
+	.mouseout(function() {
+		outlinegridCtx.clearRect(0,0,600,744);
+		});
+    
+
+</script>
+
+<script>
+
+</script>

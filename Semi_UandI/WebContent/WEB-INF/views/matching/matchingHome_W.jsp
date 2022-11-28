@@ -1,0 +1,642 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+   pageEncoding="UTF-8"%>
+     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    
+<c:set var="finalMatching" value="${finalMatching}"/>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author"
+   content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+<meta name="generator" content="Hugo 0.84.0">
+<title>Album example · Bootstrap v5.0</title>
+
+<link rel="canonical"
+   href="https://getbootstrap.com/docs/5.0/examples/album/">
+   
+<script src="http://code.jquery.com/jquery-1.11.0.js"></script>
+
+
+
+<!-- Bootstrap core CSS -->
+<link
+   href="<%=request.getContextPath()%>/resources/bootstrap/assets/dist/css/bootstrap.min.css"
+   rel="stylesheet">
+
+<style>
+.bd-placeholder-img {
+   font-size: 1.125rem;
+   text-anchor: middle;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   user-select: none;
+}
+
+@media ( min-width : 768px) {
+   .bd-placeholder-img-lg {
+      font-size: 3.5rem;
+   }
+}
+
+.rmf {
+   width: 70px;
+   text-align: right;
+}
+
+a {
+   text-decoration: none;
+   color: black;
+}
+
+#long {
+   margin: auto;
+}
+
+#grid { 
+      display: grid;
+      grid-template-columns: 12% 88%;
+      grid-template-rows: 100%;
+      margin: 5px;
+      padding: 0px;
+}
+
+img{
+cursor: pointer;
+}
+.selectBox {
+  position: relative;
+  width: 150px;
+  height: 25px;
+  border-radius: 4px;
+  border: none;
+}
+
+.selectBox .select {
+  width: inherit;
+  height: inherit;
+  background: transparent;
+  border: 0 none;
+  outline: 0 none;
+  padding: 0 5px;
+  position: relative;
+  z-index: 3;
+}
+</style>
+
+
+</head>
+<body>
+
+   <header>
+      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+         <div class="container-fluid">
+            <a class="navbar-brand"
+               href="http://localhost/UandI_Matching_System/home/home/home.html">U & I</a>
+            <button class="navbar-toggler" type="button"
+               data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+               aria-controls="navbarCollapse" aria-expanded="false"
+               aria-label="Toggle navigation">
+               <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+               <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                  <li class="nav-item"><a class="nav-link active"
+                     aria-current="page" href="#">Matching</a></li>
+                  <li class="nav-item"><a class="nav-link"
+                     href="http://localhost/UandI_Matching_System/home/home/home.html">About</a>
+                  </li>
+                  <li class="nav-item"><a class="nav-link" href="#">Board</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#"
+                     aria-disabled="true">Help</a></li>
+               </ul>
+               <form class="d-flex">
+                  <input class="form-control me-2" type="search"
+                     placeholder="Search" aria-label="Search">
+                  <button class="btn btn-outline-success" type="submit">Search</button>
+               </form>
+            </div>
+         </div>
+      </nav>
+   </header>
+
+<main>
+   <form id="form" name="form">
+   <section class="py-5 container"><br>
+         <div class="w-80 p-3" style="background-color: lightgray; border-radius: 0.8em;" id="long">
+            <div id="grid">
+               <center><div style="font-size: 1.125rem; font-weight: bold;" class="col-sb-2"   >키</div></center>
+                  <div class="item"   >
+                        <input id="Option" class="form-check-input" type="radio"
+                           name="heightOption" id="heightOption" value="150">
+                        <label class="form-check-label" for="inlineRadio1">150이하</label>
+                     &nbsp;&nbsp;
+                        <input id="Option" class="form-check-input" type="radio"
+                           name="heightOption" id="heightOption" value="160">
+                        <label class="form-check-label" for="inlineRadio2">~160</label>
+                     &nbsp;&nbsp;
+                        <input id="Option" class="form-check-input" type="radio"
+                           name="heightOption" id="heightOption" value="170">
+                        <label class="form-check-label" for="inlineRadio2">~170</label>
+                     &nbsp;&nbsp;
+                        <input id="Option" class="form-check-input" type="radio"
+                           name="heightOption" id="heightOption" value="180">
+                        <label class="form-check-label" for="inlineRadio2">~180</label>
+                     &nbsp;&nbsp;
+                        <input id="Option" class="form-check-input" type="radio"
+                           name="heightOption" id="heightOption" value="190">
+                        <label class="form-check-label" for="inlineRadio2">~190</label>
+                     &nbsp;&nbsp;
+                        <input id="Option" class="form-check-input" type="radio"
+                           name="heightOption" id="heightOption" value="200">
+                        <label class="form-check-label" for="inlineRadio2">190이상</label>
+
+                     </div>
+                  </div>
+               <hr>
+      <div id="grid">
+         <center><div style="font-size: 1.125rem; font-weight: bold;" class="col-sb-2"   >체형</div></center>
+            <div class="item"   >
+               <input id="Option" class="form-check-input" type="radio"
+                  name="bodyOption" id="bodyOption" value="듬직한"> <label
+                  class="form-check-label" for="inlineRadio1">듬직한</label>
+            &nbsp;&nbsp;
+               <input id="Option" class="form-check-input" type="radio"
+                  name="bodyOption" id="bodyOption" value="슬림한"> <label
+                  class="form-check-label" for="inlineRadio2">슬림한</label>
+            &nbsp;&nbsp;
+               <input id="Option" class="form-check-input" type="radio"
+                  name="bodyOption" id="bodyOption" value="근육질"> <label
+                  class="form-check-label" for="inlineRadio2">근육질</label>
+            &nbsp;&nbsp;
+               <input id="Option" class="form-check-input" type="radio"
+                  name="bodyOption" id="bodyOption" value="건강한"> <label
+                  class="form-check-label" for="inlineRadio2">건강한</label>
+            &nbsp;&nbsp;
+               <input id="Option" class="form-check-input" type="radio"
+                  name="bodyOption" id="bodyOption" value="평범한"> <label
+                  class="form-check-label" for="inlineRadio2">평범한</label>
+            &nbsp;&nbsp;
+               <input id="Option" class="form-check-input" type="radio"
+                  name="bodyOption" id="bodyOption" value="글래머"> <label
+                  class="form-check-label" for="inlineRadio2">글래머</label>
+            </div>
+         </div>
+         <hr>
+      <div id="grid">
+         <center><div style="font-size: 1.125rem; font-weight: bold;" class="col-sb-2" >외모</div></center>
+            <div class="item"   >
+               <input id="Option" class="form-check-input" type="checkbox"
+                  name="faceOptions" id="inlineRadio1" value="귀여운" onclick="count_ckFace(this);"> <label
+                  class="form-check-label" for="inlineRadio1">보조개</label>
+            &nbsp;&nbsp;
+               <input id="Option" class="form-check-input" type="checkbox"
+                  name="faceOptions" id="inlineRadio2" value="섹시한" onclick="count_ckFace(this);" > <label
+                  class="form-check-label" for="inlineRadio2">눈웃음</label>
+            &nbsp;&nbsp;
+               <input id="Option" class="form-check-input" type="checkbox"
+                  name="faceOptions" id="inlineRadio2" value="청순한"onclick="count_ckFace(this);" > <label
+                  class="form-check-label" for="inlineRadio2">고양이상</label>
+            &nbsp;&nbsp;
+               <input id="Option" class="form-check-input" type="checkbox"
+                  name="faceOptions" id="inlineRadio2" value="개성있는"onclick="count_ckFace(this);">
+               <label class="form-check-label" for="inlineRadio2">강아지상</label>
+            &nbsp;&nbsp;
+               <input id="Option" class="form-check-input" type="checkbox"
+                  name="faceOptions" id="inlineRadio2" value="여우상" onclick="count_ckFace(this);">
+               <label class="form-check-label" for="inlineRadio2">여우상</label>
+            &nbsp;&nbsp;
+               <input id="Option" class="form-check-input" type="checkbox"
+                  name="faceOptions" id="inlineRadio2" value="공룡상" onclick="count_ckFace(this);">
+               <label class="form-check-label" for="inlineRadio2">공룡상</label>
+            &nbsp;&nbsp;
+               <input id="Option" class="form-check-input" type="checkbox"
+                  name="faceOptions" id="inlineRadio2" value="하얀피부" onclick="count_ckFace(this);"> <label
+                  class="form-check-label" for="inlineRadio2">하얀피부</label>
+            &nbsp;&nbsp;
+               <input id="Option" class="form-check-input" type="checkbox"
+                  name="faceOptions" id="inlineRadio2" value="까만피부" onclick="count_ckFace(this);"> <label
+                  class="form-check-label" for="inlineRadio2">까만피부</label>
+            &nbsp;&nbsp;
+               <input id="Option" class="form-check-input" type="checkbox"
+                  name="faceOptions" id="inlineRadio2" value="평범한" onclick="count_ckFace(this);"> <label
+                  class="form-check-label" for="inlineRadio2">평범한</label>
+            </div>
+         </div>
+         <hr>
+      <div id="grid">
+         <center><div style="font-size: 1.125rem; font-weight: bold;" class="col-sb-2"   >성격</div></center>
+            <div class="item"   >
+               <input id="Option" class="form-check-input" type="checkbox"
+                  name="charOptions" id="inlineRadio1" value="활동적인" onclick="count_ckChar(this);" >
+               <label class="form-check-label" for="inlineRadio1">활동적인</label>
+            &nbsp;&nbsp;
+               <input id="Option" class="form-check-input" type="checkbox"
+                  name="charOptions" id="inlineRadio2" value="사교적인" onclick="count_ckChar(this);">
+               <label class="form-check-label" for="inlineRadio2">사교적인</label>
+            &nbsp;&nbsp;
+               <input id="Option" class="form-check-input" type="checkbox"
+                  name="charOptions" id="inlineRadio2" value="긍정적인" onclick="count_ckChar(this);">
+               <label class="form-check-label" for="inlineRadio2">긍정적인</label>
+            &nbsp;&nbsp;
+               <input id="Option" class="form-check-input" type="checkbox"
+                  name="charOptions" id="inlineRadio2" value="유쾌한" onclick="count_ckChar(this);"> <label
+                  class="form-check-label" for="inlineRadio2">유쾌한</label>
+            &nbsp;&nbsp;
+               <input id="Option" class="form-check-input" type="checkbox"
+                  name="charOptions" id="inlineRadio2" value="말많은" onclick="count_ckChar(this);"> <label
+                  class="form-check-label" for="inlineRadio2">말많은</label>
+            &nbsp;&nbsp;
+               <input id="Option" class="form-check-input" type="checkbox"
+                  name="charOptions" id="inlineRadio2" value="무난한" onclick="count_ckChar(this);"> <label
+                  class="form-check-label" for="inlineRadio2">무난한</label>
+            &nbsp;&nbsp;
+               <input id="Option" class="form-check-input" type="checkbox"
+                  name="charOptions" id="inlineRadio2" value="차분한" onclick="count_ckChar(this);"> <label
+                  class="form-check-label" for="inlineRadio2">차분한</label>
+            &nbsp;&nbsp;
+               <input id="Option" class="form-check-input" type="checkbox"
+                  name="charOptions" id="inlineRadio2" value="지적인" onclick="count_ckChar(this);"> <label
+                  class="form-check-label" for="inlineRadio2">지적인</label>
+            &nbsp;&nbsp;
+               <input id="Option" class="form-check-input" type="checkbox"
+                  name="charOptions" id="inlineRadio2" value="진지한" onclick="count_ckChar(this);"> <label
+                  class="form-check-label" for="inlineRadio2">진지한</label>
+            </div>
+         </div>
+         <hr>
+
+      <div id="grid">
+         <center><div style="font-size: 1.125rem; font-weight: bold;" class="col-sb-2"   >취미</div></center>
+            <div class="item"   >
+               <input id="Option" class="form-check-input" type="checkbox"
+                  name="hobbyOptions" id="inlineRadio1" value="맛집탐방" onclick="count_ckHobby(this);">
+               <label class="form-check-label" for="inlineRadio1">맛집탐방</label>
+            &nbsp;&nbsp;
+               <input id="Option" class="form-check-input" type="checkbox"
+                  name="hobbyOptions" id="inlineRadio2" value="영화" onclick="count_ckHobby(this);">
+               <label class="form-check-label" for="inlineRadio2">영화</label>
+            &nbsp;&nbsp;
+               <input id="Option" class="form-check-input" type="checkbox"
+                  name="hobbyOptions" id="inlineRadio2" value="술" onclick="count_ckHobby(this);">
+               <label class="form-check-label" for="inlineRadio2">술</label>
+            &nbsp;&nbsp;
+               <input id="Option" class="form-check-input" type="checkbox"
+                  name="hobbyOptions" id="inlineRadio2" value="여행" onclick="count_ckHobby(this);">
+               <label class="form-check-label" for="inlineRadio2">여행</label>
+            &nbsp;&nbsp;
+               <input id="Option" class="form-check-input" type="checkbox"
+                  name="inlineRadioOptions" id="inlineRadio2" value="드라이브" onclick="count_ckHobby(this);">
+               <label class="form-check-label" for="inlineRadio2">드라이브</label>
+            &nbsp;&nbsp;
+               <input id="Option" class="form-check-input" type="checkbox"
+                  name="inlineRadioOptions" id="inlineRadio2" value="공연/뮤지컬" onclick="count_ckHobby(this);">
+               <label class="form-check-label" for="inlineRadio2">공연/뮤지컬</label>
+            &nbsp;&nbsp;
+               <input id="Option" class="form-check-input" type="checkbox"
+                  name="inlineRadioOptions" id="inlineRadio2" value="운동" onclick="count_ckHobby(this);">
+               <label class="form-check-label" for="inlineRadio2">운동</label>
+            &nbsp;&nbsp;
+               <input id="Option" class="form-check-input" type="checkbox"
+                  name="hobbyOptions" id="inlineRadio2" value="독서" onclick="count_ckHobby(this);">
+               <label class="form-check-label" for="inlineRadio2">독서</label>
+            &nbsp;&nbsp;
+               <input id="Option" class="form-check-input" type="checkbox"
+                  name="hobbyOptions" id="inlineRadio2" value="게임" onclick="count_ckHobby(this);">
+               <label class="form-check-label" for="inlineRadio2">게임</label>
+            &nbsp;&nbsp;
+               <input id="Option" class="form-check-input" type="checkbox"
+                  name="hobbyOptions" id="inlineRadio2" value="예술" onclick="count_ckHobby(this);">
+               <label class="form-check-label" for="inlineRadio2">예술</label>
+            &nbsp;&nbsp;
+               <input id="Option" class="form-check-input" type="checkbox"
+                  name="hobbyOptions" id="inlineRadio2" value="등산" onclick="count_ckHobby(this);">
+               <label class="form-check-label" for="inlineRadio2">등산</label>
+            </div>
+         </div>
+         <hr>
+
+      <div id="grid">
+         <center><div style="font-size: 1.125rem; font-weight: bold;" class="col-sb-2">MBTI</div></center>
+            <div class="selectBox"  name="mbtiOption" >
+               <select name="mbtiOption" class="select">
+                  <option name="mbtiOption" value="mbti">Select</option>
+                  <option name="mbtiOption" value="entp">ENTP</option>
+                  <option name="mbtiOption" value="esfp">ESFP</option>
+                  <option name="mbtiOption" value="enfp">ENFP</option>
+                  <option name="mbtiOption" value="estp">ESTP</option>
+                  <option name="mbtiOption" value="estj">ESTJ</option>
+                  <option name="mbtiOption" value="entj">ENTJ</option>
+                  <option name="mbtiOption" value="enfj">ENFJ</option>
+                  <option name="mbtiOption" value="esfj">ESFJ</option>
+      
+                  <option  name="mbtiOption" value="istj">ISTJ</option>
+                  <option  name="mbtiOption" value="istp">ISTP</option>
+                  <option  name="mbtiOption" value="infp">INFP</option>
+                  <option  name="mbtiOption" value="intp">INTP</option>
+                  <option  name="mbtiOption" value="isfj">ISFJ</option>
+                  <option  name="mbtiOption" value="isfp">ISFP</option>
+                  <option  name="mbtiOption" value="infj">INFJ</option>
+                  <option  name="mbtiOption" value="intj">INTJ</option>
+               </select> 
+            </div>
+         </div>
+      <hr>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         <button style="background-color: #008080; border: none;" type="button" id="myButton" data-loading-text="Loading..."
+            class="btn btn-primary" autocomplete="off">선택</button>
+         <button style="background-color: #FFA500; border: none;" type="button" id="cleanButton" data-loading-text="Loading..."
+            class="btn btn-primary" autocomplete="off">초기화</button>
+      </div>
+   </section>
+   </form>
+   
+   
+   <div class="album py-5 bg-light">
+      <div class="container">
+
+         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            <div class="col">
+               <div class="card shadow-sm" value="${memberID}">
+                  <img src="<%=request.getContextPath()%>/resources/images/han.jpg"
+                     class="bd-placeholder-img card-img-top" width="100%" height="425"
+                     xmlns="http://www.w3.org/2000/svg" role="img"
+                     aria-label="Placeholder: Thumbnail"
+                     preserveAspectRatio="xMidYMid slice" focusable="false" > 
+                     <div class="card-body">
+                        <p class="card-text member_name"></p>
+                        <input type="hidden" value="">
+                        <button
+                           href='http://localhost/UandI_Matching_System/UnI/matching/maching2.html'
+                            class="member_id"  data-id="" onclick="javascript:memberPage(this);">상세보기</button>
+                        <div class="d-flex justify-content-between align-items-center">
+                        </div>
+                  </a>
+               </div>
+            </div>
+         </div>
+         <div class="col">
+            <div class="card shadow-sm">
+               <img src="<%=request.getContextPath()%>/resources/images/han.jpg"
+                  class="\ bd-placeholder-img card-img-top" width="100%" height="425"
+                  xmlns="http://www.w3.org/2000/svg" role="img"
+                  aria-label="Placeholder: Thumbnail"   preserveAspectRatio="xMidYMid slice" focusable="false"> 
+                  <div class="card-body">
+                     <p class="card-text member_name"></p>
+                       <button
+                           href='http://localhost/UandI_Matching_System/UnI/matching/maching2.html'
+                            class="member_id"  data-id="" onclick="javascript:memberPage(this);">상세보기</button>
+                  <div class="d-flex justify-content-between align-items-center">
+                  </div>
+            </div>
+         </div>
+      </div>
+      <div class="col">
+         <div class="card shadow-sm">
+            <img src="<%=request.getContextPath()%>/resources/images/han.jpg"
+               class="  bd-placeholder-img card-img-top" width="100%" height="425"
+               xmlns="http://www.w3.org/2000/svg" role="img"
+               aria-label="Placeholder: Thumbnail"
+               preserveAspectRatio="xMidYMid slice"  focusable="false" > 
+               <a href="javascript:memberPage()">
+               <div class="card-body">
+                  <p class="card-text member_name"></p>
+                    <button
+                         href='http://localhost/UandI_Matching_System/UnI/matching/maching2.html'
+                           class="member_id"  data-id="" onclick="javascript:memberPage(this);">상세보기</button>
+                  <div class="d-flex justify-content-between align-items-center">
+                  </div>
+            </a>
+         </div>
+      </div>
+   </div>
+
+   <div class="col">
+      <div class="card shadow-sm">
+         <img src="<%=request.getContextPath()%>/resources/images/han.jpg"
+            class=" bd-placeholder-img card-img-top" width="100%" height="425"
+            xmlns="http://www.w3.org/2000/svg" role="img"
+            aria-label="Placeholder: Thumbnail"
+            preserveAspectRatio="xMidYMid slice"  focusable="false"> 
+            <div class="card-body">
+               <p class="card-text member_name"></p>
+               <button
+                     href='http://localhost/UandI_Matching_System/UnI/matching/maching2.html'
+                        class="member_id"  data-id="" onclick="javascript:memberPage(this);">상세보기</button>
+               <div class="d-flex justify-content-between align-items-center">
+               </div>
+      </div>
+   </div>
+   </div>
+   <div class="col">
+      <div class="card shadow-sm">
+         <img src="<%=request.getContextPath()%>/resources/images/han.jpg"
+            class=" bd-placeholder-img card-img-top" width="100%" height="425"
+            xmlns="http://www.w3.org/2000/svg" role="img"
+            aria-label="Placeholder: Thumbnail"
+            preserveAspectRatio="xMidYMid slice"  focusable="false"> 
+            <div class="card-body">
+               <p class="card-text member_name"></p>
+               <button
+                         href='http://localhost/UandI_Matching_System/UnI/matching/maching2.html'
+                           class="member_id"  data-id="" onclick="javascript:memberPage(this);">상세보기</button>
+               <div class="d-flex justify-content-between align-items-center">
+               </div>
+      </div>
+   </div>
+   </div>
+   <div class="col">
+      <div class="card shadow-sm">
+         <img src="<%=request.getContextPath()%>/resources/images/han.jpg"
+            class=" bd-placeholder-img card-img-top" width="100%" height="425"
+            xmlns="http://www.w3.org/2000/svg" role="img"
+            aria-label="Placeholder: Thumbnail"
+            preserveAspectRatio="xMidYMid slice"  focusable="false"> 
+            <div class="card-body">
+               <p class="card-text member_name"></p>
+               <button
+                         href='http://localhost/UandI_Matching_System/UnI/matching/maching2.html'
+                           class="member_id"  data-id="" onclick="javascript:memberPage(this);">상세보기</button>
+               <div class="d-flex justify-content-between align-items-center">
+               </div>
+      </div>
+   </div>
+   </div>
+
+   <div class="col">
+      <div class="card shadow-sm">
+         <img src="<%=request.getContextPath()%>/resources/images/han.jpg"
+            class=" bd-placeholder-img card-img-top" width="100%" height="425"
+            xmlns="http://www.w3.org/2000/svg" role="img"
+            aria-label="Placeholder: Thumbnail"
+            preserveAspectRatio="xMidYMid slice"   focusable="false"> 
+            <div class="card-body">
+               <p class="card-text member_name"></p>
+               <button
+                         href='http://localhost/UandI_Matching_System/UnI/matching/maching2.html'
+                           class="member_id"  data-id="" onclick="javascript:memberPage(this);">상세보기</button>
+               <div class="d-flex justify-content-between align-items-center">
+               </div>
+      </div>
+   </div>
+   </div>
+   <div class="col">
+      <div class="card shadow-sm">
+         <img src="<%=request.getContextPath()%>/resources/images/han.jpg"
+            class="  bd-placeholder-img card-img-top" width="100%" height="425"
+            xmlns="http://www.w3.org/2000/svg" role="img"
+            aria-label="Placeholder: Thumbnail"
+            preserveAspectRatio="xMidYMid slice"  focusable="false"> 
+            <div class="card-body">
+               <p class="card-text member_name"></p> 
+               <button
+                         href='http://localhost/UandI_Matching_System/UnI/matching/maching2.html'
+                           class="member_id"  data-id="" onclick="javascript:memberPage(this);">상세보기</button>
+               <div class="d-flex justify-content-between align-items-center">
+               </div>
+      </div>
+   </div>
+   </div>
+   <div class="col">
+      <div class="card shadow-sm">
+         <img src="<%=request.getContextPath()%>/resources/images/han.jpg"
+            class=" bd-placeholder-img card-img-top" width="100%" height="425"
+            xmlns="http://www.w3.org/2000/svg" role="img"
+            aria-label="Placeholder: Thumbnail"
+            preserveAspectRatio="xMidYMid slice"  focusable="false"> 
+            <div class="card-body">
+               <p class="card-text member_name" ></p>
+               <button
+                         href='http://localhost/UandI_Matching_System/UnI/matching/maching2.html'
+                           class="member_id"  data-id="" onclick="javascript:memberPage(this);">상세보기</button>
+               <div class="d-flex justify-content-between align-items-center">
+               </div>
+      </div>
+   </div>
+</main>
+
+   <footer class="text-muted py-5">
+      <div class="container">
+         <p class="float-end mb-1">
+            <a href="#">Back to top</a>
+         </p>
+         <p class="mb-1">Album example is &copy; Bootstrap, but please
+            download and customize it for yourself!</p>
+         <p class="mb-0">
+            New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a
+               href="../getting-started/introduction/">getting started guide</a>.
+         </p>
+      </div>
+   </footer>
+
+ <script>
+ 
+
+ 
+$(function() {
+	$("#cleanButton").click(function () {    
+		$("input[id='Option']").prop('checked', false);
+	});
+   	$("#myButton").click(function() {
+    	var str = $("#form").serialize();
+     	alert(str);
+//     console.log("str",str)
+    
+     $.ajax({
+       type:"POST",
+       url:"matchingHome_ac.do",
+       contentType: "application/x-www-form-urlencoded; charset=utf-8",
+       data: str,
+       dataType:"json",
+       success: function(str) {
+          var list = str;
+          var member_name = document.getElementsByClassName("member_name");
+          var member_id = document.getElementsByClassName("member_id");
+          
+          for (var i = 0; i < list.length; i++) {
+              var memberName = list[i].memberName;
+              var memberId = list[i].memberId;
+              member_name[i].innerText = memberName;
+              member_id[i].setAttribute("data-id",memberId);
+              
+              console.log(memberName);
+              console.log("member_id : ", member_id[i].getAttribute("data-id"));
+      }
+               
+   
+   
+       },
+       error: function(e) {
+         alert("에러발생");
+       }         
+     });
+   	});
+   
+ });
+
+
+ 
+ function memberPage(e){
+    var member_id = e.getAttribute("data-id");
+     location.href= 'matchingPage.do?memberId='+member_id;
+    console.log("memberId",memberId);
+ }
+     
+ </script>
+ 
+ <script>
+    function count_ckFace(obj){
+       var chkbox = document.getElementsByName("faceOptions");
+       var chkCnt = 0;
+       for(var i=0;i< chkbox.length; i++){
+          if(chkbox[i].checked){
+             chkCnt++;
+             }
+          }
+       if(chkCnt>2){
+          alert("2개까지 선택하실 수 있습니다.\n(추가 선택하시려면 선택된 체크를 해제해 주세요.)");
+          obj.checked = false;
+          return false;
+          }
+       }
+    
+    function count_ckChar(obj){
+       var chkbox = document.getElementsByName("charOptions");
+       var chkCnt = 0;
+       for(var i=0;i< chkbox.length; i++){
+          if(chkbox[i].checked){
+             chkCnt++;
+             }
+          }
+       if(chkCnt>2){
+          alert("2개까지 선택하실 수 있습니다.\n(추가 선택하시려면 선택된 체크를 해제해 주세요.)");
+          obj.checked = false;
+          return false;
+          }
+       }
+    
+    function count_ckHobby(obj){
+       var chkbox = document.getElementsByName("hobbyOptions");
+       var chkCnt = 0;
+       for(var i=0;i< chkbox.length; i++){
+          if(chkbox[i].checked){
+             chkCnt++;
+             }
+          }
+       if(chkCnt>2){
+          alert("2개까지 선택하실 수 있습니다.\n(추가 선택하시려면 선택된 체크를 해제해 주세요.)");
+          obj.checked = false;
+          return false;
+          }
+       }
+    
+ </script>
+ <script>
+ </script>
+
+   <script src="<%=request.getContextPath() %>/resources/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+</html>

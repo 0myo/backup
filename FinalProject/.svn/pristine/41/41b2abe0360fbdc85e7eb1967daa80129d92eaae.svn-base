@@ -1,0 +1,37 @@
+package kr.or.ddit.service.stu;
+
+import java.sql.SQLException;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import kr.or.ddit.dao.stu.InfoDAO;
+import kr.or.ddit.dto.stu.StudentVO;
+
+public class InfoServiceImpl implements InfoService{
+
+	@Autowired
+	private InfoDAO infoDAO;
+	
+	
+	
+	public void setInfoDaO(InfoDAO infoDAO) {
+		this.infoDAO = infoDAO;
+	}
+
+	@Override
+	public StudentVO getInfo(String id) throws SQLException {
+		StudentVO selectInfo = infoDAO.selectInfo(id);
+		return selectInfo;
+	}
+	
+	@Override
+	public void modifyInfo(StudentVO student) throws SQLException {
+		infoDAO.updateInfo(student);
+	}
+	
+	@Override
+	public void modifyAccount(StudentVO student) throws SQLException {
+		infoDAO.updateAccount(student);
+		
+	}
+}

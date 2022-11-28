@@ -1,0 +1,17 @@
+package kr.or.ddit.dao.stu.counsel;
+
+import java.sql.SQLException;
+import java.util.List;
+import kr.or.ddit.dto.stu.CounselProfListVO;
+
+
+
+
+public interface CounselProfListDAO {
+
+	List<CounselProfListVO> selectCounselProfList(String stuId)throws SQLException;
+
+	
+	
+}
+

@@ -1,0 +1,162 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
+<div class="card">
+	<div class="card-body">
+		<div class="main-content-jsp">
+
+			<div class="row">
+			       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+					<div class="card">
+						<h4 class="card-header"><i class="fas fa-clipboard"></i>&nbsp;&nbsp;경영학개론</h4>
+				
+					<div class="card-body">
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th style="width: 5%">글번호</th>
+									<th style="width: 30%">제목</th>
+									<th style="width: 15%">게시판날짜</th>
+									<th style="width: 15%">마감날짜</th>
+									<th style="width: 15%">제출날짜</th>
+									<th style="width: 15%">제출현황</th>
+									<th style="width: 10%">점수확인</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th scope="row">1</th>
+									<td>도시 경영학 과제 제출합니다.</td>
+									<td>2022-09-04</td>
+									<td>2022-09-15</td>				
+									<td>2022-09-09</td>
+									<td>평가완료</td>
+									<th scope="row">90</th>
+								</tr>
+								<tr>
+									<th scope="row">1</th>
+									<td>도시 경영학 과제 제출합니다.</td>
+									<td>2022-09-04</td>
+									<td>2022-09-15</td>				
+									<td>2022-09-09</td>
+									<td>평가완료</td>
+									<th scope="row">90</th>
+								</tr>
+								<tr>
+									<th scope="row">1</th>
+									<td>도시 경영학 과제 제출합니다.</td>
+									<td>2022-09-04</td>
+									<td>2022-09-15</td>				
+									<td>2022-09-09</td>
+									<td>평가완료</td>
+									<th scope="row">90</th>
+								</tr>
+								
+								<tr>
+									<th scope="row">1</th>
+									<td>도시 경영학 과제 제출합니다.</td>
+									<td>2022-09-04</td>
+									<td>2022-09-15</td>				
+									<td>2022-09-09</td>
+									<td>평가완료</td>
+									<th scope="row">90</th>
+								</tr>
+								
+								<tr>
+									<th scope="row">1</th>
+									<td>도시 경영학 과제 제출합니다.</td>
+									<td>2022-09-04</td>
+									<td>2022-09-15</td>				
+									<td>2022-09-09</td>
+									<td>평가완료</td>
+									<th scope="row">90</th>
+								</tr>
+								
+								<tr>
+									<th scope="row">1</th>
+									<td>도시 경영학 과제 제출합니다.</td>
+									<td>2022-09-04</td>
+									<td>2022-09-15</td>				
+									<td>2022-09-09</td>
+									<td>평가완료</td>
+									<th scope="row">90</th>
+								</tr>
+								
+							</tbody>
+						</table>
+					<!-- ================================================= -->
+					<!-- 게시판 끝 -->
+					<!-- ================================================= -->
+				
+					<!-- ================================================= -->
+					<!-- 등록 버튼 시작 -->
+					<!-- ================================================= -->
+			<!-- 		<div class="row justify-content-end mt-2 mr-2">
+						<button class="btn btn-outline-primary" type="button"onclick="OpenWindow('registForm.do','공지등록',800,700);">글쓰기</button>
+						</div>
+					</div> -->
+					<!-- ================================================= -->
+					<!-- 등록 버튼 끝 -->
+					<!-- ================================================= -->
+				
+					<!-- ================================================= -->
+					<!-- 페이지네이션 시작 -->
+					<!-- ================================================= -->
+					<div class="row justify-content-center">
+							<nav aria-label="Page navigation example">
+								<ul class="pagination">
+									<li class="page-item">
+										<a class="page-link" href="#" aria-label="Previous">
+											<span aria-hidden="true">«</span>
+											<span class="sr-only">Previous</span>
+										</a>
+									</li>
+									<li class="page-item active">
+										<a class="page-link" href="#">1</a>
+									</li>
+									<li class="page-item">
+										<a class="page-link" href="#">2</a>
+									</li>
+									<li class="page-item">
+										<a class="page-link" href="#">3</a>
+									</li>
+									<li class="page-item">
+										<a class="page-link" href="#" aria-label="Next">
+											<span aria-hidden="true">»</span>
+											<span class="sr-only">Next</span>
+										</a>
+									</li>
+								</ul>
+							</nav>
+					</div>
+					<!-- ================================================= -->
+					<!-- 페이지네이션 끝 -->
+					<!-- ================================================= -->
+					<div class="row justify-content-end">
+				<button type="button" class="btn-ml btn btn-outline-primary mr-5" onclick="" >논문 요약 및 번역</button>
+			</div>
+				</div> 
+				<!-- ================================================= -->
+				<!-- 카드바디 끝 -->
+				<!-- ================================================= -->
+				
+				
+				</div>
+				<!-- ================================================= -->
+				<!-- 카드 끝 -->
+				<!-- ================================================= -->
+			</div>
+			
+			
+			
+			
+			
+			</div>
+			</div>
+			<!-- ================================================= -->
+			<!-- MAIN-CONTENT 끝 -->
+			<!-- ================================================= -->
+
+	</div>
+</div>

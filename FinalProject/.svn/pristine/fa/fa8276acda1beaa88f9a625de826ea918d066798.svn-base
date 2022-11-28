@@ -1,0 +1,21 @@
+package kr.or.ddit.service.staff;
+
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.session.SqlSessionException;
+
+import kr.or.ddit.dto.staff.StaffDualVO;
+
+public interface StaffDualService {
+
+	List<StaffDualVO> selectStaffDualList() throws SQLException;
+	
+	List<StaffDualVO> selectStaffSubList() throws SQLException;
+	
+	void updateDualStatus(Map<String, Object> dataMap) throws SQLException;
+	void updateSubStatus(Map<String, Object> dataMap) throws SQLException;
+	
+
+}

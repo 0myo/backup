@@ -1,0 +1,40 @@
+package com.jsp.action.free;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.jsp.action.Action;
+import com.jsp.dto.FreeVO;
+import com.jsp.service.FreeService;
+
+public class FreeDetailAction implements Action {
+	
+	private FreeService freeService;
+	public void setFreeService(FreeService freeService) {
+		this.freeService = freeService;
+	}
+	
+	
+	@Override
+	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String url = "/free/detail";
+		
+		int nno = Integer.parseInt(request.getParameter("nno"));
+		String from = request.getParameter("from");
+		
+		FreeVO free = null;
+		
+		if (from != null && from.equals("list")) {
+			free = freeService.getFree(nno);
+			url="redirect:/free/detail.do?nno="+nno;
+		}else {
+			free = freeService.getFreeForModify(nno);
+		}
+		
+		
+		request.setAttribute("free", free);
+		
+		return url;
+	}
+
+}

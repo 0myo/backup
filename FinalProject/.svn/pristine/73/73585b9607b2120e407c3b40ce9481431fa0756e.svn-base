@@ -1,0 +1,30 @@
+package kr.or.ddit.service.prof;
+
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
+
+import kr.or.ddit.command.Criteria;
+import kr.or.ddit.dto.LectureNoticeVO;
+import kr.or.ddit.dto.common.MemberVO;
+import kr.or.ddit.exception.InvalidPasswordException;
+import kr.or.ddit.exception.NotFoundIdException;
+
+public interface LectureNoticeService {
+	
+	//목록조회
+	Map<String, Object> getLectureNoticeList(Criteria cri,String lecCd) throws SQLException;
+	
+	//상세보기
+	LectureNoticeVO getLectureNotice(LectureNoticeVO lecNotice) throws SQLException;
+	LectureNoticeVO getLectureNoticeForModify(LectureNoticeVO lecNotice) throws SQLException;
+	
+	//등록
+	void regist(LectureNoticeVO lecNotice)throws SQLException;
+	
+	//수정
+	void modify(LectureNoticeVO lecNotice)throws SQLException;
+	
+	//삭제
+	void delete(int lecNoticeNo)throws SQLException;
+}

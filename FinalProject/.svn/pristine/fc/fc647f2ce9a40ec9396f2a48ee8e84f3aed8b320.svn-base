@@ -1,0 +1,24 @@
+package kr.or.ddit.service.stu.lec;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import kr.or.ddit.dao.stu.lec.ApplyPageDAO;
+import kr.or.ddit.dto.stu.ApplyPageVO;
+
+public class ApplyPageServiceImpl implements ApplyPageService {
+
+	private ApplyPageDAO applyPageDAO;
+	
+	public void setApplyPageDAO(ApplyPageDAO applyPageDAO) {
+		this.applyPageDAO = applyPageDAO;
+	}
+
+
+	@Override
+	public List<ApplyPageVO> getLectureList() throws SQLException {
+		List<ApplyPageVO> lectureList = applyPageDAO.selectLectureList();
+		return lectureList;
+	}
+
+}

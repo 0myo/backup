@@ -1,0 +1,97 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Data-Mapper">
+	<insert id="insertIntoMember" parameterType="generator">
+		insert into member
+		values(#{id},#{pwd},#{name},#{ename},#{phone},#{add1},#{add2},#{email},#{bankName},#{accHolder},
+		#{accNum},#{picName},#{picPath},#{birthDate},#{status},#{loginFailed},#{memClass})
+	</insert>
+	
+	<insert id="insertIntoStudent" parameterType="generator">
+		insert into student
+		values(#{stuCode},sysdate,#{nation},#{tlRemained},#{acaState},#{mbti},#{companyCd},#{clubCd},#{grade},#{stuSemester},#{secCd})
+	</insert>
+	
+	<insert id="insertIntoStuMajor" parameterType="generator">
+		insert into stu_major
+		values(#{stuMajorCd},#{id},#{majorCd},#{division})
+	</insert>
+	<insert id="insertIntoCompany" parameterType="generator">
+		insert into company
+		values(#{companyCd},#{name})
+	</insert>
+	<insert id="insertIntoCompanySec" parameterType="generator">
+		insert into company_sec
+		values(#{companyCd},#{name})
+	</insert>
+	
+	<insert id="insertIntoMajor" parameterType="generator">
+		insert into major
+		values(#{majorCd},#{majorName},#{majorPhone},#{majorWeb},#{colCd})
+	</insert>
+	<insert id="insertIntoCollege" parameterType="generator">
+		insert into college
+		values(#{colCd},#{colName},#{tuition},#{availCredit})
+	</insert>
+	
+	<insert id="insertIntoLecManage" parameterType="generatorLecVO">
+		insert into lec_manage
+		values(#{lecCd},#{lecName})
+	</insert>
+	
+	<insert id="insertIntoGeCategory" parameterType="generatorLecVO">
+		insert into ge_category
+		values(#{geCd},#{geCategoryNm})
+	</insert>
+	
+	<insert id="insertIntoSyllabus" parameterType="generatorLecVO">
+		insert into SYLLABUS(syl_cd,credit,lec_category_cd,approved,prof_id,lec_cd,ge_cd,seme_cd)
+		values(#{sylCd},#{credit},#{lecCategoryCd},#{approved},'22101001',#{lecCd},#{geCd},'202201')
+	</insert>
+	
+	<insert id="insertIntoLecOpen" parameterType="generatorLecVO">
+		insert into lec_open(lec_cd,status,syl_cd)
+		values(#{lecCd},'open',#{sylCd})
+	</insert>
+	<insert id="insertIntoLec" parameterType="generatorLecVO">
+		insert into lec(lec_cd,seme_stu_cd,grade_seme)
+		values(#{lecCd},#{semeStuCd},#{gradeSeme})
+	</insert>
+	<insert id="insertIntoSemesterStu">
+		insert into semester_stu(seme_stu_cd,seme_cd,stu_id)
+		values(#{semeStuCd},#{semeCd},#{stuId})
+	</insert>
+	
+	<select id="selectStudentList" resultType="String">
+		select id from member
+		where mem_class=2
+	</select>
+	<select id="selectListCompanyCdList" resultType="String">
+		select "company_cd" from company
+	</select>
+	<select id="selectSecCdList" resultType="String">
+		select sec_cd from company_sec
+	</select>
+	<select id="selectListMember" resultType="generator">
+		select * from member
+	</select>
+	
+	<select id="selectListStuMajor" resultType="generator">
+		select * from stu_major
+	</select>
+	<select id="selectListCollege" resultType="generator">
+		select * from college
+	</select>
+	<select id="selectListMajor" resultType="generator">
+		select major_cd from major
+	</select>
+	<select id="selectListOpenLecFromSyllabus" resultType="String">
+		select syl_cd from syllabus
+		where approved='OK'
+	</select>
+	<select id="selectListOpenLecFromLecOpen" resultType="String">
+		select lec_cd from lec_open
+	</select>
+</mapper>

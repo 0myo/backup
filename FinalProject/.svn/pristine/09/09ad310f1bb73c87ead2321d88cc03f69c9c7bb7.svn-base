@@ -1,0 +1,26 @@
+package kr.or.ddit.service.stu.counsel;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import kr.or.ddit.dao.stu.counsel.CounselProfListDAO;
+import kr.or.ddit.dao.stu.support.ShareDAO;
+import kr.or.ddit.dto.stu.CounselProfListVO;
+
+public class CounselProfListServiceImpl implements CounselProfListService {
+
+	@Autowired
+	private CounselProfListDAO counselProfListDAO;
+	
+	public void setCounselProfListDAO (CounselProfListDAO counselProfListDAO) {
+		this.counselProfListDAO = counselProfListDAO;
+
+	}
+	@Override
+	public List<CounselProfListVO> selectCounselProfList(String stuId) throws SQLException {
+
+		return counselProfListDAO.selectCounselProfList(stuId);
+	}
+}

@@ -1,0 +1,23 @@
+package kr.or.ddit.controller.common;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import kr.or.ddit.dto.common.PortletVO;
+
+@Controller
+@RequestMapping("/portlet")
+public class PortletController {
+
+//	@GetMapping("/list")
+//	@ResponseBody
+//	public List<PortletVO> getInitWidgetList(HttpServletRequest request){
+//		
+//	}
+}

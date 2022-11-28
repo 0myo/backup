@@ -1,0 +1,35 @@
+package kr.or.ddit.service.common;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import kr.or.ddit.dao.common.PortletDAO;
+import kr.or.ddit.dto.common.PortletVO;
+
+@Service
+public class PortletServiceImpl implements PortletService{
+
+	@Autowired
+	private PortletDAO portletDAO;
+
+	@Override
+	public List<PortletVO> getWidgetList(String memId) throws SQLException {
+		List<PortletVO> poList = portletDAO.selectWidgetList(memId);
+		return poList;
+	}
+	
+	@Override
+	public int getTotalCountWidgetList(String memId) throws SQLException {
+		int count = portletDAO.selectTotalCountWidgetList(memId);
+		return count;
+	}
+
+	@Override
+	public PortletVO getWidgetById(PortletVO portlet) throws SQLException {
+		PortletVO po = portletDAO.selectWidgetById(portlet);
+		return po;
+	}
+}

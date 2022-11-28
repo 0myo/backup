@@ -1,0 +1,179 @@
+package kr.or.ddit.controller.stu;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import kr.or.ddit.command.stu.SearchMajorCommand;
+import kr.or.ddit.dto.stu.ChangeMajorVO;
+import kr.or.ddit.dto.stu.CollegeVO;
+import kr.or.ddit.dto.stu.MajorVO;
+import kr.or.ddit.dto.stu.StudentVO;
+import kr.or.ddit.dto.stu.TlApplyVO;
+import kr.or.ddit.service.stu.InfoService;
+import kr.or.ddit.service.stu.aca.ChangeMajorService;
+import kr.or.ddit.service.stu.tl.TlApplyService;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Controller
+@RequestMapping("/stu/aca")
+public class AcaController {
+   
+   @Autowired
+   private InfoService infoService;
+   
+   @Autowired
+   private TlApplyService tlApplyService;
+   
+
+   @Autowired
+   private ChangeMajorService changeMajorService;
+   
+   
+   @RequestMapping("/main")
+   public String main() {
+      String url = "stu/aca/main";
+      return url;
+   }
+   
+   
+   
+   @RequestMapping(value="/majorList",method = RequestMethod.POST,produces = "application/json;charset=utf-8")
+   @ResponseBody
+   public ResponseEntity<List<MajorVO>>  majorList(String collegeCd) throws SQLException {
+      ResponseEntity<List<MajorVO>> entity = null;
+      List<MajorVO> majorList = changeMajorService.selectMajorListByCollegeCd(collegeCd);
+      entity = new ResponseEntity<List<MajorVO>>(majorList, HttpStatus.OK);   
+      return entity;
+   }
+   
+   @RequestMapping(value="/searchMajorList",method = RequestMethod.POST,produces = "application/json;charset=utf-8")
+   @ResponseBody
+   public ResponseEntity<List<ChangeMajorVO>> searchMajorList(SearchMajorCommand searchMajorCommand) throws Exception{
+      log.info("collegeCd : "+searchMajorCommand.getColCd());
+      log.info("majorCd : "+searchMajorCommand.getMajorCd());
+      List<ChangeMajorVO> changeMajorList = changeMajorService.selectSearchMajorList(searchMajorCommand);
+      ResponseEntity<List<ChangeMajorVO>> entity = null;
+      entity = new ResponseEntity<List<ChangeMajorVO>>(changeMajorList, HttpStatus.OK);
+      return entity;
+   }
+   
+   
+   @GetMapping("/info")
+   public String info(Model model)throws Exception {
+      String url = "stu/aca/info";
+      String id = "22201001";//세션에서 id꺼내오는 것으로 변경 필요.
+      StudentVO student = infoService.getInfo(id);
+      
+      model.addAttribute("student",student);
+      return url;
+   }
+   
+   
+   @GetMapping("/info/modifyForm")
+   public String infoModifyForm(Model model)throws Exception {
+      String url = "stu/aca/infoModifyForm";
+      
+      return url;
+   }
+   
+   @GetMapping("/info/account/modifyForm")
+   public String infoAccountModifyForm(Model model)throws Exception {
+      String url = "stu/aca/infoAccountModifyForm";
+   
+      return url;
+   }
+   
+   @GetMapping("/changeMajor/main")
+   public String changeMajorMain(Model model) throws SQLException{
+      String url = "stu/aca/changeMajorMain";
+      List<CollegeVO> collegeList =  changeMajorService.selectCollegeList();
+      model.addAttribute("collegeList",collegeList);
+      return url;
+   }
+   @GetMapping("/changeMajor/modify")
+   @ResponseBody
+   public String changeMajorModify(String phone,HttpServletRequest request) {
+      log.info("phone : "+phone);
+      String result = "success";
+      HttpSession session = request.getSession();
+      StudentVO student = (StudentVO)session.getAttribute("member");
+      log.info("stuCd : "+student.getStuCd());
+      student.setPhone(phone);
+      try {
+         changeMajorService.updateStuPhone(student);
+      }catch(SQLException e) {
+         e.printStackTrace();
+      }
+      return result;
+   }
+   
+   
+   @GetMapping("/changeMajor/applyPage")
+   public String changeMajorPage(String colName,String majorName,Model model) {
+      String url = "stu/aca/changeMajorPage";
+      model.addAttribute("colName",colName);
+      model.addAttribute("majorName",majorName);
+      return url;
+   }
+   
+   @GetMapping("/tl/applyPage")
+   public String tl(Model model,HttpServletRequest request) throws Exception{
+      String url = "stu/aca/tl";
+      String id= "22201001";
+      /*
+       * HttpSession session = request.getSession(); MemberVO member =
+       * (MemberVO)session.getAttribute("loginUser"); String id = member.getId();
+       */
+      List<TlApplyVO> tl = tlApplyService.getTl(id);
+      model.addAttribute("tl", tl);
+      return url;
+   }
+   
+   @GetMapping("/dualMajor/main")
+   public String dualMajorMain(Model model) throws SQLException{
+      String url = "stu/aca/dualMajorMain";
+      List<CollegeVO> collegeList =  changeMajorService.selectCollegeList();
+      model.addAttribute("collegeList",collegeList);
+      return url; 
+   }
+   
+   @GetMapping("/dualMajor/applyPage")
+   public String dualMajorPage(String colName,String majorName,Model model) {
+      String url = "stu/aca/dualMajorPage";
+      model.addAttribute("colName",colName);
+      model.addAttribute("majorName",majorName);
+      return url;
+   }
+   
+   @GetMapping("/graduate")
+   public String graduate() {
+      String url = "stu/aca/graduate";
+      return url;
+   }
+   
+   @GetMapping("/graduate/info")
+   public String graduateInfo() {
+      String url = "stu/aca/graduateInfo";
+      return url;
+   }
+   
+   @GetMapping("/graduate/applyPage")
+   public String graduatePage() {
+      String url = "stu/aca/graduatePage";
+      return url;
+   }
+}

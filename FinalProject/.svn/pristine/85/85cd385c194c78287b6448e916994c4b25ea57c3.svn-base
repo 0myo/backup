@@ -1,0 +1,66 @@
+package kr.or.ddit.service.staff;
+
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import kr.or.ddit.dao.staff.StaffTlApplyDAO;
+import kr.or.ddit.dto.staff.StaffTlApplyVO;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+public class StaffTlApplyServiceImpl implements StaffTlApplyService {
+	
+	@Autowired
+	private StaffTlApplyDAO staffTlApplyDAO;
+	public void setStaffTlApplyDAO(StaffTlApplyDAO staffTlApplyDAO) {
+		this.staffTlApplyDAO = staffTlApplyDAO;
+	}
+	
+
+	@Override
+	public List<StaffTlApplyVO> selectStaffTlApplyList() throws SQLException {
+		return staffTlApplyDAO.selectStaffTlApplyList();
+	}
+
+
+	@Override
+	public List<StaffTlApplyVO> selectStaffBackApplyList() throws SQLException {
+		return staffTlApplyDAO.selectStaffBackApplyList();
+	}
+
+
+	@Override
+	public void updateTlStatus(Map<String, Object> dataMap) throws SQLException {
+		String[] tlApplySeqList = (String[])dataMap.get("tlApplySeqList");
+		String applyStatus = (String)dataMap.get("applyStatus");
+		
+		for(int i=0; i<tlApplySeqList.length; i++) {
+			StaffTlApplyVO stfTlVO = new StaffTlApplyVO();
+			stfTlVO.setTlApplySeq(Integer.parseInt(tlApplySeqList[i]));
+			stfTlVO.setApplyStatusCd(applyStatus);
+			
+			staffTlApplyDAO.updateTlStatus(stfTlVO);
+			
+		}
+	}
+
+	@Override
+	public void updateBackStatus(Map<String, Object> dataMap) throws SQLException {
+		String[] acaChangeSeqList = (String[])dataMap.get("acaChangeSeqList");
+		String applyStatus = (String)dataMap.get("applyStatus");
+		
+		for(int i=0; i<acaChangeSeqList.length; i++) {
+			StaffTlApplyVO stfBackVO = new StaffTlApplyVO();
+			stfBackVO.setAcaChangeSeq(Integer.parseInt(acaChangeSeqList[i]));
+			stfBackVO.setApplyStatusCd(applyStatus);
+			log.info("######서비스들어옴" + applyStatus +"");
+			staffTlApplyDAO.updateBackStatus(stfBackVO);
+			log.info("######서비스나감" + applyStatus +"");
+		}
+	}
+
+}

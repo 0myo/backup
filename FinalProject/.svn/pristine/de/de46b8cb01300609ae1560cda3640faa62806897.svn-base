@@ -1,0 +1,24 @@
+package kr.or.ddit.dto.stu;
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
+public class ApplyPageVO {
+	private String id;
+	private String lecCd;
+	private int stuNum;
+	private int maxStuNum;
+	private String name;
+	private String lecDate1;
+	private String lecDate2;
+	private String classroom;
+	private String subjName;
+	private String targetGrade;
+	private String credit;
+	
+	
+}

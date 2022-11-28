@@ -1,0 +1,44 @@
+package kr.or.ddit.dao.stu.support;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+import kr.or.ddit.dto.stu.StuShaReplyVO;
+
+public class ShaReplyDAOImpl implements ShaReplyDAO {
+	
+	private ShaReplyDAO shaReplyDAO;
+	
+	private SqlSession session;
+	public void setSqlSession(SqlSession session) {
+		this.session = session;
+	}
+	
+	@Override
+	public List<StuShaReplyVO> selectReplyList() throws SQLException {
+		List<StuShaReplyVO> StuShaReply = session.selectList("Reply-Mapper.selectReplyList");
+		return StuShaReply;
+	}
+	@Override
+	public int countReply(int shaBno) throws SQLException {
+		return shaReplyDAO.countReply(shaBno);
+	}
+	@Override
+	public void updateReply(StuShaReplyVO ShaReply) throws SQLException {
+		session.update("Reply-Mapper.selectReplyList", ShaReply);
+		
+	}
+	@Override
+	public void insertReply(StuShaReplyVO ShaReply) throws SQLException {
+		session.insert("Reply-Mapper.selectReplyList", ShaReply);
+		
+	}
+	@Override
+	public void deleteReply(int shaRno) throws SQLException {
+		session.delete("Reply-Mapper.selectReplyList");
+		
+	}
+
+
+}

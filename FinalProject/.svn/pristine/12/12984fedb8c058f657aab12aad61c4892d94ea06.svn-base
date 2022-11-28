@@ -1,0 +1,20 @@
+package kr.or.ddit.dto.prof;
+
+import java.util.Date;
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
+public class WeekNoticeVO {
+
+	private int weekNo;
+	private String lecCd;
+	private String content;
+	private Date cDate;
+	private String anoCd;
+	
+}

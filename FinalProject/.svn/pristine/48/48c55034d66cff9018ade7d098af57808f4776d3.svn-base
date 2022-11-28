@@ -1,0 +1,19 @@
+package kr.or.ddit.controller.prof;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/prof/syllabus")
+public class SyllabusController {
+	
+	@GetMapping("/apply/main")
+	public String main(){
+		String url="prof/syllabus/main";
+		return url;
+	}
+	
+
+	
+}

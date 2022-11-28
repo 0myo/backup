@@ -1,0 +1,12 @@
+package kr.or.ddit.dao.stu.tl;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import kr.or.ddit.dto.stu.TlApplyVO;
+
+
+public interface TlApplyDAO {
+
+	List<TlApplyVO> selectTlListById(String id) throws SQLException;
+}

@@ -1,0 +1,92 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="LecQna-Mapper">
+
+	<sql id="search">
+		<if test="searchType == 't'.toString()">
+			and title like '%'||#{keyword}||'%'			
+		</if>
+		<if test="searchType == 'w'.toString()">
+			and stu_cd like '%'||#{keyword}||'%'			
+		</if>
+		<if test="searchType == 'c'.toString()">
+			and content like '%'||#{keyword}||'%'			
+		</if>
+		<if test="searchType == 'tc'.toString()">
+			and (
+			title like '%'||#{keyword}||'%'
+			or
+			content like '%'||#{keyword}||'%'						
+			)			
+		</if>
+		<if test="searchType == 'cw'.toString()">
+			and (
+			stu_cd like '%'||#{keyword}||'%'
+			or
+			content like '%'||#{keyword}||'%'						
+			)			
+		</if>
+		<if test="searchType == 'tcw'.toString()">
+			and (
+			title like '%'||#{keyword}||'%'
+			or
+			stu_cd like '%'||#{keyword}||'%'
+			or
+			content like '%'||#{keyword}||'%'						
+			)			
+		</if>
+	</sql>
+
+
+	<select id="selectLecQnaList" resultType="lecQna">
+		SELECT LECQ_BNO,STU_CD,LEC_CD,CONTENT,CDATE,VIEW_CNT,SECRET_CD,TITLE,RDATE,PROF_CD,RESPONSE
+		FROM LEC_QNA
+		where lec_cd = #{lecCd}
+		<include refid="search" />
+		ORDER BY CDATE DESC
+	</select>
+
+	<select id="selectLecQnaDetail" parameterType="int" resultType="lecQna">
+		SELECT *
+		FROM LEC_QNA
+		WHERE LECQ_BNO=#{lecqBNO}
+	</select>
+
+	<select id="selectLecqBnoSeqNext" resultType="int">
+		SELECT LECQ_BNO.NEXTVAL FROM DUAL
+	</select>
+	
+	<select id="selectLecQnaTotalCount" resultType="int">
+		select count(*)
+		from LEC_QNA
+		where LECQ_BNO is not null
+		<include refid="search" />
+	</select>
+
+	<update id="insertLecQna" parameterType="lecQna">
+		INSERT INTO LEC_QNA (LECQ_BNO,STU_CD,LEC_CD,CONTENT,CDATE,VIEW_CNT,SECRET_CD,TITLE,RDATE,PROF_CD,RESPONSE)
+		VALUES(LECQ_BNO.NEXTVAL,#{stuCd},#{lecCd},#{content},SYSDATE,0,#{secretCd},#{title},NULL,NULL,NULL)
+	</update>
+	
+	<update id="updateReply" parameterType="lecQna">
+		UPDATE LEC_QNA
+		SET RESPONSE = #{response},
+		RDATE = SYSDATE,
+		PROF_CD = #{profCd}
+		WHERE LECQ_BNO = #{lecqBno}	
+	</update>
+	
+	<delete id="deleteLecQna" parameterType="int">
+		DELETE FROM LEC_QNA
+		WHERE LECQ_BNO = #{lecqBno}
+	</delete>
+
+	<update id="increaseViewCnt" parameterType="int">
+		UPDATE LEC_QNA
+		SET VIEW_CNT = VIEW_CNT + 1
+		WHERE LECQ_BNO = #{lecqBno}
+	</update>
+
+</mapper>

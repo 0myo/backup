@@ -1,0 +1,27 @@
+package kr.or.ddit.dto.stu;
+
+import java.util.Date;
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
+public class TlApplyVO {
+
+	private int tlApplySeq;
+	private String tlClassCd;
+	private String tlReason;
+	private Date applyDate;
+	private String tlAppYear;
+	private String tlAppSeme;
+	private String backYear;
+	private String backSeme;
+	private String applyStatusCd;
+	private String stuId;
+	private String semeCd;
+	private String anoCd;
+	private String rejContent;
+}

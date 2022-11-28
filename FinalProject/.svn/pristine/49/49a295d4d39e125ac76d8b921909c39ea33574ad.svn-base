@@ -1,0 +1,18 @@
+package kr.or.ddit.service.stu;
+
+import java.sql.SQLException;
+import java.util.Map;
+
+import kr.or.ddit.command.Criteria;
+import kr.or.ddit.dto.stu.MajorChangeVO;
+import kr.or.ddit.dto.stu.StudentVO;
+import kr.or.ddit.exception.InvalidPasswordException;
+import kr.or.ddit.exception.NotFoundIdException;
+
+public interface InfoService {
+	
+	StudentVO getInfo(String id) throws SQLException;
+	void modifyInfo(StudentVO student) throws SQLException;
+	void modifyAccount(StudentVO student) throws SQLException;
+	
+}

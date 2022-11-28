@@ -1,0 +1,94 @@
+package kr.or.ddit.controller.stu;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import kr.or.ddit.dto.stu.SurveyVO;
+import kr.or.ddit.service.stu.support.AiInterviewService;
+import kr.or.ddit.service.stu.support.SurveyService;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Controller
+@RequestMapping("/stu/support")
+public class StuSupportController {
+	
+	@Autowired
+	private SurveyService surveyService;
+
+	@RequestMapping("/mbtiPage.do")
+	public String mbtiPage() {
+		String url = "stu/support/mbtiPage";
+		return url;
+	}
+
+	@RequestMapping("/aiRecommend/main.do")
+	public String aiRecommend(Model model) throws Exception{
+		String url = "stu/support/aiRecommendMain";
+		List<SurveyVO> surveyList = surveyService.getSurvey();
+		model.addAttribute("surveyList",surveyList);
+		return url;
+	}
+
+	@RequestMapping("/share")
+	public String share() {
+		String url = "stu/support/share";
+		return url;
+	}
+
+	@RequestMapping("/share/regist")
+	public String shareRegist() {
+		String url = "stu/support/shareRegist";
+		return url;
+	}
+	
+	@RequestMapping("/share/detail")
+	public String shareDetail() {
+		String url = "stu/support/shareDetail";
+		return url;
+	}
+
+
+	@RequestMapping("/employ/main.do")
+	public String employMain() {
+		String url = "stu/support/employMain";
+		return url;
+	}
+	@Autowired
+	private AiInterviewService aiInterviewService;
+	
+	
+	@GetMapping(value = "/employ/script",produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public String employScript(HttpServletResponse res) throws Exception{
+		res.setCharacterEncoding("utf-8");
+		String scriptContent = aiInterviewService.selectScript();
+		log.info("scriptContent : "+scriptContent);
+		return scriptContent;
+	}
+	
+	
+	/*
+	@RequestMapping("/recordDownload")
+	@ResponseBody
+	public String recordDownload(MultipartFile file) throws Exception {
+		System.out.println("파일 넘어옴.");
+		System.out.println(file.getSize());
+		File target = new File("C:" + File.separator + "test", "확인.avi");
+		file.transferTo(target);
+		//이부분은 수정이 필요하다.
+		String abc = "성공";
+		return abc;
+	}
+	*/
+
+
+}

@@ -1,0 +1,39 @@
+package kr.or.ddit.service.common;
+
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import kr.or.ddit.dao.common.AlarmDAO;
+import kr.or.ddit.dto.common.AlarmVO;
+
+public class AlarmServiceImpl implements AlarmService {
+
+	private AlarmDAO alarmDAO;
+	public void setAlarmDAO(AlarmDAO alarmDAO) {
+		this.alarmDAO = alarmDAO;
+	}
+	
+	@Override
+	public Map<String,Object> getAlarmList(String memId) throws SQLException {
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		
+		List<AlarmVO> alarmList = alarmDAO.selectAlarmList(memId);
+		int alarmCount = alarmDAO.selectAlarmTotalCount(memId);
+		
+		dataMap.put("alarmList", alarmList);
+		dataMap.put("alarmCount", alarmCount);
+		
+		return dataMap;
+	}
+	
+	
+//	@Override //regist는 여기서 안 함...
+//	public void registAlarm(AlarmVO alarm) throws SQLException {
+//		int alarmSeq = alarmDAO.selecAlarmSeqNext();
+//		alarm.setAlarmSeq(alarmSeq);
+//		alarmDAO.insertAlarm(alarm);
+//	}
+	
+}

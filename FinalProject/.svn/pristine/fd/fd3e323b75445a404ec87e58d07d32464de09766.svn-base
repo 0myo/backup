@@ -1,0 +1,13 @@
+package kr.or.ddit.dao.prof;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import kr.or.ddit.dto.stu.MyLecAssignmentVO;
+
+public interface AssignmentEvalDAO {
+	public List<MyLecAssignmentVO> selectAllStuListByLecCd(MyLecAssignmentVO vo)throws SQLException;
+	public List<MyLecAssignmentVO> selectStuListByAssBno(MyLecAssignmentVO vo)throws SQLException;
+	
+	
+}

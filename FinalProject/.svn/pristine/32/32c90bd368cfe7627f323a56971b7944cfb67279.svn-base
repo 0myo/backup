@@ -1,0 +1,25 @@
+package kr.or.ddit.dao.staff;
+
+import java.sql.SQLException;
+import java.util.Map;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public class ExcelDAOImpl implements ExcelDAO{
+	@Autowired
+	private SqlSession session;
+	
+
+	@Override
+	public void insertExcel(Map<String, String> hashmap) throws SQLException {
+		
+		session.update("Excel-Mapper.insertExcel",hashmap);
+	}
+
+	
+	
+
+}

@@ -1,0 +1,49 @@
+package kr.or.ddit.dao.stu.aca;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+
+import kr.or.ddit.dto.common.CommCdVO;
+import kr.or.ddit.dto.stu.StudentVO;
+import kr.or.ddit.dto.stu.TlApplyVO;
+
+public class TlApplyDAOImpl implements TlApplyDAO{
+	private SqlSession session;
+	public void setSqlSession(SqlSession session) {
+		this.session = session;
+	}
+
+	@Override
+	public List<TlApplyVO> selectTlListById(String stuCd) throws SQLException {
+		List<TlApplyVO> TlListByStuId = session.selectList("StuTlApply-Mapper.selectTlListById",stuCd);
+		
+		return TlListByStuId;
+	}
+
+	@Override
+	public List<CommCdVO> selectTlClassReason() {
+		return session.selectList("StuTlApply-Mapper.selectTlClassReason");
+	}
+
+	@Override
+	public void insertTlApply(TlApplyVO tlApplyVO) {
+		session.insert("StuTlApply-Mapper.insertTlApply",tlApplyVO);
+	}
+
+	@Override
+	public int selectTlApplyNoNextVal() throws SQLException {
+		return session.selectOne("StuTlApply-Mapper.selectTlApplyNoNextVal");
+	}
+
+	@Override
+	public int tlApplyDupicateCheck(StudentVO student) throws SQLException {
+		return session.selectOne("StuTlApply-Mapper.tlApplyDupicateCheck",student);
+	}
+
+	@Override
+	public void updateTlApply(TlApplyVO tlApplyVO) {
+		session.update("StuTlApply-Mapper.updateTlApply",tlApplyVO);
+	}
+}

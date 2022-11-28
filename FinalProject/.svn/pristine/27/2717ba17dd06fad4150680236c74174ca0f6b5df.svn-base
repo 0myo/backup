@@ -1,0 +1,285 @@
+package kr.or.ddit.controller.stu;
+
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import kr.or.ddit.command.CriteriaLec;
+import kr.or.ddit.dto.common.MemberVO;
+import kr.or.ddit.dto.common.MyLectureVO;
+import kr.or.ddit.dto.prof.LecOpenVO;
+import kr.or.ddit.dto.stu.ApplyPageVO;
+import kr.or.ddit.dto.stu.AttendVO;
+import kr.or.ddit.dto.stu.LecVO;
+import kr.or.ddit.dto.stu.MyLecAssignmentVO;
+import kr.or.ddit.dto.stu.StudentVO;
+import kr.or.ddit.handler.LectureApplyWebSocketHandler;
+import kr.or.ddit.service.stu.lec.ApplyPageService;
+import kr.or.ddit.service.stu.lec.LecOpenService;
+import kr.or.ddit.service.stu.lec.LecService;
+import kr.or.ddit.service.stu.lec.MyLecAssignmentService;
+import kr.or.ddit.service.stu.lec.MyLectureService;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Controller
+@RequestMapping("/stu/lec")
+public class StuLecController {
+
+	@Autowired
+	private LecOpenService lecOpenService;
+	
+	@Autowired
+	private ApplyPageService applyPageService;
+	
+	@Autowired
+	private LecService lecService;
+	
+	@Autowired
+	private MyLecAssignmentService myLecAssginmentService;
+	
+	@RequestMapping("/main.do")
+	public String main() {
+		String url = "stu/lec/main";
+		return url;
+	}
+	@RequestMapping("/board/main.do")
+	public String boardMain(HttpServletRequest request,Model model) throws Exception{
+		String url = "stu/lec/boardListMain";
+		HttpSession session = request.getSession();
+		StudentVO student = (StudentVO) session.getAttribute("member");
+		String stuId = student.getStuCd();
+		List<MyLectureVO> lecList = lecService.selectLecListByStuCd(stuId);
+		model.addAttribute("lecList",lecList);
+		return url;
+	}
+	
+	@RequestMapping("/withdrawPage")
+	public String withdrawPage(Model model) throws SQLException {
+		String url = "stu/lec/withdrawPage";
+		List<LecVO> withdraw = lecService.selectWithdrawalList();
+		
+		model.addAttribute("withdraw",withdraw);
+		return url;
+	}
+	
+	@GetMapping("/update")
+	public String update(LecVO lceVO, HttpServletRequest request) throws SQLException {
+		String url = "redirect:stu/lec/withdrawPage";
+		lecService.updateInfo(lceVO);
+		HttpSession session = request.getSession();
+		MemberVO member =(MemberVO) session.getAttribute("loginUser");
+		String stuCd = member.getMemId();
+		return url;
+	}
+	//서비스쪽 구현 필요.
+	@RequestMapping("/eval/main.do")
+	public String evalMain(Model model) throws SQLException {
+		String url = "stu/lec/evalMain";
+		List<LecVO> evalList = lecService.selectEvalList();
+		
+		model.addAttribute("evalList",evalList);
+		return url;
+	}
+	@RequestMapping("eval/registForm.do")
+	public String evalRegistForm(String lecCd,Model model) {
+		String url = "stu/lec/evalRegistForm";
+		model.addAttribute("lecCd", lecCd);
+		return url;
+	}
+	
+	//필요한 데이터 넘어오는 거 확인함. 서비스쪽 구현 필요.
+	@RequestMapping("eval/evalRegist.do")
+	public String evalRegist(String eval1,String evalOpinion,String lecCd) {
+		String url="redirect:/stu/lec/eval/main.do";
+		return url;
+	}
+	
+	
+	
+	
+	
+	
+	@RequestMapping("/applyPage")
+	public ModelAndView applyPage(ModelAndView mnv) throws SQLException {
+		
+		String url = "stu/lec/applyPage";
+		mnv.setViewName(url);
+		return mnv;
+	}
+	
+	
+	@RequestMapping("/getLecJsonList")
+	@ResponseBody
+	public ResponseEntity<List<ApplyPageVO>> getLectureListJSON() throws SQLException {
+		
+		List<ApplyPageVO> lectureList = applyPageService.getLectureList();
+		ResponseEntity<List<ApplyPageVO>> entity = new ResponseEntity<List<ApplyPageVO>>(lectureList, HttpStatus.OK);
+		
+		
+		return entity;
+	}
+	
+	@RequestMapping("/getAppliedLecList")
+	@ResponseBody
+	public ResponseEntity<List<LecVO>> getAppliedLecList(HttpServletRequest request) throws SQLException {
+		
+		List<LecVO> appliedList = lecService.getAppliedLectureListByStuCdSemeCd(request);
+		
+		ResponseEntity<List<LecVO>> entity = new ResponseEntity<List<LecVO>>(appliedList, HttpStatus.OK);
+		
+		return entity;
+	}
+	
+	@RequestMapping("/getCredits")
+	@ResponseBody
+	public ResponseEntity<HashMap<String, String>> getCredits(HttpSession session) throws SQLException {
+		HashMap<String, String> credits = applyPageService.getCredits(session);
+		ResponseEntity<HashMap<String, String>> entity = new ResponseEntity<HashMap<String, String>>(credits, HttpStatus.OK);
+		
+		return entity;
+	}
+	
+	@PutMapping(value="/apply",produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public LecOpenVO apply(@RequestParam("lecCd") String lecCd ,LectureApplyWebSocketHandler handler,HttpServletRequest request) throws SQLException, IOException {
+		lecOpenService.addStuNum(lecCd);
+		lecService.registLecList(request,lecCd);
+		LecOpenVO lecOpenVO = lecOpenService.selectOne(lecCd);
+		handler.sendLectureApplicant(lecOpenVO);
+		return lecOpenVO;
+	}
+	
+	@DeleteMapping(value="/withdrwal",produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public LecOpenVO withdrwal(@RequestParam("lecCd") String lecCd ,LectureApplyWebSocketHandler handler,HttpServletRequest request) throws SQLException, IOException {
+		lecOpenService.subtractStuNum(lecCd);
+		lecService.removeLecList(request,lecCd);
+		LecOpenVO lecOpenVO = lecOpenService.selectOne(lecCd);
+		handler.sendLectureApplicant(lecOpenVO);
+		return lecOpenVO;
+	}
+	
+	//학생 강의 게시판 작업
+	@Autowired
+	MyLectureService myLecService;
+	
+	@GetMapping("/mylecture/index")
+	public String mylectureIndex(CriteriaLec cri,String lecCd,Model model,HttpServletRequest request) throws Exception{
+		String url="stu/lec/myLectureIndex";
+		HttpSession session =request.getSession();
+		MemberVO member = (MemberVO)session.getAttribute("loginUser");
+		String stuCd=member.getMemId();
+		MyLectureVO myLecture = myLecService.selectMyLectureInfo(lecCd);
+		AttendVO attendVO = new AttendVO();
+		attendVO.setLecCd(lecCd);
+		attendVO.setStuCd(stuCd);
+		cri.setPerPageNum(5);
+		List<AttendVO> attendList = myLecService.selectTotalAttendInfo(attendVO);
+		Map<String,Object> dataMap = myLecService.selectLecNoticeList(cri);
+		model.addAttribute("lecCd",lecCd);
+		model.addAttribute("myLecture", myLecture);
+		model.addAttribute("attendList",attendList);
+		model.addAttribute("dataMap",dataMap);
+		return url;
+	}
+
+	
+	@GetMapping("/mylecture/assign/list")
+	public String myLectureAssignList(String lecCd,Model model,HttpServletRequest request){
+		String url="stu/lec/myLectureAssignList";
+		HttpSession session = request.getSession();
+		MemberVO member = (MemberVO) session.getAttribute("loginUser");
+		String stuCd = member.getMemId();
+		LecVO lec = new LecVO();
+		lec.setLecCd(lecCd);
+		lec.setStuCd(stuCd);
+		List<MyLecAssignmentVO> assignmentList = myLecAssginmentService.selectMyAssignmentList(lec);
+		model.addAttribute("lecCd",lecCd);
+		model.addAttribute("assignmentList",assignmentList);
+		return url;
+	}
+	
+	@GetMapping("/mylecture/assign/summaryPage")
+	public String myLectureAssignSummaryPage(String lecCd,Model model){
+		String url="stu/lec/myLectureAssignSummaryPage";
+		model.addAttribute("lecCd",lecCd);
+		return url;
+	}
+	
+	@GetMapping("/mylecture/assign/syllabus")
+	public String myLectureAssignsyllabus(String lecCd,Model model){
+		String url="stu/lec/myLectureAssignsyllabus";
+		model.addAttribute("lecCd",lecCd);
+		return url;
+	}
+	
+	@GetMapping("/mylecture/assign/pds/detail")
+	public String myLectureAssignPdsDetail(String lecCd,Model model){
+		String url="stu/lec/myLectureAssignPdsDetail";
+		model.addAttribute("lecCd",lecCd);
+		return url;
+	}
+	
+	@GetMapping("/mylecture/assign/pds/list")
+	public String myLectureAssignPdsList(String lecCd,Model model){
+		String url="stu/lec/myLectureAssignPdsList";
+		model.addAttribute("lecCd",lecCd);
+		return url;
+	}
+	
+	@RequestMapping("/mylecture/assign/qna/list")
+	public String myLectureAssignQnaList(String lecCd,Model model) {
+		String url="stu/lec/myLectureAssignQnaList";
+		model.addAttribute("lecCd",lecCd);
+		return url;
+	}
+	
+	@RequestMapping("/mylecture/assign/qna/detail")
+	public String myLectureAssignQnaDetail(String lecCd,Model model) {
+		String url="stu/lec/myLectureAssignQnaDetail";
+		model.addAttribute("lecCd",lecCd);
+		return url;
+	}
+	
+	@RequestMapping("/mylecture/assign/qna/regist")
+	public String myLectureAssignQnaRegist(String lecCd,Model model) {
+		String url="stu/lec/myLectureAssignQnaRegist";
+		model.addAttribute("lecCd",lecCd);
+		return url;
+	}
+	
+	@RequestMapping("/changePage")
+	public String changePage() {
+		String url = "stu/lec/changePage";
+		return url;
+	}
+
+	
+	@RequestMapping("/timetable")
+	public String timetable() {
+		String url = "stu/lec/timetable";
+		return url;
+	}
+	
+	
+	
+}

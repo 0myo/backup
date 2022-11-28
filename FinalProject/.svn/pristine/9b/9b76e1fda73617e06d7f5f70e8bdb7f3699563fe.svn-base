@@ -1,0 +1,22 @@
+package kr.or.ddit.dto.stu;
+
+import java.util.Date;
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
+public class TuitionVO {
+
+	private int tuitionSeq;
+	private Date paymentDate;
+	private int amount;
+	private String payStatusCd;
+	private String semeCd;
+	private String stuCd;
+	
+	
+}

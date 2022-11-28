@@ -1,0 +1,28 @@
+package kr.or.ddit.service.stu.support;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import kr.or.ddit.dao.stu.support.SurveyDAO;
+import kr.or.ddit.dto.stu.SurveyVO;
+
+public class SurveyServiceImpl implements SurveyService {
+	
+
+	@Autowired
+	private SurveyDAO surveyDAO;
+	
+	public void setSurveyDAO(SurveyDAO surveyDAO) {
+		this.surveyDAO = surveyDAO;
+	}
+
+	@Override
+	public List<SurveyVO> getSurvey() throws SQLException {
+		return surveyDAO.selectSurveyForm();
+
+	}
+	
+	
+}

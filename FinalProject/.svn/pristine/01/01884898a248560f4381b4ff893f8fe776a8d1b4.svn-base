@@ -1,0 +1,15 @@
+package kr.or.ddit.dao.stu.support;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import kr.or.ddit.dto.stu.StudentVO;
+import kr.or.ddit.dto.stu.StudyShareVO;
+
+public interface ShareDAO {
+
+	List<StudyShareVO> selectShare() throws SQLException;
+	List<StudyShareVO> selectShareByLec() throws SQLException;
+	
+	void updateShareByLec(StudyShareVO StudyShare) throws SQLException;
+}

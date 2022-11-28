@@ -1,0 +1,44 @@
+package kr.or.ddit.dto.common;
+
+public class ThreeDepthMenuVO {
+	private String mcode;
+	private String murl;
+	
+	private String lecCode;
+	private String lecName;
+
+	public String getMcode() {
+		return mcode;
+	}
+
+	public void setMcode(String mcode) {
+		this.mcode = mcode;
+	}
+
+	public String getMurl() {
+		return murl;
+	}
+
+	public void setMurl(String murl) {
+		this.murl = murl;
+	}
+
+
+	public String getLecCode() {
+		return lecCode;
+	}
+
+	public void setLecCode(String lecCode) {
+		this.lecCode = lecCode;
+	}
+
+	public String getLecName() {
+		return lecName;
+	}
+
+	public void setLecName(String lecName) {
+		this.lecName = lecName;
+	}
+	
+	
+}

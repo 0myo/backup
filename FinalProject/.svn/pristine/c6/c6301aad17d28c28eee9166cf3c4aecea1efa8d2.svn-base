@@ -1,0 +1,30 @@
+package kr.or.ddit.dao.prof;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import kr.or.ddit.dto.stu.MyLecAssignmentVO;
+
+@Repository
+public class AssignmentEvalDAOImpl implements AssignmentEvalDAO {
+
+	@Autowired
+	private SqlSession session;
+	
+	@Override
+	public List<MyLecAssignmentVO> selectAllStuListByLecCd(MyLecAssignmentVO vo) throws SQLException {
+		List<MyLecAssignmentVO> allStuList = session.selectList("AssignmentEval-Mapper.selectStuListByLecCd",vo);
+		return allStuList;
+	}
+
+	@Override
+	public List<MyLecAssignmentVO> selectStuListByAssBno(MyLecAssignmentVO vo) throws SQLException {
+		List<MyLecAssignmentVO> stuList = session.selectList("AssignmentEval-Mapper.selectStuListByAssBno", vo);
+		return stuList;
+	}
+
+}

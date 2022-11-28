@@ -1,0 +1,208 @@
+package kr.or.ddit.controller.stu;
+
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
+
+import kr.or.ddit.dto.prof.LecOpenVO;
+import kr.or.ddit.dto.prof.SyllabusVO;
+import kr.or.ddit.handler.LectureApplyWebSocketHandler;
+import kr.or.ddit.service.prof.SyllabusService;
+import kr.or.ddit.service.stu.lec.LecOpenService;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Controller
+@RequestMapping("/stu/lec")
+public class StuLecController {
+
+	@Autowired
+	private LecOpenService lecOpenService;
+	
+	@Autowired
+	private SyllabusService syllabusService;
+	
+	@RequestMapping("/main.do")
+	public String main() {
+		String url = "stu/lec/main";
+		return url;
+	}
+	@RequestMapping("/board/main.do")
+	public String boardMain() {
+		String url = "stu/lec/boardListMain";
+		return url;
+	}
+	
+	//서비스쪽 구현 필요.
+	@RequestMapping("/eval/main.do")
+	public String evalMain(Model model) {
+		String url = "stu/lec/evalMain";
+		return url;
+	}
+	@RequestMapping("eval/registForm.do")
+	public String evalRegistForm(String lecCd,Model model) {
+		String url = "stu/lec/evalRegistForm";
+		model.addAttribute("lecCd", lecCd);
+		return url;
+	}
+	
+	//필요한 데이터 넘어오는 거 확인함. 서비스쪽 구현 필요.
+	@RequestMapping("eval/evalRegist.do")
+	public String evalRegist(String eval1,String evalOpinion,String lecCd) {
+		String url="redirect:/stu/lec/eval/main.do";
+		System.out.println(eval1);
+		System.out.println(evalOpinion);
+		System.out.println(lecCd);
+		return url;
+	}
+	
+	
+	
+	
+	
+	
+	@RequestMapping("/applyPage")
+	public ModelAndView applyPage(ModelAndView mnv) throws SQLException {
+		String url = "stu/lec/applyPage";
+		List<LecOpenVO> list = lecOpenService.selectList();
+		List<SyllabusVO> sylList = new ArrayList<SyllabusVO>();
+		
+		List<Array> timeCode = new ArrayList<Array>();
+		for (LecOpenVO vo : list) {
+		
+			sylList.add(syllabusService.getSyllabusBySylCd(vo.getLecCd()));
+			
+		}
+		
+		for (SyllabusVO vo : sylList) {
+			String first = vo.getLecDate1();
+			log.info(first.substring(0,1));
+			log.info(first.substring(2,4));
+			log.info(first.substring(10,12));
+		}
+		mnv.addObject("list",list);
+		mnv.addObject("sylList",sylList);
+		mnv.setViewName(url);
+		return mnv;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	@GetMapping("/board/main")
+	public String mylectureBoard(String lecCode,Model model){
+		String url="stu/lec/lecBoardMain";
+		model.addAttribute("lecCode",lecCode);
+		return url;
+	}
+	
+	@GetMapping("/mylecture/index")
+	public String mylectureMain(String lecCode,Model model){
+		String url="stu/lec/myLectureIndex";
+		model.addAttribute("lecCode",lecCode);
+		return url;
+	}
+	@GetMapping("/mylecture/main")
+	public String mylectureMain() {
+		String url = "stu/lec/myLectureMain";
+		return url;
+	}
+	
+	@GetMapping("/mylecture/assign/list")
+	public String myLectureAssignList(String lecCode,Model model){
+		String url="stu/lec/myLectureAssignList";
+		model.addAttribute("lecCode",lecCode);
+		return url;
+	}
+	
+	@GetMapping("/mylecture/assign/summaryPage")
+	public String myLectureAssignSummaryPage(String lecCode,Model model){
+		String url="stu/lec/myLectureAssignSummaryPage";
+		model.addAttribute("lecCode",lecCode);
+		return url;
+	}
+	
+	@GetMapping("/mylecture/assign/syllabus")
+	public String myLectureAssignsyllabus(String lecCode,Model model){
+		String url="stu/lec/myLectureAssignsyllabus";
+		model.addAttribute("lecCode",lecCode);
+		return url;
+	}
+	
+	@GetMapping("/mylecture/assign/pds/detail")
+	public String myLectureAssignPdsDetail(String lecCode,Model model){
+		String url="stu/lec/myLectureAssignPdsDetail";
+		model.addAttribute("lecCode",lecCode);
+		return url;
+	}
+	
+	@GetMapping("/mylecture/assign/pds/list")
+	public String myLectureAssignPdsList(String lecCode,Model model){
+		String url="stu/lec/myLectureAssignPdsList";
+		model.addAttribute("lecCode",lecCode);
+		return url;
+	}
+	
+	@RequestMapping("/mylecture/assign/qna/list")
+	public String myLectureAssignQnaList(String lecCode,Model model) {
+		String url="stu/lec/myLectureAssignQnaList";
+		model.addAttribute("lecCode",lecCode);
+		return url;
+	}
+	
+	@RequestMapping("/mylecture/assign/qna/detail")
+	public String myLectureAssignQnaDetail(String lecCode,Model model) {
+		String url="stu/lec/myLectureAssignQnaDetail";
+		return url;
+	}
+	
+	@RequestMapping("/mylecture/assign/qna/regist")
+	public String myLectureAssignQnaRegist(String lecCode,Model model) {
+		String url="stu/lec/myLectureAssignQnaRegist";
+		return url;
+	}
+	
+	@RequestMapping("/changePage")
+	public String changePage() {
+		String url = "stu/lec/changePage";
+		return url;
+	}
+	
+	@RequestMapping("/withdrawPage")
+	public String withdrawPage() {
+		String url = "stu/lec/withdrawPage";
+		return url;
+	}
+	
+	@RequestMapping("/timetable")
+	public String timetable() {
+		String url = "stu/lec/timetable";
+		return url;
+	}
+	
+	
+	@RequestMapping("/apply")
+	@ResponseBody
+	public LecOpenVO apply(String lecCd,LectureApplyWebSocketHandler handler) throws SQLException, IOException {
+		lecOpenService.addStuNum(lecCd);
+		LecOpenVO vo = lecOpenService.selectOne(lecCd);
+		handler.sendLectureApplicant(vo);
+		return vo;
+	}
+	
+}

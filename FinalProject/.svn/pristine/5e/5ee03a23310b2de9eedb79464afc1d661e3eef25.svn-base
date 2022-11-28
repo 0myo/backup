@@ -1,0 +1,31 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Alarm-Mapper">
+	<select id="selectAlarmList" parameterType="String" resultType="alarm">
+		select prefix,
+				(select comm_cd_name from comm_cd where comm_cd_gr='contentCd' and comm_cd_val=content_cd) as alarmContent,
+			    cdate
+		from alarm
+		where mem_id = #{memId}
+		and check_cd = 'uchk'
+		and cdate between to_date(sysdate-3) and to_date(sysdate)
+		order by cdate desc
+	</select>
+
+	<select id="selectAlarmTotalCount" parameterType="String" resultType="int">
+		select count(*)
+		from alarm
+		where mem_id = #{memId}
+	</select>	
+
+	<update id="insertAlarm">
+		insert into 
+		ALARM(alarm_seq,mem_id,content_cd,check_cd,cdate,prefix)
+		values(#{alarmSeq}, #{memId},#{contentCd},#{checkCd},sysdate,#{prefix})
+	</update>
+	
+	<select id="selectAlarmSeqNext" resultType="int">
+		select alarm_seq.nextval as alarm_seq from dual
+	</select>
+</mapper>

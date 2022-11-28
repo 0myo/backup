@@ -1,0 +1,84 @@
+package kr.or.ddit.service.prof;
+
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import kr.or.ddit.command.Criteria;
+import kr.or.ddit.command.PageMaker;
+import kr.or.ddit.dao.prof.SyllabusDAO;
+import kr.or.ddit.dto.prof.SyllabusVO;
+import kr.or.ddit.dto.staff.SyllabusManegeVO;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+public class SyllabusServiceImpl implements SyllabusService{
+
+	@Getter
+	@Setter
+	private SyllabusDAO syllabusDAO;
+	
+	
+	@Override
+	public List<SyllabusVO> getSyllabusList(Criteria cri) throws SQLException {
+		
+		return null;
+	}
+
+	@Override
+	public SyllabusVO getSyllabusBySylCd(String sylCd) throws SQLException {
+		SyllabusVO syllabus = syllabusDAO.selectSyllabusBysylCd(sylCd);
+		return syllabus;
+	}
+
+	@Override
+	public Map<String, Object> getSyllabusManegeList(Criteria cri) throws SQLException {
+		Criteria searchCri = (Criteria) cri;
+		
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		
+		
+		List<SyllabusManegeVO> syllabusList = syllabusDAO.selectManageSyllabus(searchCri);
+		int totalCount = syllabusDAO.selectSyllabusTotalCount(searchCri);
+		
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(totalCount);
+
+		log.debug(syllabusList.toString());
+		log.debug("페이지메이커 : " + pageMaker.toString());
+		
+		dataMap.put("syllabusList", syllabusList);
+		dataMap.put("pageMaker", pageMaker);
+		
+		return dataMap;
+	}
+
+	@Override
+	public void updateSyllabusStatus(Map<String, Object> dataMap) throws SQLException {
+		String[] syllabusList = (String[])dataMap.get("syllabusList");
+		String applyStatus = (String)dataMap.get("applyStatus");
+		
+		log.debug("dpdppdp"+syllabusList.toString());
+		
+		for(int i=0;i<syllabusList.length;i++) {
+			SyllabusVO syllaVO = new SyllabusVO();
+			
+			syllaVO.setSylCd(syllabusList[i]);
+			syllaVO.setApplyStatusCd(applyStatus);
+			
+			syllabusDAO.updateSyllabusApply(syllaVO);
+			
+			
+			
+			
+			
+		}
+	}
+
+
+}

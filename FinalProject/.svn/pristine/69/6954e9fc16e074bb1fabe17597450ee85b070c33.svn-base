@@ -1,0 +1,33 @@
+package kr.or.ddit.service.stu.schol;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import kr.or.ddit.command.Criteria;
+import kr.or.ddit.dao.stu.schol.ManageDAO;
+import kr.or.ddit.dao.stu.support.ShareDAO;
+import kr.or.ddit.dto.stu.ScholManageVO;
+import kr.or.ddit.dto.stu.StudyShareVO;
+@Service
+public class ManageServiceImpl implements ManageService {
+
+	@Autowired
+	private ManageDAO manageDAO;
+	
+	public void setManageDAO (ManageDAO manageDAO) {
+		this.manageDAO = manageDAO;
+	}
+
+	@Override
+	public List<ScholManageVO> selectManageList() throws SQLException {
+		return manageDAO.selectManageList();
+	}
+	
+
+	
+	
+	
+}

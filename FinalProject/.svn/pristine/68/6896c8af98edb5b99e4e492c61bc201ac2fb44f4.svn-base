@@ -1,0 +1,23 @@
+package kr.or.ddit.dao.stu;
+
+import java.sql.SQLException;
+
+import org.apache.ibatis.session.SqlSession;
+
+import kr.or.ddit.dto.stu.StudentVO;
+
+public class StudentDAOImpl implements StudentDAO {
+
+	private SqlSession session;
+
+	public void setSqlSession(SqlSession session) {
+		this.session = session;
+	}
+	
+	@Override
+	public StudentVO selectStudentByStuCd(String stuCd) throws SQLException {
+		StudentVO studentVO = session.selectOne("Student-Mapper.selectInfo",stuCd);
+		return studentVO;
+	}
+
+}

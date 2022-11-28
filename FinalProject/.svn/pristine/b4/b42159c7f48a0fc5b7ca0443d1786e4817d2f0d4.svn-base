@@ -1,0 +1,28 @@
+package kr.or.ddit.dao.prof;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import kr.or.ddit.command.Criteria;
+import kr.or.ddit.dto.LectureNoticeVO;
+import kr.or.ddit.dto.common.MemberVO;
+import kr.or.ddit.dto.prof.SyllabusVO;
+
+
+
+public interface SyllabusDAO {
+
+	//강의계획서 목록
+	List<SyllabusVO> selectSyllabusList(Criteria cri)throws SQLException;
+	
+	//강의계획서 갯수
+	int selectSyllabusTotalCount(Criteria cri) throws SQLException;
+	
+	//강의계획서코드로 가져오기
+	SyllabusVO selectSyllabusBysylCd(String sylCd) throws SQLException;
+	
+	//글등록
+	void insertSyllabus(SyllabusVO syllabusVO) throws SQLException;
+	
+}
+

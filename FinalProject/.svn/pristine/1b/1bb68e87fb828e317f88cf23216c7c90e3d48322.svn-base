@@ -1,0 +1,66 @@
+package kr.or.ddit.service.stu.aca;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import kr.or.ddit.dao.stu.aca.TlApplyDAO;
+import kr.or.ddit.dto.common.CommCdVO;
+import kr.or.ddit.dto.common.SemesterVO;
+import kr.or.ddit.dto.stu.StudentVO;
+import kr.or.ddit.dto.stu.TlApplyVO;
+
+public class TlApplyServiceImpl implements TlApplyService{
+	
+	@Autowired
+	private TlApplyDAO tlApplyDAO;
+	
+	public void setTlApplyDaO(TlApplyDAO tlApplyDAO) {
+		this.tlApplyDAO = tlApplyDAO;
+	}
+	
+	@Override
+	public List<TlApplyVO> getTlListByStuId(String stuCd) throws SQLException {
+		List<TlApplyVO> tlListByStuId = tlApplyDAO.selectTlListById(stuCd);
+		return tlListByStuId;
+	}
+
+	@Override
+	public List<CommCdVO> getTlClassReason() throws SQLException {
+		return tlApplyDAO.selectTlClassReason();
+	}
+
+	@Override
+	public void insertTlApply(TlApplyVO tlApplyVO,HttpServletRequest request) throws SQLException {
+		HttpSession session = request.getSession();
+		StudentVO student = (StudentVO)session.getAttribute("memeber");
+		String stuId= student.getStuCd();
+		SemesterVO semester = (SemesterVO)session.getAttribute("semester");
+		String semeCd = semester.getSemeCd();
+		int tlApplyNo = tlApplyDAO.selectTlApplyNoNextVal();
+		String tlAppYear=tlApplyVO.getTlAppYear();
+		String tlAppSeme=tlApplyVO.getTlAppSeme();
+		tlAppSeme = tlAppYear+tlAppSeme;
+		String backYear=tlApplyVO.getBackYear();
+		String backSeme=tlApplyVO.getBackSeme();
+		backSeme = backYear+backSeme;
+		tlApplyVO.setTlAppSeme(tlAppSeme);
+		tlApplyVO.setBackSeme(backSeme);
+		tlApplyVO.setStuId(stuId);
+		tlApplyVO.setTlApplySeq(tlApplyNo);
+		tlApplyVO.setSemeCd(semeCd);
+		int tlApplySeq = tlApplyDAO.tlApplyDupicateCheck(student);
+		if(tlApplySeq>0) {
+			tlApplyVO.setTlApplySeq(tlApplySeq);
+			tlApplyDAO.updateTlApply(tlApplyVO);
+		}else {
+			tlApplyDAO.insertTlApply(tlApplyVO);
+		}
+		
+	}
+	
+}

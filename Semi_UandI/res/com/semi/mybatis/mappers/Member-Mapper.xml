@@ -1,0 +1,127 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Member-Mapper">
+	
+	
+	<select id="selectMemberInfoById" parameterType="str" resultType="member">
+		select
+		*
+		from member_info
+		where member_id=#{memberId}
+	</select>
+	
+	<!-- foreach문으로 수정 필요. str이 아니라 stringarray로 오기때문에 map에 담아야함. -->
+	<select id="selectMybodyById" parameterType="str" resultType="str">
+		select my_body
+		from mybody
+		where member_id=#{memberId}
+	</select>
+	
+	<select id="selectMyhobbyById" parameterType="str" resultType="str">
+		select my_hobby
+		from myhobby
+		where member_id=#{memberId}
+	</select>
+	
+	<select id="selectMycharById" parameterType="str" resultType="str">
+		select my_character
+		from mycharacter
+		where member_id=#{memberId}
+	</select>
+	
+	<select id="selectMyfaceById" parameterType="str" resultType="str">
+		select my_face
+		from myface
+		where member_id=#{memberId}
+	</select>
+	
+	<select id="selectMemberAllList" resultType="member">
+		select
+		* 
+		from MEMBER_INFO
+	</select>
+	
+
+	<select id="selectMathBodyList" parameterType="str" resultType="member">
+		select
+		*
+		from mybody
+	</select>
+
+	<select id="selectMathCharacterList" parameterType="str" resultType="member">
+		select
+		*
+		from MYCHARACTER
+	</select>
+
+	<select id="selectMathFaceList" parameterType="str" resultType="member">
+		select
+		*
+		from myface
+	</select>
+
+	<select id="selectMathHobbyList" parameterType="str" resultType="member">
+		select
+		*
+		from myhobby
+	</select>
+	
+	<select id="selectPhoto" parameterType="str" resultType="member">
+		select
+		*
+		from photo
+		where member_id=#{memberId}
+	</select>
+
+
+	
+	<insert id="insertMemberInfo" parameterType="member">
+		insert into 
+		member_info(member_id, member_pw, member_name, member_birth,member_tel,member_addr,member_email,member_sex)
+		values(#{memberId},#{memberPw},#{memberName},#{memberBirth},#{memberTel},#{memberAddr},#{memberEmail},#{memberSex})
+	</insert>
+	
+	
+	<insert id="insertMemberStyle" parameterType="member">
+		insert into 
+		style(member_id,my_height,my_mbti,my_sex)
+		values(#{memberId},#{myHeight},#{myMbti},#{mySex})
+	</insert>
+	
+	<insert id="insertMybody" parameterType="member">
+		insert into
+		mybody(member_id_body,member_id,my_body)
+		values(#{memberIdBody},#{memberId},#{myBody})
+	</insert>
+	
+	<insert id="insertMyhobby" parameterType="member">
+		insert into
+		myhobby(member_id_hobby,member_id,my_hobby)
+		values(#{memberIdHobby},#{memberId},#{myHobby})
+	</insert>
+	
+	<insert id="insertMyface" parameterType="member">
+		insert into
+		myface(member_id_face,member_id,my_face)
+		values(#{memberIdFace},#{memberId},#{myFace})
+	</insert>
+	
+	<insert id="insertMychar" parameterType="member">
+		insert into
+		mycharacter(member_id_character,member_id,my_character)
+		values(#{memberIdCharacter},#{memberId},#{myCharacter})
+	</insert>
+	
+	
+	<update id="updateMemberInfo" parameterType="member">
+
+	</update> 
+	
+	<delete id="deleteMemberInfo" parameterType="str" >
+		delete 
+		from member_info 
+		where member_id=#{memberId}		
+	</delete>
+</mapper>

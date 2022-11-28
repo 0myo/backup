@@ -1,0 +1,24 @@
+package kr.or.ddit.controller.common;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/common/scSchedule")
+public class ScScheduleController {
+
+	@GetMapping("/calendar.do")
+	public String list() {
+		String url="common/scSchedule/calendar";
+		return url;
+	}
+	
+	@GetMapping("/list.do")
+	public String scScheduleList() {
+		String url="common/scSchedule/list";
+		return url;
+	}
+
+	
+}

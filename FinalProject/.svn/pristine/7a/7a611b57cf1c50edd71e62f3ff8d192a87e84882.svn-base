@@ -1,0 +1,25 @@
+package kr.or.ddit.service.staff;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import kr.or.ddit.dao.staff.StaffDualDAO;
+import kr.or.ddit.dto.staff.StaffDualVO;
+
+public class StaffDualServiceImpl implements StaffDualService{
+
+	private StaffDualDAO staffDualDAO;
+	
+	public void setStaffDualDAO(StaffDualDAO staffDualDAO) {
+		this.staffDualDAO = staffDualDAO;
+	}
+	
+	
+	@Override
+	public List<StaffDualVO> selectStaffDualList() throws SQLException {
+		return staffDualDAO.selectStaffDualList();
+	}
+	
+	
+
+}

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<typeInfoHistroy>
+<typeInfo handle="=JAVA_basic/src&lt;com.java.dao{MemberDAO.java[MemberDAO" modifiers="513" timestamp="1657178545772"/>
+<typeInfo handle="=servlet_basic/src&lt;com.java.basic{Output.java[Output" modifiers="513" timestamp="1657695787421"/>
+<typeInfo handle="=JSP_command_bootstrap/src&lt;com.jsp.service{BoardService.java[BoardService" modifiers="513" timestamp="1661397303877"/>
+<typeInfo handle="=JSP_command_bootstrap/src&lt;com.jsp.dao{BoardDAO.java[BoardDAO" modifiers="513" timestamp="1661397282619"/>
+<typeInfo handle="=JSP_command_bootstrap/src&lt;com.jsp.action{Action.java[Action" modifiers="513" timestamp="1660107833611"/>
+<typeInfo handle="=FinalProject/src\/main\/java&lt;kr.or.ddit.dao.stu.support{ShareDAO.java[ShareDAO" modifiers="513" timestamp="1669111416556"/>
+<typeInfo handle="=FinalProject/src\/main\/java&lt;kr.or.ddit.service.stu.support{ShareService.java[ShareService" modifiers="513" timestamp="1669249178477"/>
+<typeInfo handle="=FinalProject/src\/main\/java&lt;kr.or.ddit.dao.common{EmailDAO.java[EmailDAO" modifiers="513" timestamp="1669373704064"/>
+<typeInfo handle="=FinalProject/src\/main\/java&lt;kr.or.ddit.service.common{EmailService.java[EmailService" modifiers="513" timestamp="1669373703934"/>
+</typeInfoHistroy>

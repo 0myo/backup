@@ -1,0 +1,27 @@
+package kr.or.ddit.dao.stu.schol;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.stereotype.Repository;
+
+import kr.or.ddit.dto.stu.ScholManageVO;
+import kr.or.ddit.dto.stu.StudyShareVO;
+@Repository 
+public class ManageDAOImpl implements ManageDAO {
+
+	private SqlSession session;
+	public void setSqlSession(SqlSession session) {
+		this.session = session;
+	}
+
+	@Override
+	public List<ScholManageVO> selectManageList() throws SQLException {
+		List<ScholManageVO> selectManageList = session.selectList("StuSchol-Mapper.schManage");
+		return selectManageList;
+	}
+	
+
+	
+}

@@ -1,0 +1,31 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+    
+<mapper namespace="Share-Mapper">
+
+	<select id="selectShare" parameterType="String" resultType="studyShare">
+		select *
+  		 from study_share
+  		 where board_div_cd='all'
+	</select>
+
+	<select id="selectShareByLec" parameterType="String" resultType="studyShare">
+		SELECT C.SUBJ_NAME, sha_bno, title, cdate, view_cnt
+	      FROM STUDY_SHARE A, SYLLABUS B, LEC_MANAGE C
+	     WHERE A.LEC_CD = b.SYL_CD
+	       and B.SUBJ_CD = C.SUBJ_CD
+	       and available=1
+	       and board_div_cd = 'lec'
+	</select>
+	
+	<update id="updateShareByLec" parameterType="studyShare" >
+	    update stu_sha_reply
+		   set content=#{content}
+		 where SHA_BNO=#{shaBno}
+	</update>
+	
+
+	
+</mapper>

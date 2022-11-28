@@ -1,0 +1,35 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<div class="card" >
+	<h3 class="card-header"><i class="fas fa-edit"></i>&nbsp;&nbsp;시간표</h3>	
+	<div class="card-body row justify-content-center">
+		<div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-12 ">
+				
+				<table class="table table-bordered ">
+				 <thead >
+				    <tr class="text-center">
+				     <th scope="col" style="width:10%" >시간</th>
+				     <th scope="col" style="width:18%">월</th>
+				     <th scope="col" style="width:18%">화</th>
+				     <th scope="col" style="width:18%">수</th>
+				     <th scope="col" style="width:18%">목</th>
+				     <th scope="col" style="width:18%">금</th>
+				   </tr>
+				 </thead>
+				 <tbody class="text-center">
+				
+				<% for(int time=9; time<18; time++){ %>
+				   <tr>
+				     <th scope="row" ><div style="height: 50px"><%= time %>시~<%= time+1 %>시</div></th>
+				  <%for(int i=0; i<5; i++){ %>
+				 <td ></td>
+				 <%}; %>
+				   </tr>
+				   <%}%>
+				 </tbody>
+				</table>
+				
+		</div>
+	</div>
+</div>
+			

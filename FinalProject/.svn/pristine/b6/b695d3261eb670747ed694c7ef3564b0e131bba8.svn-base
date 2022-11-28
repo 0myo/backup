@@ -1,0 +1,22 @@
+package kr.or.ddit.dao.stu.counsel;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import kr.or.ddit.dto.common.ScQnaVO;
+import kr.or.ddit.dto.stu.CounselProfListVO;
+import kr.or.ddit.dto.stu.CsApplyVO;
+
+
+
+
+public interface CounselApplyDAO {
+ 
+	public void insertCounselApply(CsApplyVO csApply)throws SQLException;
+	List<CounselProfListVO> selectCounselProfList(String stuId)throws SQLException;
+	CounselProfListVO selectCounselProfInfo(String profId)throws SQLException;
+	public int selectCouncelNoNextVal();
+	
+	
+}
+

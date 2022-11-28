@@ -1,0 +1,23 @@
+package kr.or.ddit.dao.staff;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+
+import kr.or.ddit.dto.staff.StaffMajorChangeVO;
+
+public class StaffMajorChangeDAOImpl implements StaffMajorChangeDAO {
+	
+	private SqlSession session;
+	
+	public void setSqlSession(SqlSession session) {
+		this.session = session;
+	}
+
+	@Override
+	public List<StaffMajorChangeVO> selectStaffMajorChangeList() throws SQLException {
+		return session.selectList("StaffMajorChange-Mapper.selectStaffMajorChangeList");
+	}
+
+}

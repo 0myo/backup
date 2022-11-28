@@ -1,0 +1,96 @@
+package kr.or.ddit.service.common;
+
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import kr.or.ddit.dao.common.EmailDAO;
+
+import kr.or.ddit.dto.common.MailVO;
+import lombok.extern.slf4j.Slf4j;
+@Service
+@Slf4j
+public class EmailServiceImpl implements EmailService {
+	@Autowired
+	private EmailDAO emailDAO;
+	
+	@Override
+	public int getCountMail(String memId) throws SQLException {
+		int count = emailDAO.selectCountMail(memId);
+		return count;
+	}
+	
+	@Override
+	public List<MailVO> selectReceiveList(String memId) throws SQLException {
+		List<MailVO> ReceiveList = emailDAO.selectReceiveList(memId);
+		
+		return ReceiveList;
+	}
+	
+	@Override
+	public List<MailVO> selectSendList(String memId) throws SQLException {
+		List<MailVO> sendList = emailDAO.selectSendList(memId);
+		
+		return sendList;
+	}
+	
+	@Override
+	public Map<String, List<MailVO>> selectBinList(String memId) throws SQLException {
+		Map<String, List<MailVO>> binList = new HashMap<String, List<MailVO>>();
+		List<MailVO> receive = emailDAO.selectReceiveBin(memId);
+		List<MailVO> sent = emailDAO.selectSentBin(memId);
+		log.debug("y서비스확인"+receive.size());
+		log.debug("서비스확인"+sent.size());
+		binList.put("receive", receive);
+		binList.put("sent", sent);
+		
+		return binList;
+	}
+
+	@Override
+	public MailVO selectMailDetail(int noteSeq) throws SQLException {
+		MailVO mailDetail = emailDAO.selectMailDetail(noteSeq);
+		
+		return mailDetail;
+	}
+
+	@Override
+	public void insertMailInfo(MailVO mail) throws SQLException {
+		int noteSeq = emailDAO.selectNoteSeqNextVal();
+		mail.setNoteSeq(noteSeq);
+		emailDAO.insertReceiveInfo(mail);
+
+		
+		int sentNoteSeq = emailDAO.selectSentNoteSeqNextVal();
+		mail.setSentNoteSeq(sentNoteSeq);
+	
+		
+		emailDAO.insertSendMailInfo(mail);
+		
+		
+	}
+
+	@Override
+	public void updateReadCheck(MailVO mail) throws SQLException {
+		emailDAO.updateReadCheck(mail);
+		
+	}
+
+	@Override
+	public void updateReceiveToBin(MailVO mail) throws SQLException {
+		emailDAO.updateInboxMailDel(mail);
+		
+	}
+	@Override
+	public void updateSentToBin(MailVO mail) throws SQLException {
+		emailDAO.updateSentInboxMailDel(mail);
+		
+	}
+
+
+
+}

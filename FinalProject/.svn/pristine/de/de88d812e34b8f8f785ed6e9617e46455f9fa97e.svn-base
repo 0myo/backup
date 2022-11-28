@@ -1,0 +1,477 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<head>
+  <meta charset='utf-8' />
+  <!-- 화면 해상도에 따라 글자 크기 대응(모바일 대응) -->
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+
+	<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales-all.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+	<link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.css" rel="stylesheet">
+	
+	<script	src="https://uicdn.toast.com/tui.time-picker/latest/tui-time-picker.js"></script>
+	<script	src="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.js"></script>
+	
+	<link rel="stylesheet"	href="https://uicdn.toast.com/tui.time-picker/latest/tui-time-picker.css" />
+	<link rel="stylesheet"	href="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.css" />
+
+</head>
+
+<body>
+<div class="card">
+	<div class="card-body row">
+		<div class="card col-3 col-lg-3" style="margin-top: 55px; margin-bottom: 0px;">
+			<div class="card">
+				<div class="card-header" style="height:80px;">
+					<div style="font-size: 20px;display:inline-block; text-align:center; line-height:80px; width:100%"><strong>일정 상세 보기</strong></div>
+				</div>
+				<div class="card-body">
+					<div class="form-group row">
+						<label for="detailTitle" class="col-3 col-xl-5  col-form-label text-right">일정 제목</label>
+						<div class="col-6 col-lg-6">
+							<input id="detailTitle" readonly type="text" class="form-control">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="detailStart" class="col-3 col-xl-5  col-form-label text-right">일정 시작 시간</label>
+						<div class="col-6 col-lg-6">
+							<input id="detailStart" readonly type="text" class="form-control">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="detailEnd" class="col-3 col-xl-5 col-form-label text-right">일정 종료 시간</label>
+						<div class="col-6 col-lg-6">
+							<input id="detailEnd" readonly type="text" class="form-control">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="detailText" class="col-3 col-xl-5 col-form-label text-right">일정 상세 내용</label>
+						<div class="col-6 col-lg-6">
+							<textarea id="detailText" readonly class="form-control"></textarea>
+						</div>
+					</div>
+					<input type="button" onclick="deleteSch()" class="btn btn-primary" value="일정 삭제">
+					<input type="hidden" id="detailId" value="">
+				</div>
+			</div>
+			<div class="card">
+				<div class="card-header" style="height:80px;">
+					<div style="font-size: 20px;display:inline-block; text-align:center; line-height:80px; width:100%"><strong>일정 등록 하기 </strong></div>
+				</div>
+				<div class="card-body">
+					<select id="oneOrMulti" class="form-control col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12">
+					<option value="one">하루 일정</option>
+					<option value="multi">연속 일정</option>
+					</select>
+					<label for="eventName" class="col-3 col-xl-5 col-form-label text-right">일정 이름</label><input type="text" class="form-control col-xl-5" id="eventName"><br>
+					<div id="selectOne">
+						일정 시작 날짜 : 
+							<div
+								class="tui-datepicker-input tui-datetime-input tui-has-focus">
+								<input type="text" id="datepicker-input3" name="oneDate" aria-label="Date-Time"> <span class="tui-ico-date"></span>
+							</div>
+							<div id="wrapper-3" style="margin-top: -1px;"></div>
+					</div>
+					<div id="selectMulti" style="display:none;">
+						일정 시작 날짜 : 
+							<div
+								class="tui-datepicker-input tui-datetime-input tui-has-focus">
+								<input type="text" id="datepicker-input" name="createDate" aria-label="Date-Time"> <span class="tui-ico-date"></span>
+							</div>
+							<div id="wrapper" style="margin-top: -1px;"></div>
+						일정 종료 날짜 :
+						<div
+							class="tui-datepicker-input tui-datetime-input tui-has-focus">
+							<input type="text" id="datepicker-input-1" name="dueDate"
+								aria-label="Date-Time"> <span class="tui-ico-date"></span>
+						</div>
+						<div id="wrapper-1" style="margin-top: -1px;"></div>
+							
+						</div>
+						일정 상세 내용 : <textarea id="addDetail"></textarea>
+						<input type="button" onclick="addEvent()" class="btn btn-primary" value="일정등록">
+						<!--  <input type="button" value="일정 등록" class="btn btn-primary col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12" data-toggle="modal" data-target="#exampleModal">
+						
+						-->
+				</div>
+			</div>
+		</div>
+		<div id='calendar' class="col-9 col-lg-9"></div>
+	</div>
+</div>
+
+
+<div class="modal fade" id="detail" tabindex="-1" role="dialog" aria-labelledby="detailLabel" aria-hidden="true">
+	<div class="modal-dialog"role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="detailLabel">일정 상세</h5>
+				<a href="#" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">×</span>
+			</a>
+			</div>
+			<div class="modal-body">
+				
+				
+			</div>
+			<div class="modal-footer">
+				
+				<input type="button" onclick="closeModal()" class="btn btn-secondary" data-dismiss="modal" value="닫기">
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog"role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">일정 등록</h5>
+				<a href="#" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">×</span>
+			</a>
+			</div>
+			<div class="modal-body">
+			
+			</div>
+			<div class="modal-footer">
+				
+				<input type="button" class="btn btn-secondary" data-dismiss="modal" value="닫기">
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<script>
+var scheduleList = ${scheduleList};
+for(var i=0;i<scheduleList.length;i++){
+	var startBefore = scheduleList[i].start
+	var startAfter = startBefore.replace(/\*/gi,"T");
+	scheduleList[i].start = startAfter;
+	var endBefore = scheduleList[i].end
+	if(endBefore){
+		var endAfter = endBefore.replace(/\*/gi,"T");
+		scheduleList[i].end = endAfter;
+	}
+}
+console.log(scheduleList)
+</script>
+
+
+
+<script>
+var calendar = null;
+
+ document.addEventListener('DOMContentLoaded', function() {
+   var calendarEl = document.getElementById('calendar');
+   calendar = new FullCalendar.Calendar(calendarEl, {
+	   headerToolbar: {
+	          left: 'prev,next today',
+	          center: 'title',
+	          right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+	        }, // 월별로 보여줄지, 주별로 보여줄 지 선택하는  버튼 
+		initialView: 'dayGridMonth',
+		selectable: true,
+		locale:'ko',
+		events: scheduleList,
+	   selectable: true, // 달력 일자 드래그 설정가능
+	   editable: true, // 수정 가능?
+	   dayMaxEvents: true,
+	   eventAdd: function(obj) { // 이벤트가 추가되면 발생하는 이벤트
+		   console.log("추가 : ",obj)
+			console.log("추가 id  : ",obj.event.id)
+			console.log("추가  title : ",obj.event.title)
+			console.log("추가  start: ",obj.event.start)
+		//	console.log("추가  groupId: ",obj.event.groupId)
+			console.log("추가  end: ",obj.event.end)
+			var startDateObj = obj.event.start
+			var endDateObj = obj.event.end
+			var calendarData =null;
+		  	$('#detailEnd').val("");
+			$('#detailStart').val("");
+			$('#detailText').html("");
+			$("#addDetail").val("");
+			console.log("ttt",$('#detailText').val())
+			if(endDateObj){
+				var calendarData = {
+			   		title:obj.event.title,
+			   		//scheDetail:obj.event.groupId,
+			   		scheId:obj.event.id,
+			   		startYear:startDateObj.getFullYear(),
+			   		startMonth:startDateObj.getMonth()+1,
+			   		startDate:startDateObj.getDate(),
+			   		startHour:startDateObj.getHours(),
+			   		startMinute:+startDateObj.getMinutes(),
+			   		endYear:endDateObj.getFullYear(),
+			   		endMonth:endDateObj.getMonth()+1,
+			   		endDate:endDateObj.getDate(),
+			   		endHour:endDateObj.getHours(),
+			   		endMinute:endDateObj.getMinutes(),
+		   		}
+			}else{
+				var calendarData = {
+				   		title:obj.event.title,
+				   		//scheDetail:obj.event.groupId,
+				   		scheId:obj.event.id,
+				   		startYear:startDateObj.getFullYear(),
+				   		startMonth:startDateObj.getMonth()+1,
+				   		startDate:startDateObj.getDate(),
+				   		startHour:startDateObj.getHours(),
+				   		startMinute:+startDateObj.getMinutes(),
+			   		}
+			}
+	   ;
+			$.ajax({
+				url:'<%=request.getContextPath()%>'+'/common/scSchedule/calendar/insert',
+				type:"post",
+				data:JSON.stringify(calendarData),
+				contentType:"application/json; charset=utf-8",
+				dataType:"json",
+				success:function(data){
+					alert("성공")
+				},
+				error:function(){
+					alert("에러")
+				}
+			})
+			
+		},
+		eventChange: function(obj) { // 이벤트가 수정되면 발생하는 이벤트
+			console.log(obj);
+		  	console.log("변경 : ",obj);
+			console.log("변경 id  : ",obj.event.id);
+			console.log("변경  title : ",obj.event.title);
+			console.log("변경  start: ",obj.event.start);
+			console.log("변경  end: ",obj.event.end);
+		},
+		eventRemove: function(obj){ // 이벤트가 삭제되면 발생하는 이벤트
+		  	console.log("삭제 : ",obj);
+			console.log("삭제 id  : ",obj.event.id);
+			console.log("삭제  title : ",obj.event.title);
+			console.log("삭제  start: ",obj.event.start);
+			console.log("삭제  end: ",obj.event.end);
+		},
+		eventClick:function(info){
+			$('#detailEnd').val("");
+			$('#detailStart').val("");
+			$('#detailText').val("");
+			showDetail(info);
+		}
+		 
+		
+   });
+   calendar.render();
+ });
+
+</script>
+
+
+<script>
+
+
+var beginHour = 00;
+var endHour = 00;
+var beginMin = 00;
+var endMin = 00;
+
+var begin = { hour: 0, minute: 30 };
+var end = { hour: 0, minute: 40 };
+
+var datepicker = new tui.DatePicker('#wrapper', {
+    date: new Date(),
+    language: 'ko',
+    input: {
+      element: '#datepicker-input',
+      format: 'yyyy-MM-dd HH:mm A'
+      
+    },
+    timePicker: {
+      	 initialHour: 0,
+           initialMinute: 00,
+           inputType: 'selectbox',
+           hourStep: 1,
+           minuteStep: 15,
+           showMeridiem: false,
+      	      
+      }
+   
+});
+
+var datepicker1 = new tui.DatePicker('#wrapper-1', {
+    date: new Date(),
+    input: {
+      element: '#datepicker-input-1',
+      format: 'yyyy-MM-dd HH:mm A'
+    },
+    timePicker: {
+      	 initialHour: 0,
+           initialMinute: 00,
+           inputType: 'selectbox',
+           hourStep: 1,
+           minuteStep: 15,
+           showMeridiem: false,
+      	      
+      }
+    
+  });
+
+var datepicker3 = new tui.DatePicker('#wrapper-3', {
+    date: new Date(),
+    input: {
+      element: '#datepicker-input3',
+      format: 'yyyy-MM-dd HH:mm A'
+    },
+    timePicker: {
+   	 initialHour: 0,
+        initialMinute: 00,
+        inputType: 'selectbox',
+        hourStep: 1,
+        minuteStep: 15,
+        showMeridiem: false,
+   	      
+   }
+  });
+  
+  
+  
+
+var id=parseInt(${maxSeq});
+console.log("id :",id);
+function addEvent(){
+	var selectOption = $("#oneOrMulti").val()
+	var selectMulti = $("#selectMulti");
+	var selectOne = $("#selectOne");
+	 var title = $("#eventName");
+	 var startDate = $("#datepicker-input");
+	 var endDate=$("#datepicker-input-1");
+	 
+	 var startDateArr = startDate.val().split(" ");
+	 var endDateArr = endDate.val().split(" ");
+	 console.log(endDateArr)
+	 var addDetail=$("#addDetail");
+	 
+	 var oneStartDate = $("#datepicker-input3").val();
+	 var oneStartDateArr = oneStartDate.split(" ");
+	 var oneStartTime="";
+	 if(oneStartDateArr[2]=="AM"){
+	 	oneStartTime = oneStartDateArr[0]+"T"+oneStartDateArr[1]+":00";
+	 }else if(oneStartDateArr[2]=="PM"){
+		 oneStartTime = oneStartDateArr[0]+"T"+(parseInt(oneStartDateArr[1].split(":")[0])+12)+":"+oneStartDateArr[1].split(":")[1]+":00"
+	 }
+	 console.log("oneStartTime : ",oneStartTime)
+	 if(selectOption=="multi"){
+	 	if(!title.val()){
+	 		alert("제목을 입력하세요");
+	 		return;
+	 	}
+		
+	 	 if(startDateArr[2]=="AM"){
+	 		startDate = startDateArr[0]+"T"+startDateArr[1]+":00"
+	 	 }else if(startDateArr[2]=="PM"){
+	 		startDate = startDateArr[0]+"T"+(parseInt(startDateArr[1].split(":")[0])+12)+":"+startDateArr[1].split(":")[1]+":00"
+	 	 }
+	 	 
+	 	 if(endDateArr[2]=="AM"){
+	 		endDate = endDateArr[0]+"T"+endDateArr[1]+":00"
+		 }else if(endDateArr[2]=="PM"){
+		 		endDate= endDateArr[0]+"T"+(parseInt(endDateArr[1].split(":")[0])+12)+":"+endDateArr[1].split(":")[1]+":00"
+		 }
+	 	
+		console.log("시작 날짜:",startDate)
+		console.log("종료 날짜:",endDate)
+		calendar.addEvent({
+		  title: title.val(),
+		  start: startDate,
+		  end: endDate,
+		  id:id+1,
+		//  groupId:addDetail.val()
+		})
+		
+		    
+	}
+	else if(selectOption=="one"){
+		if(!title.val()){
+			alert("제목을 입력해주세요.")
+			return;
+		}
+		console.log(oneStartDate)
+		if(startDateArr[0]){
+			console.log("시작 시간 ",oneStartTime)
+			calendar.addEvent({
+			    title: title.val(),
+			    start: oneStartTime,
+			    id:id+1,
+			//    groupId:addDetail.val(),
+			    allDay:false
+			  })
+		}
+	}
+	id=id+1;
+	title[0].value="";
+	selectMulti[0].style.display="none";
+	selectOne[0].style.display="block";
+	$("#oneOrMulti").val("one")
+	calendar.unselect()
+}
+
+$("#oneOrMulti").change(function(){
+	let selectOption = $("#oneOrMulti").val()
+	let selectMulti = $("#selectMulti");
+	let selectOne = $("#selectOne");
+	if(selectOption=='multi'){
+		selectOne[0].style.display="none";
+		selectMulti[0].style.display="block";
+	}
+	if(selectOption=='one'){
+		selectMulti[0].style.display="none";
+		selectOne[0].style.display="block";
+	}
+})
+</script>
+<script>
+function showDetail(info){
+	let detailTitle = $('#detailTitle').val(info.event.title);
+	let detailStart = info.event.start;
+	console.log(info)
+	console.log("확인 : ",info.event.start);
+	
+	let detailStartTime = detailStart.getFullYear()+"년 "+(detailStart.getMonth()+1)+"월 "+detailStart.getDate()+"일 "+detailStart.getHours()+"시 "+detailStart.getMinutes()+"분 ";
+	$('#detailStart').val(detailStartTime);
+	
+	let detailEnd = info.event.end;
+	console.log("끝날짜",detailEnd)
+	if(detailEnd){
+		var detailEndTime = detailEnd.getFullYear()+"년 "+(detailEnd.getMonth()+1)+"월 "+detailEnd.getDate()+"일 "+detailEnd.getHours()+"시 "+detailEnd.getMinutes()+"분 ";
+		console.log(detailEndTime)
+		$('#detailEnd').val(detailEndTime);
+	}
+	var detailId=info.event.id;
+	$("#detailId").val(detailId);
+	
+	//var detailText = info.event.groupId;
+//	$('#detailText').html(detailText);
+	
+	$("#detail").attr("class","modal fade show").css("display","block");
+	
+}
+function deleteSch(){
+	var id = $("#detailId").val();
+	var info = calendar.getEventById(id);
+	console.log(info)
+	if(confirm(info.title +"일정을 삭제하시겠습니까 ?")){
+		 // 확인 클릭 시
+	    info.remove();
+	}
+	closeModal();
+}
+function closeModal(){
+	$("#detail").attr("class","modal fade").css("display","none");
+}
+</script>
+
+</body>

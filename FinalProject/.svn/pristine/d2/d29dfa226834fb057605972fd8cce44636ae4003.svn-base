@@ -1,0 +1,11 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="StuSchol-Mapper">
+	<select id="selectManageList" parameterType="String" resultType="schManage">
+		select SCHOL_CD, SCHOL_NAME, SCHOL_AMOUNT, CONTENT, BENEF_NUM, START_DATE, REQ_DOC_CONTENT, TARGET, END_DATE
+		  from schol_manage
+		 where schol_cd = #{scholCd}
+	</select>
+</mapper>

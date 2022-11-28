@@ -1,0 +1,22 @@
+package kr.or.ddit.dao.stu.tl;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+
+import kr.or.ddit.dto.stu.TlApplyVO;
+
+public class TlApplyDAOImpl implements TlApplyDAO{
+	private SqlSession session;
+	public void setSqlSession(SqlSession session) {
+		this.session = session;
+	}
+
+	@Override
+	public List<TlApplyVO> selectTlListById(String id) throws SQLException {
+		List<TlApplyVO> selectList = session.selectList("Tl-Mapper.selectTlListById",id);
+		
+		return selectList;
+	}
+}

@@ -1,0 +1,164 @@
+package kr.or.ddit.controller.common;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import kr.or.ddit.command.Criteria;
+import kr.or.ddit.dto.common.MemberVO;
+import kr.or.ddit.dto.common.ScQnaVO;
+import kr.or.ddit.service.common.ScqnaService;
+import lombok.extern.slf4j.Slf4j;
+
+@Controller
+@RequestMapping("/common")
+@Slf4j
+public class CommonController {
+	
+	@GetMapping("/loginForm.do")
+	public String loginForm(@RequestParam(defaultValue = "") String error, 
+			@ModelAttribute("retUrl") String retUrl,
+			HttpServletResponse response) {
+		String url = "/common/login/loginForm";
+		if(error!=null && error.equals("-1")) {
+			response.setStatus(302);
+		}
+
+		return url;
+				
+	}
+	@GetMapping("/loginTimeOut")
+	public String loginTimeOut(Model model) {
+		String url = "security/sessionOut";
+		model.addAttribute("message","세션이 만료되었습니다.\\n다시 로그인 하세요!");
+		return url;
+	}
+	@RequestMapping("/loginExpired")
+	public String loginExpired(Model model)throws Exception{
+		String url = "security/sessionOut";
+		model.addAttribute("message","다른 장치에서 중복 로그인이 감지되어 로그아웃합니다.\\n다시 로그인 하세요!");
+		return url;
+	}
+
+
+	@Autowired
+	private ScqnaService scqnaService;
+	@GetMapping("/scqna/list.do")
+		   public ModelAndView list(Criteria cri,ModelAndView mnv) throws SQLException {
+		      String url = "common/scqna/qnaList";
+		      
+		      List<ScQnaVO> scqnaList = scqnaService.getScqnaList(cri);
+		      mnv.addObject("scqnaList",scqnaList);
+		      mnv.setViewName(url);
+		      
+		     
+		      
+		      return mnv;
+		   }
+		   
+
+	
+	@GetMapping("/scqna/detail")
+	public ModelAndView scqnaDetail(int scqBno,HttpServletRequest request,ModelAndView mnv)throws SQLException{
+		String url="common/scqna/qnaDetail";
+		ScQnaVO scqnaDetail = scqnaService.getSelectScqnaDetail(scqBno);
+
+		HttpSession session=request.getSession();
+		MemberVO member = (MemberVO) session.getAttribute("loginUser");
+		String memId =member.getMemId();
+		
+		
+		mnv.addObject("scqnaDetail",scqnaDetail);
+		mnv.addObject("memId", memId);
+		
+		mnv.setViewName(url);
+		return mnv;
+	}
+	
+	@PostMapping("/scqna/registReply")
+	public String registReply(ScQnaVO vo)throws SQLException{
+		String url = "redirect:/common/scqna/detail?scqBno="+vo.getScqBno();
+		scqnaService.registReply(vo);
+		
+		return url;
+	}
+	
+	@PostMapping("/scqna/modifyReply")
+	public String modifyReply(ScQnaVO vo)throws SQLException{
+		String url = "redirect:/common/scqna/detail?scqBno="+vo.getScqBno();
+		scqnaService.modifyReply(vo);
+		
+		return url;
+	}
+	
+	
+	
+	@GetMapping("/scqna/registForm")
+	public String scqnaRegist(HttpServletRequest request,Model model){
+		String url="common/scqna/qnaRegist";
+		HttpSession session=request.getSession();
+		MemberVO member = (MemberVO) session.getAttribute("loginUser");
+		String memId =member.getMemId();
+		log.info("memId"+memId);
+		model.addAttribute("memId",memId);
+		return url;
+	}
+	
+	@PostMapping("/scqna/regist")
+	public String regist(ScQnaVO scQna) throws SQLException {
+		String url = "redirect:/common/scqna/list.do";	
+		scqnaService.regist(scQna);
+		System.out.println(scQna);
+		return url;
+	}
+	
+	@GetMapping("/scqna/modifyForm")
+	public String qnaModifyForm(){
+		String url="common/scqna/qnaModifyForm";
+		return url;
+	}
+	@RequestMapping("/mail/received/list.do")
+	public String maliReceivedList() {
+		String url = "common/mail/receiveMail";
+		return url;
+	}
+	
+	@RequestMapping("/mail/sent/list.do")
+	public String maliSentList() {
+		String url = "common/mail/sentMail";
+		return url;
+	}
+	
+	@RequestMapping("/mail/sendForm.do")
+	public String sendForm() {
+		String url = "common/mail/sendForm";
+		return url;
+	}
+	
+	@RequestMapping("/mail/bin/list.do")
+	public String binList() {
+		String url = "common/mail/binList";
+		return url;
+	}
+	
+	@RequestMapping("/mail/detail.do")
+	public String mailDetail() {
+		String url = "common/mail/mailDetail";
+		return url;
+	}
+	
+	
+}

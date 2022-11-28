@@ -1,0 +1,19 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AssignmentEval-Mapper">
+	
+	<select id="selectStuListByLecCd" resultType="myLecAssignment" parameterType="myLecAssignment">
+		select stu.stu_cd,stu.name
+		from lec l, lec_open lo ,student stu
+		where l.lec_Cd = lo.lec_cd
+		and l.stu_cd = stu.stu_cd
+		and lo.lec_cd = #{lecCd}
+	</select>
+	
+	<select id="selectStuListByAssBno" resultType="myLecAssignment">
+		select * from ass_submit
+		where ass_bno = #{assBno}
+	</select>
+	
+</mapper>

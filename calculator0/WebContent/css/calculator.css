@@ -1,0 +1,41 @@
+@charset "UTF-8";
+
+table{
+	border-radius:10px;
+}
+
+td{
+	border:none;
+	width : 80px;
+}
+
+
+.num_btn{
+	padding : 20px;
+	border-radius : 10px;
+	background-color : white;
+	margin : 0px;
+	width:100%;
+	font-size: 20px;
+	
+}
+input[type="text"]{
+	padding : 20px;
+	text-align:right;
+	width:80%;
+	font-size : 30px;
+}
+.oper, #rst, #eqs{
+	background-color:gold;
+	padding : 20px;
+	border-radius : 10px;
+	margin : 0px;
+	width:100%;
+	font-size: 20px;
+}
+/* form{
+	visibility:hidden;
+}
+#num1, #num2, #operator{
+	visibility:hidden;
+} */

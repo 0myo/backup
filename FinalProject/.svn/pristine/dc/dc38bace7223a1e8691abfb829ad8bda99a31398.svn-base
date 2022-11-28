@@ -1,0 +1,19 @@
+package kr.or.ddit.dto.stu;
+
+import java.util.Date;
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
+public class AttendVO {
+	private int attendSeq;
+	private String stuCd;
+	private String lecCd;
+	private String attendStatusCd;
+	private Date attendDate;
+	private int attendCnt;
+}

@@ -1,0 +1,16 @@
+package kr.or.ddit.dao.stu.schol;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import org.springframework.stereotype.Repository;
+
+import kr.or.ddit.dto.stu.ScholManageVO;
+import kr.or.ddit.dto.stu.StudentVO;
+import kr.or.ddit.dto.stu.StudyShareVO;
+@Repository 
+public interface ManageDAO {
+
+	List<ScholManageVO> selectManageList() throws SQLException;
+
+}

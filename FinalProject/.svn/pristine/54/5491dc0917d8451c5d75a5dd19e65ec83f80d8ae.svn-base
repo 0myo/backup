@@ -1,0 +1,34 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="Attach-mapper">
+
+	<select id="selectAttachList" resultType="attach">
+		select *
+		from ATTACH
+		where ano_cd=#{anoCd}
+	</select>
+	<select id="selectAttach" resultType="attach">
+		select *
+		from ATTACH
+		where ano_cd=#{anoCd}
+		and ano_seq = #{anoSeq}
+	</select>
+	
+	<update id="insertAttach">
+		insert into ATTACH
+		values(ano_cd_seq.nextval, #{anoSeq},#{filename},#{uploadpath},#{filesize})
+	</update>
+	
+	<update id="deleteAllAttach">
+		delete from ATTACH
+		where ano_cd = #{anoCd}
+	</update>
+	
+	<update id="deleteAttach">
+		delete from ATTACH
+		where ano_cd = #{anoCd}
+		and ano_seq = #{anoSeq}
+	</update>
+</mapper>

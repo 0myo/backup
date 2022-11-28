@@ -1,0 +1,26 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Email-Mapper">
+	<select id="selectReceiveList" parameterType="String" resultType="inbox">
+		select note_seq, title, send_date, recv_chk,
+		(select name 
+           from member
+          where mem_id in (select sender_id
+                  			 from inbox)) as senderId
+		  from inbox
+	</select>
+	
+	<select id="selectMailDetail" parameterType="int" resultType="inbox">
+		select note_seq, title, send_date, content,
+		(select name 
+           from member
+          where mem_id in (select sender_id
+                  			 from inbox)) as senderId
+		  from inbox
+		  where note_seq=#{noteSeq}
+	</select>
+	
+	
+</mapper>

@@ -1,0 +1,13 @@
+package kr.or.ddit.dao.staff;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import kr.or.ddit.dto.staff.StaffMajorChangeVO;
+
+public interface StaffMajorChangeDAO {
+	
+	List<StaffMajorChangeVO> selectStaffMajorChangeList() throws SQLException;
+		
+
+}

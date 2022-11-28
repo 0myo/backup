@@ -1,0 +1,46 @@
+package kr.or.ddit.controller.stu;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import kr.or.ddit.dto.stu.StuShaReplyVO;
+import kr.or.ddit.service.stu.support.ShaReplyService;
+import lombok.extern.slf4j.Slf4j;
+
+
+/**
+	/replies/{shaBno}			list : GET
+	/replies/					regist : POST
+	/replies/{shaRno}			modify : PUT
+	/replies/{shaBno}/{shaRno}  remove : DELETE
+ **/
+@Slf4j
+@Controller
+@RequestMapping("replies")
+public class StuShareReplyController {
+
+	@Autowired
+	private ShaReplyService shaReplyService;
+	
+	
+	@GetMapping(value="/{shaBno}", produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public List<StuShaReplyVO> replyList(@PathVariable("shaBno") int shaBno) throws SQLException{
+		
+		List<StuShaReplyVO> replyList = shaReplyService.getReplyList(shaBno);
+		
+		return replyList;
+	}
+	
+	
+	
+	
+	
+}

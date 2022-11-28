@@ -1,0 +1,31 @@
+package kr.or.ddit.service.prof;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import kr.or.ddit.command.Criteria;
+import kr.or.ddit.dao.prof.SyllabusDAO;
+import kr.or.ddit.dto.prof.SyllabusVO;
+import lombok.Setter;
+
+public class SyllabusServiceImpl implements SyllabusService{
+
+	@Setter
+	private SyllabusDAO syllabusDAO;
+	
+	
+	@Override
+	public List<SyllabusVO> getSyllabusList(Criteria cri) throws SQLException {
+		
+		return null;
+	}
+
+	@Override
+	public SyllabusVO getSyllabusBySylCd(String sylCd) throws SQLException {
+		SyllabusVO syllabus = syllabusDAO.selectSyllabusBysylCd(sylCd);
+		return syllabus;
+	}
+
+}

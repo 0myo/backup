@@ -1,0 +1,11 @@
+package kr.or.ddit.service.stu.tl;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import kr.or.ddit.dto.stu.TlApplyVO;
+
+public interface TlApplyService {
+	
+	List<TlApplyVO> getTl(String id) throws SQLException;
+}

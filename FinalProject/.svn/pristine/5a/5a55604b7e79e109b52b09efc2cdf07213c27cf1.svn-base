@@ -1,0 +1,14 @@
+package kr.or.ddit.controller.common;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import kr.or.ddit.service.common.PortletService;
+
+@Controller
+@RequestMapping("/portlet2")
+public class PortletController2 {
+	@Autowired
+	private PortletService portletService;
+}

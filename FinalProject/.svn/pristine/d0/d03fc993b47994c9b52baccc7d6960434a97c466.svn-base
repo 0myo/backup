@@ -1,0 +1,37 @@
+package kr.or.ddit.service.staff;
+
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import kr.or.ddit.dao.staff.StaffTlApplyDAO;
+import kr.or.ddit.dto.staff.StaffTlApplyVO;
+
+public class StaffTlApplyServiceImpl implements StaffTlApplyService {
+	
+	@Autowired
+	private StaffTlApplyDAO staffTlApplyDAO;
+	public void setStaffTlApplyDAO(StaffTlApplyDAO staffTlApplyDAO) {
+		this.staffTlApplyDAO = staffTlApplyDAO;
+	}
+	
+	
+	@Override
+	public Map<String, Object> getStaffTlApplyList() throws SQLException {
+		
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		
+		List<StaffTlApplyVO> tlApplyList1 = staffTlApplyDAO.selectStaffTlApplyList1();
+		
+		List<StaffTlApplyVO> tlApplyList2 = staffTlApplyDAO.selectStaffTlApplyList2();
+				
+		dataMap.put("tlApplyList1", tlApplyList1);
+		dataMap.put("tlApplyList2", tlApplyList2);
+		
+		return dataMap;
+	}
+
+}

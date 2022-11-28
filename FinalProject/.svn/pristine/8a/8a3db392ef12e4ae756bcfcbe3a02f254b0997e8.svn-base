@@ -1,0 +1,229 @@
+package kr.or.ddit.controller.common;
+
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import kr.or.ddit.command.Criteria;
+import kr.or.ddit.dto.common.MemberVO;
+import kr.or.ddit.dto.common.MyLectureVO;
+import kr.or.ddit.dto.common.PortletListVO;
+import kr.or.ddit.dto.common.PortletVO;
+import kr.or.ddit.dto.common.SemesterVO;
+import kr.or.ddit.dto.prof.LecOpenVO;
+import kr.or.ddit.dto.prof.ProfVO;
+import kr.or.ddit.dto.stu.LecVO;
+import kr.or.ddit.dto.stu.StuColMajor;
+import kr.or.ddit.dto.stu.StudentVO;
+import kr.or.ddit.service.common.PortletService;
+import kr.or.ddit.service.common.ScoreService;
+import kr.or.ddit.service.prof.LectureListForProfService;
+import kr.or.ddit.service.prof.ProfInfoService;
+import kr.or.ddit.service.staff.ScNoticeService;
+import kr.or.ddit.service.stu.InfoService;
+import kr.or.ddit.service.stu.lec.LecService;
+
+@Controller
+@RequestMapping("/portlet")
+public class PortletController {
+
+	@Autowired
+	private PortletService portletService;
+	
+	@Autowired
+	private InfoService infoService;
+	
+	@Autowired
+	private ProfInfoService profInfoService;
+	
+	@Autowired
+	private ScNoticeService scNoticeService;
+	
+	@Autowired
+	private LectureListForProfService lectureListForProfService;
+	
+	@Autowired
+	ScoreService scoreService;
+	@Autowired
+	private LecService lecService;
+	
+	@GetMapping("/list")
+	@ResponseBody
+	public Map<String, Object> getWidgetList(HttpServletRequest request) throws SQLException{
+		HttpSession session = request.getSession();
+		MemberVO member = (MemberVO)session.getAttribute("loginUser");
+		String memId = member.getMemId();
+		String memClassCd = member.getMemClassCd();
+		
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		//기본위젯List
+		List<PortletListVO> allPoList = portletService.getAllWidgetList(memClassCd);
+		dataMap.put("allPoList", allPoList);
+		//사용중인
+		List<PortletVO> poList = portletService.getWidgetList(memId);
+		dataMap.put("poList", poList);
+		
+		return dataMap;
+	}
+	
+	@PostMapping("/save")
+	@ResponseBody
+	public String saveWidgetList(@RequestBody List<PortletVO> poList, HttpServletRequest request)throws SQLException{
+		String msg = "성공";
+		
+		HttpSession session = request.getSession();
+		MemberVO member = (MemberVO)session.getAttribute("loginUser");
+		String memId = member.getMemId();
+		String memClassCd = member.getMemClassCd();
+		
+		int count = portletService.getTotalCountWidgetList(memId);
+		if(count == 0) {
+			//전체목록 insert
+			portletService.saveWidgetNewUser(memId,memClassCd,poList);
+			
+		}else {
+			portletService.saveWidgetExistingUser(memId,memClassCd,poList);
+			
+		}
+		
+		
+		return msg;
+	}
+	
+	@GetMapping("/profile")
+	@ResponseBody
+	public Map<String, Object> getInitWidgetList(HttpServletRequest request) throws SQLException{
+		
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		
+		HttpSession session = request.getSession();
+		MemberVO member = (MemberVO)session.getAttribute("loginUser");
+		String memId = member.getMemId();
+		String userClass = member.getMemClassCd();
+		if(userClass.equals("prof")) {
+			ProfVO prof = profInfoService.getColNameMajorNameByProfCd(memId);
+			String colName = prof.getColName();
+			String majorName = prof.getMajorName();
+			String profPosiCd = prof.getProfPosiCd();
+			dataMap.put("colName", colName);
+			dataMap.put("majorName", majorName);
+			dataMap.put("profPosiCd", profPosiCd);
+		}else if(userClass.equals("stu")) {
+			StuColMajor stuColMajor =infoService.getStuColMajorInfo(memId);
+			StudentVO student = infoService.getInfo(memId);
+			String colName = stuColMajor.getColName();
+			String major = stuColMajor.getFirMajName();
+			String grade = student.getGrade();
+			String acaStateCd = student.getAcaStateCd();
+			
+			dataMap.put("colName", colName);
+			dataMap.put("major", major);
+			dataMap.put("grade", grade);
+			dataMap.put("acaStateCd", acaStateCd);
+		}
+		
+//		List<PortletVO> widgetList = portletService.getWidgetList(memId);
+//		dataMap.put("widgetList", widgetList);
+		
+		return dataMap;
+	}
+	
+	@GetMapping("/notice")
+	@ResponseBody
+	public Map<String, Object> noticeList(HttpServletRequest request) throws Exception {
+		
+//		HttpSession session = request.getSession();
+//		MemberVO member = (MemberVO)session.getAttribute("loginUser");
+//		String memId = member.getMemId();
+		
+		Criteria cri = new Criteria();
+		cri.setPerPageNum(5);
+		Map<String, Object> noticeMap = scNoticeService.getScNoticeList(cri);
+		
+		
+		return noticeMap;
+	}
+	
+	@GetMapping("/proftimetable")
+	@ResponseBody
+	public Map<String, Object> profTimetable(HttpServletRequest request)throws Exception{
+		
+		HttpSession session = request.getSession();
+		MemberVO member = (MemberVO) session.getAttribute("loginUser");
+		SemesterVO seme = (SemesterVO)session.getAttribute("semester");
+		String memId = member.getMemId();
+		String semeCd = seme.getSemeCd();
+		
+		Criteria cri = new Criteria();
+		cri.setPage(1);
+		cri.setPerPageNum(100);
+		Map<String, Object> lecMap = lectureListForProfService.getLectureListForProfByProfId(session, cri);
+		
+		
+		return lecMap;
+	}
+	@GetMapping("/assignment")
+	@ResponseBody
+	public List<LecOpenVO> profAssignment(HttpServletRequest request)throws Exception{
+		HttpSession session = request.getSession();
+		MemberVO member = (MemberVO) session.getAttribute("loginUser");
+		SemesterVO seme = (SemesterVO)session.getAttribute("semester");
+		String memId = member.getMemId();
+		
+		List<LecOpenVO> lecList = portletService.getLecAssSubmitStuList(memId);
+		
+		return lecList;
+	}
+	
+	
+	@GetMapping("/stutimetable")
+	@ResponseBody
+	public Map<String, Object> stuTimetable(HttpServletRequest request)throws Exception{
+		
+		HttpSession session = request.getSession();
+		MemberVO member = (MemberVO) session.getAttribute("loginUser");
+		SemesterVO seme = (SemesterVO)session.getAttribute("semester");
+		String stuCd = member.getMemId();
+		String semeCd = seme.getSemeCd();
+		LecVO lec = new LecVO();
+		lec.setStuCd(stuCd);
+		lec.setSemeCd(semeCd);
+		
+		Map<String, Object> lecMap = new HashMap<String, Object>();
+		
+		List<MyLectureVO> lectureList = lecService.selectLecListByStuCd(lec);
+		List<String> gradeSemesterList = scoreService.selectStuSubjGradeSeme(stuCd);
+		
+		lecMap.put("lectureList",lectureList);
+		lecMap.put("gradeSemesterList",gradeSemesterList);
+		
+		return lecMap;
+	}
+	
+	@GetMapping("/attend")
+	@ResponseBody
+	public String attend()throws SQLException{
+		return "";
+	}
+	
+	@GetMapping("/score")
+	@ResponseBody
+	public String score()throws SQLException{
+		return "";
+	}
+	
+}

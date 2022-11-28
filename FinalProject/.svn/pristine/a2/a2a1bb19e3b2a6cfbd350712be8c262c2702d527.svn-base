@@ -1,0 +1,11 @@
+package kr.or.ddit.dao.stu.lec;
+
+import java.util.List;
+
+import kr.or.ddit.dto.stu.LecVO;
+import kr.or.ddit.dto.stu.MyLecAssignmentVO;
+
+public interface MyLecAssignmentDAO {
+	
+	List<MyLecAssignmentVO> selectMyAssignmentList(LecVO lec);
+}

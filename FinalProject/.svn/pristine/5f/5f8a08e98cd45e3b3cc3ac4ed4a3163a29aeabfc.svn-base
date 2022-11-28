@@ -1,0 +1,39 @@
+package kr.or.ddit.service.stu.support;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import kr.or.ddit.command.Criteria;
+import kr.or.ddit.dao.stu.support.ShareDAO;
+import kr.or.ddit.dto.stu.StudyShareVO;
+
+public class ShareServiceImpl implements ShareService {
+
+	@Autowired
+	private ShareDAO shareDAO;
+	
+	public void setShareDAO (ShareDAO shareDAO) {
+		this.shareDAO = shareDAO;
+	}
+	
+	@Override
+	public List<StudyShareVO> getShareList(Criteria cri) throws SQLException {
+		return shareDAO.selectShare();
+	}
+	
+	@Override
+	public List<StudyShareVO> getShareListByLec(Criteria cri) throws SQLException {
+		return shareDAO.selectShareByLec();
+	}
+
+	@Override
+	public void updateShareByLec(StudyShareVO StudyShare) throws SQLException {
+		shareDAO.updateShareByLec(StudyShare);
+		
+	}
+	
+	
+	
+}

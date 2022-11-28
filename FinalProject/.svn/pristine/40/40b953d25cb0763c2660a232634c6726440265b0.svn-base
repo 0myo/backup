@@ -1,0 +1,18 @@
+package kr.or.ddit.service.stu.lec;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import kr.or.ddit.dto.common.MyLectureVO;
+import kr.or.ddit.dto.stu.ApplyPageVO;
+import kr.or.ddit.dto.stu.LecVO;
+
+public interface LecService {
+	public List<LecVO> getAppliedLectureListByStuCdSemeCd(HttpServletRequest request) throws SQLException; 
+	public void registLecList(HttpServletRequest request,String lecCd)throws SQLException;
+	
+	public List<MyLectureVO> selectLecListByStuCd(String stuId) throws SQLException;
+	public void removeLecList(HttpServletRequest request, String lecCd) throws SQLException;
+}

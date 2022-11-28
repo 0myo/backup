@@ -1,0 +1,30 @@
+1658819985016	Delete element
+1658820109099	Copy package
+1658820122348	Delete element
+1658820195728	Delete element
+1658820293083	Delete elements
+1658820296300	Delete element
+1658820390069	Copy package
+1658820397654	Delete element
+1658820427906	Delete element
+1658820439700	Delete element
+1658820606935	Rename package 'dao'
+1658820620150	Rename package 'com.jspdao'
+1658820627132	Rename package 'datasource'
+1658820633966	Rename package 'dto'
+1658820639500	Rename package 'service'
+1658820736192	Move 'sqlConfig.xml' to 'config'
+1658820737970	Move 'Member-Mapper.xml' to 'mappers'
+1658820859856	Rename resource 'mybatis'
+1658820863812	Rename resource 'properties'
+1658821118113	Rename type 'MemberDAOImol'
+1658910337283	Delete element
+1658910413510	Move file
+1658910453108	Move file
+1658910459090	Move file
+1658910462769	Delete element
+1658910466901	Delete element
+1658997101294	Rename type 'ExtraMemberDao'
+1659078666015	Move compilation unit
+1659078668730	Delete element
+1659083957818	Rename type 'action'

@@ -1,0 +1,20 @@
+package kr.or.ddit.dao.stu.aca;
+
+import java.sql.SQLException;
+
+import org.apache.ibatis.session.SqlSession;
+
+import kr.or.ddit.dto.stu.MajorChangeVO;
+
+public class MajorChangeDAOImpl implements MajorChangeDAO{
+	
+	SqlSession session;
+	public void setSqlSession(SqlSession session){
+		this.session=session;
+	}
+	
+	@Override
+	public MajorChangeVO selectMajorChange(String stuCd) throws SQLException {
+		return session.selectOne("MajorChange-Mapper.selectMajorChange",stuCd);
+	}
+}

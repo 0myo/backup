@@ -1,0 +1,84 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Score-Mapper">
+	
+	<!--과목 정보 가져오기-->
+	<select id="selectSubjInfo" parameterType="lec" resultType="myLecture">
+		select subj_name, lm.subj_cd, syl_cd as lec_cd, comm_cd_func('lecCategoryCd',lec_category_cd) as lec_category_cd,credit,(select name from prof where prof_cd=prof_id) as name
+		from lec_manage lm, syllabus sy
+		where lm.subj_cd=sy.subj_cd
+		and sy.syl_cd in (select lec_cd from lec
+		where stu_cd=#{stuCd}
+		and grade_seme_cd=#{gradeSemeCd}')
+		order by syl_cd
+	</select>
+	<!--모든 과목 성적 기준 가져오기  -->
+	<select id="selectAllSubjScoreStd" parameterType="lec" resultType="score">
+		select b.subj_name, a.syl_cd as lec_cd,mid_ratio,final_ratio,assign_ratio,attend_ratio
+		from marks_std a,lec_manage b,syllabus c
+		where a.syl_cd=c.syl_cd
+		and b.subj_cd=c.subj_cd
+		and a.syl_cd in (select lec_cd from lec
+		                  where stu_cd='mimi'
+		                    and grade_seme_cd='0101')
+		order by a.syl_cd
+	</select>
+	<!--모든 과제 성적점수*비율 점수 가져오기-->
+	<select id="selectAllSubjAssSubScore" parameterType="lec" resultType="score">
+		
+		select a.lec_cd,sum(score*eval_rate*0.01) as score
+		from ass_submit a,assignment b
+		where a.ass_bno=b.ass_bno
+		and a.lec_cd in (select lec_cd from lec
+		where stu_cd=#{stuCd}
+		and grade_seme_cd=#{gradeSemeCd})
+		and stu_cd=#{stuCd}
+		group by a.lec_cd
+		order by lec_cd
+	</select>
+	<!--모든 과목 출결 성적 가져오기-->
+	<select id="selectAllSubjAttendScore" parameterType="lec" resultType="score">
+		select lec_cd,attend_status_cd,count(*) as attend_count from attend
+		where lec_cd in (select lec_cd from lec
+		where stu_cd=#{stuCd}
+		and grade_seme_cd=#{gradeSemeCd})
+		group by lec_cd,attend_status_cd
+		order by lec_cd
+	</select>
+	
+	<!--모든 과목 중간 시험 성적 가져오기-->
+	<select id="selectAllSubjMidScore" parameterType="lec" resultType="score">
+		select lec_cd,score from exam_apply where exam_seq in (select exam_seq from exam
+		where exam_div_cd='mid'
+		and lec_cd in  (select lec_cd from lec
+		where stu_cd='mimi'
+		and grade_seme_cd='0101'))
+		order by lec_cd
+	</select>
+	<!--모든 과목 기말 시험 성적 가져오기-->
+	<select id="selectAllSubjFinScore" parameterType="lec" resultType="score">
+	
+		select lec_cd,score from exam_apply where exam_seq in (select exam_seq from exam
+		where exam_div_cd='fin'
+		and lec_cd in  (select lec_cd from lec
+		where stu_cd='mimi'
+		and grade_seme_cd='0101'))
+		order by lec_cd
+	</select>
+	
+	<select id="selectThisSemesterSubjList" parameterType="lec" resultType="str">
+	select lec_cd from lec
+	where stu_cd=#{stuCd}
+	and grade_seme_cd=#{gradeSemeCd}
+	order by lec_cd
+	</select>
+	
+	
+	
+	
+	
+	
+	
+</mapper>

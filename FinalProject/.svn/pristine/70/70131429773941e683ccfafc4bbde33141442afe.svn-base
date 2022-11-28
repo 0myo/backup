@@ -1,0 +1,52 @@
+package kr.or.ddit.service.stu.lec;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import kr.or.ddit.dao.stu.StudentDAO;
+import kr.or.ddit.dao.stu.lec.LecDAO;
+import kr.or.ddit.dto.common.MemberVO;
+import kr.or.ddit.dto.stu.LecVO;
+import kr.or.ddit.dto.stu.StudentVO;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+public class LecServiceImpl implements LecService {
+
+
+	private LecDAO lecDAO;
+	private StudentDAO studentDAO;
+	
+	public void setLecDAO(LecDAO lecDAO) {
+		this.lecDAO = lecDAO;
+	}
+	public void setStudentDAO(StudentDAO studentDAO) {
+		this.studentDAO = studentDAO;
+	}
+
+
+	@Override
+	public List<LecVO> getAppliedLectureListByStuCdSemeCd(HttpServletRequest request) throws SQLException {
+		
+		HttpSession session = request.getSession();
+		MemberVO memberVO = (MemberVO) session.getAttribute("loginUser");
+		
+		StudentVO studentVO = studentDAO.selectStudentByStuCd(memberVO.getMemId());
+		String grade = studentVO.getGrade();
+		String stuSemester = studentVO.getStuSemester();
+		String gradeSemeCd = "0" + grade.trim() + "0" + stuSemester.trim();
+		log.debug("gradeSemeCd : " +  gradeSemeCd);
+		
+		LecVO lecVO = new LecVO();
+		lecVO.setStuCd(studentVO.getStuCd());
+		lecVO.setGradeSemeCd(gradeSemeCd);
+		
+		
+		List<LecVO> applidLectureList = lecDAO.selectAppliedLectureListBystuCdLecCd(lecVO);
+		return applidLectureList;
+	}
+
+}

@@ -1,0 +1,11 @@
+package kr.or.ddit.service.staff;
+
+import java.sql.SQLException;
+import java.util.Map;
+
+public interface StaffTlApplyService {
+	
+	
+	Map<String, Object> getStaffTlApplyList(String tlApplySeq) throws SQLException;
+
+}

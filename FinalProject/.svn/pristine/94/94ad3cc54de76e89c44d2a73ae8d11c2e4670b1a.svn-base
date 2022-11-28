@@ -1,0 +1,12 @@
+package kr.or.ddit.service.common;
+
+import kr.or.ddit.dao.common.AttachDAO;
+
+public class AttachServiceImpl implements AttachService {
+
+	private AttachDAO attachDAO;
+	public void setAttachDAO(AttachDAO attachDAO) {
+		this.attachDAO = attachDAO;
+	}
+	
+}

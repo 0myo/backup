@@ -1,0 +1,21 @@
+package kr.or.ddit.controller.stu;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/stu/tuition")
+public class StuTuitionController {
+
+	@RequestMapping("list")
+	public String list() {
+		String url = "stu/tuition/list";
+		return url;
+	}
+	
+	
+
+	
+}

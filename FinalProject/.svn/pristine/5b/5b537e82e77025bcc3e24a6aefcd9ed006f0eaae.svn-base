@@ -1,0 +1,21 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Lec-Mapper">
+
+	
+	<select id="selectAppliedList" parameterType="lec" resultType="lec">
+		select *
+		from lec
+		where stu_cd = #{stuCd}
+		and mylec_status_cd = 's'
+		and GRADE_SEME_CD = #{gradeSemeCd}
+	</select>
+	
+	<select id="selectLecListByLecCd" resultType="lec">
+		select *
+		from lec
+		where lec_cd = #{lecCd}
+	</select>
+</mapper>

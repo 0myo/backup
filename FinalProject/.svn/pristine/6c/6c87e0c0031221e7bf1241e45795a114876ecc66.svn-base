@@ -1,0 +1,55 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Student-Mapper">
+	<select id="selectInfo" parameterType="String" resultType="student">
+		select 
+         STU_CD,GRADE,STU_SEMESTER,ADM_DATE,NATION,TL_TRY_COUNT,comm_cd_func('acaStateCd',aca_state_cd) as aca_state_cd,COMPANY_CD,CLUB_CD,
+         SEC_CD,NAME,ENAME,PHONE,ZIPCODE,ADD1,ADD2,EMAIL,BANK_NAME,ACC_HOLDER,ACC_NUM,BIRTHDAY,MBTI_CD         
+		from student
+		where stu_cd = #{stuCd}
+	</select>
+<select id="selectStuColMajorInfo" parameterType="str" resultType="stuColMajor">
+	select(select major_name
+          from major m,stu_major sm
+         where m.major_cd=sm.major_cd 
+         and stu_id= #{stuCd}
+         and maj_class_cd='1') as fir_maj_name,
+         (select major_name
+          from major m,stu_major sm
+         where m.major_cd=sm.major_cd 
+         and stu_id= #{stuCd}
+         and maj_class_cd='2') as sec_maj_name,
+         (select major_name
+          from major m,stu_major sm
+         where m.major_cd=sm.major_cd 
+         and stu_id= #{stuCd}
+         and maj_class_cd='3') as thi_maj_name,
+         (select major_name
+          from major m,stu_major sm
+         where m.major_cd=sm.major_cd 
+         and stu_id= #{stuCd}
+         and maj_class_cd='4') as sub_maj_name,
+         (select col_name from college
+         where col_cd=(select college_cd from major
+                     where major_cd = (select major_cd from stu_major where maj_class_cd='1' and stu_id= #{stuCd}))) as col_name
+     from dual
+	</select>
+	<select id="selectStuInfoList" parameterType="str" resultType="student">
+	select stu_cd,grade,name,phone,email,
+        (select major_name
+          from major m,stu_major sm
+         where m.major_cd=sm.major_cd 
+         and stu_id= #{stuCd}
+         and maj_class_cd='1') as fir_maj_name,
+         (select col_name from college
+         where col_cd=(select college_cd from major
+                     where major_cd = (select major_cd from stu_major where maj_class_cd='1' and stu_id=#{stuCd}))) as col_name
+     from student
+	</select>
+	
+	
+	
+	
+</mapper>

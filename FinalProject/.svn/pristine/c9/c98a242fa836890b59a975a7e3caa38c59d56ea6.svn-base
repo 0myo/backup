@@ -1,0 +1,31 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+    
+<mapper namespace="StaffTlApply-Mapper">
+
+	<select id="selectStaffTlApplyList1" resultType="staffTlApply">
+	
+	select b.major_name,c.col_name from stu_major a,major b,college c
+	where a.major_cd=b.major_cd
+	and b.college_cd=c.col_cd
+	and stu_id='mimi'
+	and maj_class_cd =1
+	
+	</select>
+	<select id="selectStaffTlApplyList2" resultType="staffTlApply">
+	select a.stu_cd,a.name,a.grade, b.tl_app_seme,b.back_seme,(select comm_cd_name 
+                                                             from comm_cd
+                                                             where comm_cd_gr='tlClassCd'
+                                                             and comm_cd_val=b.tl_Class_cd) as tl_class_cd,
+                                                             (select comm_cd_name
+                                                             from comm_cd
+                                                             where comm_cd_gr='applyStatusCd'
+                                                             and comm_cd_val=b.apply_status_cd) as apply_status_cd
+	from student a ,tl_apply b
+	where a.stu_cd=b.stu_id
+	</select>	
+	
+
+</mapper>

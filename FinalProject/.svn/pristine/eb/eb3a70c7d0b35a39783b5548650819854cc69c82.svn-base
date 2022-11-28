@@ -1,0 +1,58 @@
+package kr.or.ddit.service.common;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import kr.or.ddit.command.Criteria;
+import kr.or.ddit.dao.common.ScqnaDAO;
+import kr.or.ddit.dto.common.ScQnaVO;
+
+public class ScqnaServiceImpl implements ScqnaService{
+
+	private ScqnaDAO scqnaDAO;
+	
+	public void setScqnaDAO(ScqnaDAO scqnaDAO) {
+		this.scqnaDAO = scqnaDAO;
+	}
+
+	@Override
+	public List<ScQnaVO> getScqnaList(Criteria cri) throws SQLException {
+
+		List<ScQnaVO> selectScqnaList = scqnaDAO.selectScqnaList(cri);
+		return selectScqnaList;
+	}
+
+	@Override
+	public ScQnaVO getSelectScqnaDetail(int scqBno) throws SQLException {
+		ScQnaVO selectScqnaDetail = scqnaDAO.selectScqnaDetail(scqBno);
+		return selectScqnaDetail;
+	}
+
+	@Override
+	public void regist(ScQnaVO scqna) throws SQLException {
+		int bno = scqnaDAO.selectScqBnoSeqNext();
+		scqna.setScqBno(bno);
+		scqnaDAO.insertScqna(scqna);
+		System.out.println(scqna);
+	}
+
+	@Override
+	public void registReply(ScQnaVO vo) throws SQLException {
+		 scqnaDAO.insertReply(vo);
+		
+	}
+
+	@Override
+	public void modifyReply(ScQnaVO vo) throws SQLException {
+		scqnaDAO.modifyReply(vo);
+	}
+	
+	
+
+		
+
+
+
+}
+	
+	

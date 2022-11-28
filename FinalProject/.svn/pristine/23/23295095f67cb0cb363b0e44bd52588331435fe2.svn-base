@@ -1,0 +1,18 @@
+package kr.or.ddit.dao.staff;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import kr.or.ddit.dto.staff.StaffDualVO;
+
+public interface StaffDualDAO {
+	
+	List<StaffDualVO> selectStaffDualList() throws SQLException;
+	
+	List<StaffDualVO> selectStaffSubList()	throws SQLException;
+	
+	void updateDualStatus(StaffDualVO staffDualVO);
+	
+	void updateSubStatus(StaffDualVO staffDualVO);
+
+}

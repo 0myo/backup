@@ -1,0 +1,36 @@
+package kr.or.ddit.service.common;
+import java.sql.SQLException;
+import org.springframework.stereotype.Service;
+import kr.or.ddit.dao.common.AccountDAO;
+import kr.or.ddit.dto.common.MemberVO;
+import lombok.extern.slf4j.Slf4j;
+
+@Service
+@Slf4j
+
+public class AccountServiceImpl implements AccountService {
+
+	private AccountDAO accountDAO;
+
+
+	@Override
+	public Integer selectIdCheck(MemberVO member) throws SQLException {
+		
+		return accountDAO.selectIdCheck(member);
+	}
+
+	@Override
+	public int selectNameCheck(MemberVO member) throws SQLException {
+		
+		return accountDAO.selectNameCheck(member);
+	}
+
+	@Override
+	public void updatePwd(MemberVO member) throws SQLException {
+		
+		
+		accountDAO.updatePwd(member);
+		
+	}
+
+}

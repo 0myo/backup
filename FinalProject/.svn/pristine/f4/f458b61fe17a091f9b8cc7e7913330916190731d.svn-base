@@ -1,0 +1,21 @@
+package kr.or.ddit.dto.stu;
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
+public class AcaStatusVO {
+	
+	private int acaStatusSeq; //학적코드
+	private String stuId; //학번
+	private String acaClassCd; //학적구분코드
+	private String applyDate; //신청 일자
+	private String applyYear; //신청 년도
+	private String applySeme; //신청 학기
+	private String applyStatusCd; //신청 상태 코드
+	private String rejContent; //반려 사유 내용
+	
+}

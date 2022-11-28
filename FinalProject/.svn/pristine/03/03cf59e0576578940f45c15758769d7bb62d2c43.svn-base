@@ -1,0 +1,19 @@
+package kr.or.ddit.dao.stu.aca;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import kr.or.ddit.dto.common.CommCdVO;
+import kr.or.ddit.dto.stu.TlApplyVO;
+
+
+public interface TlApplyDAO {
+
+	List<TlApplyVO> selectTlListById(String id) throws SQLException;
+
+	List<CommCdVO> selectTlClassReason();
+
+	void insertTlApply(TlApplyVO tlApplyVO);
+	
+	int selectTlApplyNoNextVal() throws SQLException;
+}

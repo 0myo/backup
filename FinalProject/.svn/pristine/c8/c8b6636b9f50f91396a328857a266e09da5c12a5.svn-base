@@ -1,0 +1,27 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Scqna-Mapper">
+
+<select id="selectScqnaList" resultType="scQna">
+	SELECT *
+	FROM SC_QNA
+</select>
+
+<select id="selectScqnaDetail" parameterType="int" resultType="scQna">
+	SELECT *
+	FROM SC_QNA
+	WHERE SCQ_BNO=#{SCQ_BNO}
+</select>
+
+<update id="insertScqna" parameterType="scQna">
+	INSERT INTO
+	SC_QNA(SCQ_BNO,SC_TITLE,SC_CONTENT,CDATE,VIEW_CNT,WRITER,SECRET_CD,SC_RCONTENT,REDATE)
+	VALUES(#{SCQ_BNO},#{SC_TITLE},#{SC_CONTENT},SYSDATE,0,#{WRITER},#{SECRET_CD},NULL,NULL)
+</update>
+
+
+
+
+</mapper>

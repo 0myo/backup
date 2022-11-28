@@ -1,0 +1,84 @@
+package kr.or.ddit.service.stu.counsel;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import kr.or.ddit.dao.common.AlarmDAO;
+import kr.or.ddit.dao.stu.StudentDAO;
+import kr.or.ddit.dao.stu.counsel.CounselApplyDAO;
+import kr.or.ddit.dto.common.AlarmVO;
+import kr.or.ddit.dto.stu.CounselProfListVO;
+import kr.or.ddit.dto.stu.CsApplyVO;
+import kr.or.ddit.dto.stu.StudentVO;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+public class CounselApplyServiceImpl implements CounselApplyService {
+
+	private CounselApplyDAO counselApplyDAO;
+	
+	private AlarmDAO alarmDAO;
+	
+	private StudentDAO studentDAO;
+	
+
+	public void setStudentDAO(StudentDAO studentDAO) {
+		this.studentDAO = studentDAO;
+	}
+
+	public void setCounselApplyDAO(CounselApplyDAO counselApplyDAO) {
+		this.counselApplyDAO = counselApplyDAO;
+
+	}
+	
+	public void setAlarmDAO(AlarmDAO alarmDAO) {
+		this.alarmDAO = alarmDAO;
+	}
+
+	@Override
+	public List<CounselProfListVO> selectCounselProfList(String stuId) throws SQLException {
+		List<CounselProfListVO> counselProfList = counselApplyDAO.selectCounselProfList(stuId);
+		return counselProfList;
+	}
+
+	@Override
+	public CounselProfListVO selectCounselProfInfo(String stuId) throws SQLException {
+		CounselProfListVO counselProfInfo = counselApplyDAO.selectCounselProfInfo(stuId);
+		return counselProfInfo;
+
+	}
+	
+	@Override
+	public void insertCounselApply(CsApplyVO csApply) throws SQLException {
+		int counselNo = counselApplyDAO.selectCouncelNoNextVal();
+		csApply.setCounselNo(counselNo);
+		log.debug("서비스 들어옴");
+		counselApplyDAO.insertCounselApply(csApply);
+		log.debug("서비스 나감.");
+
+		//DB 알림 등록
+		int alarmSeq = alarmDAO.selectAlarmSeqNext();
+		String stuId = csApply.getStuId();
+		StudentVO student = studentDAO.selectStudentByStuCd(stuId);
+		String stuName = student.getName();
+		
+		AlarmVO alarm = new AlarmVO();
+		alarm.setAlarmSeq(alarmSeq); //알람seq
+		alarm.setMemId(csApply.getProfId());	//상담신청한 사람 아이디
+		alarm.setName(stuName); //상담신청한 사람 이름11
+		alarmDAO.insertAlarmFromNewCS(alarm);
+	}
+
+	@Override
+	public List<CsApplyVO> selectCounselApplyList(CsApplyVO csApply) throws SQLException {
+		List<CsApplyVO> counselProfList = counselApplyDAO.selectCounselApplyList(csApply);
+		return counselProfList;
+	}
+
+
+
+
+	
+}

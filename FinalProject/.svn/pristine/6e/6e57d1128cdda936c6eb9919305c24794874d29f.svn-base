@@ -1,0 +1,55 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="StuCounsel-Mapper">
+
+	<select id="selectCounselApplyList" parameterType="String" resultType="csApply">
+		select (select name from prof where prof_cd=prof_id) as prof_id,
+			 stu_id,
+			 apply_date,
+			(select comm_cd_func('applyStatusCd',app_status_cd)
+			from dual) as app_status_cd,
+			cs_location, app_content
+		  from cs_apply
+		 where stu_id = #{stuId}
+	</select>
+
+	<select id="selectCounselProfList" parameterType="String" resultType="counselProfList">
+		select prof_cd, name,major_name,phone,email_addr from prof a, major b
+		 where a.major_cd=b.major_cd
+		   and prof_posi_cd='dir'
+		   and a.major_cd=(select major_cd from stu_major where stu_id=#{stuId} and maj_class_cd=1)
+	</select>
+	
+	<select id="selectCounselProfInfo" parameterType="String" resultType="counselProfList">
+		select prof_cd,name 
+		  from prof
+		 where prof_cd =#{profCd}
+	</select>
+	
+	<insert id="insertCounselApply" parameterType="csApply">
+		insert 
+		   into cs_apply
+		        (
+				counsel_no, 
+				prof_id, 
+				stu_id, 
+				apply_date, 
+				app_status_cd, 
+				app_content
+				)
+		values (
+				#{counselNo}, 
+				#{profId},  
+				#{stuId}, 
+				#{applyDate}, 
+				#{appStatusCd},  
+				#{appContent}
+				)
+	</insert>
+	<select id="selectCouncelNoNextVal" resultType="int">
+		select COUNSEL_NO.nextval from dual
+	</select>
+	
+</mapper>

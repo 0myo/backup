@@ -1,0 +1,12 @@
+package kr.or.ddit.service.stu.support;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import kr.or.ddit.dto.stu.SurveyVO;
+
+public interface SurveyService {
+	
+	List<SurveyVO> getSurvey() throws SQLException;
+
+}

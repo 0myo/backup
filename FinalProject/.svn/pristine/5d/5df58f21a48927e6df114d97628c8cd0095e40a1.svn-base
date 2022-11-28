@@ -1,0 +1,213 @@
+package kr.or.ddit.controller.staff;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import kr.or.ddit.command.Criteria;
+import kr.or.ddit.dto.staff.StaffDualVO;
+import kr.or.ddit.dto.staff.StaffStuManageVO;
+import kr.or.ddit.dto.staff.StaffTlApplyVO;
+import kr.or.ddit.service.staff.StaffDualService;
+import kr.or.ddit.service.staff.StaffMajorChangeService;
+import kr.or.ddit.service.staff.StaffStuManageService;
+import kr.or.ddit.service.staff.StaffTlApplyService;
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
+@Controller
+@RequestMapping("/staff/stuManage")
+public class StuManageController {
+	
+	@Autowired
+	private StaffMajorChangeService staffMajorChangeService;
+	@Autowired
+	private StaffDualService staffDualService;
+	@Autowired
+	private StaffTlApplyService staffTlApplyService;
+	@Autowired
+	private StaffStuManageService staffStuManageService;
+	
+	
+	@GetMapping("/graduate/list")
+	public String main(){
+		String url="staff/stuManage/graduateList";
+		return url;
+	}
+	
+	@GetMapping("/list")
+	public String list(Model model) throws Exception{
+		String url="staff/stuManage/list";
+		
+		List<StaffStuManageVO> smList = staffStuManageService.selectStaffStuManageList();
+		List<StaffStuManageVO> smpList = staffStuManageService.selectStaffStuManageProfList();
+		
+		model.addAttribute("smList",smList);
+		model.addAttribute("smpList",smpList);
+		
+		return url;
+	}
+	
+	@GetMapping("/tl/list")
+	public String tlList() throws Exception{
+		String url="staff/stuManage/tlList";
+		/*
+		 * List<StaffTlApplyVO> tlList = staffTlApplyService.selectStaffTlApplyList();
+		 * List<StaffTlApplyVO> backList =
+		 * staffTlApplyService.selectStaffBackApplyList();
+		 * 
+		 * model.addAttribute("tlList", tlList); model.addAttribute("backList",
+		 * backList);
+		 */
+		
+		return url;
+	}
+	
+	
+	@GetMapping(value="/tl/huList",produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public ResponseEntity<Map<String,Object>> huhakList(Criteria cri)throws Exception{
+		
+		Map<String, Object> tlList = staffTlApplyService.selectStaffTlApplyList(cri);
+		ResponseEntity<Map<String, Object>> entity = new ResponseEntity<Map<String,Object>>(tlList, HttpStatus.OK);
+		
+		return entity;
+		
+	}
+	
+
+	@GetMapping(value="/tl/bokList",produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public ResponseEntity<Map<String,Object>> bokhakList(Criteria cri)throws Exception{
+		
+	
+		Map<String, Object> backList = staffTlApplyService.selectStaffBackApplyList(cri);
+		ResponseEntity<Map<String, Object>> entity = new ResponseEntity<Map<String,Object>>(backList, HttpStatus.OK);
+	
+		return entity;
+		
+}	
+	
+	
+	@GetMapping(value="/majorChange/list", produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public ModelAndView mcList(Criteria cri,ModelAndView mnv) throws Exception{
+		String url="staff/stuManage/majorChangeList";
+		
+		Map<String, Object> dataMap = staffMajorChangeService.selectStaffMajorChangeList(cri);
+		
+		mnv.addObject("dataMap",dataMap);
+		mnv.setViewName(url);
+		return mnv;
+	}
+	
+	@RequestMapping("/dual/list")
+	public String dual() throws Exception{
+		String url = "/staff/stuManage/dualList";
+		
+		
+		return url;
+	}
+	
+	
+	@GetMapping(value="/dual/dualMajorList",produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public ResponseEntity<Map<String,Object>> dualMajorList(Criteria cri) throws Exception{
+		
+		Map<String, Object> DualList = staffDualService.selectStaffDualList(cri);
+		ResponseEntity<Map<String, Object>> entity = new ResponseEntity<Map<String,Object>>(DualList, HttpStatus.OK);
+		
+		return entity;
+		
+	}
+	
+	
+	@GetMapping(value="/dual/subMajorList",produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public ResponseEntity<Map<String,Object>> subMajorList(Criteria cri) throws Exception{
+		
+		Map<String, Object> SubList = staffDualService.selectStaffSubList(cri);
+		ResponseEntity<Map<String, Object>> entity = new ResponseEntity<Map<String,Object>>(SubList,HttpStatus.OK);
+		
+		return entity;
+		
+
+	}
+	
+	@RequestMapping("/majorChange/apply")
+	public String majorChangeApply(HttpServletRequest request,String applyStatus)throws Exception{
+		String url="redirect:/staff/stuManage/majorChange/list";
+		String[] majorChaSeqList= (String[])request.getParameterValues("checkMajorCha");
+		
+		Map<String,Object> dataMap = new HashMap<String,Object>();
+		dataMap.put("majorChaSeqList",majorChaSeqList);
+		dataMap.put("applyStatus",applyStatus);
+		staffMajorChangeService.updateApplyStatus(dataMap);
+		
+		return url;
+	}
+	
+	@RequestMapping("/majorDual/apply")
+	public String majoDualApply(HttpServletRequest request,String applyStatus)throws Exception{
+		String url="redirect:/staff/stuManage/dual/list";
+		String[] majorChaSeqList= (String[])request.getParameterValues("checkMajorCha");
+		log.info("#############전공 기본키"+majorChaSeqList+"");
+		for(int i=0;i<majorChaSeqList.length;i++) {
+			
+		}
+		Map<String,Object> dataMap = new HashMap<String,Object>();
+		dataMap.put("majorChaSeqList",majorChaSeqList);
+		dataMap.put("applyStatus",applyStatus);
+		staffMajorChangeService.updateApplyStatus(dataMap);
+		
+		return url;
+	}
+	
+	@RequestMapping("/tl/apply")
+	public String tlApply(HttpServletRequest request,String applyStatus)throws Exception{
+		String url="redirect:/staff/stuManage/tl/list";
+		String[] tlApplySeqList= (String[])request.getParameterValues("checkTlApply");
+		log.info("#########휴학컨트롤러" + tlApplySeqList + "");
+		for(int i=0; i<tlApplySeqList.length; i++) {
+			
+		}
+		Map<String,Object> dataMap = new HashMap<String,Object>();
+		dataMap.put("tlApplySeqList",tlApplySeqList);
+		dataMap.put("applyStatus",applyStatus);
+		staffTlApplyService.updateTlStatus(dataMap);
+		
+		return url;
+	}
+	
+	@RequestMapping("/back/apply")
+	public String backApply(HttpServletRequest request,String applyStatus)throws Exception{
+		String url="redirect:/staff/stuManage/tl/list";
+		String[] acaChangeSeqList= (String[])request.getParameterValues("checkBackApply");
+		log.info("#########복학컨트롤러" + acaChangeSeqList + "");
+		log.info("##########복학확인" + applyStatus + "");
+		for(int i=0; i<acaChangeSeqList.length; i++) {
+			
+		}
+		Map<String,Object> dataMap = new HashMap<String,Object>();
+		dataMap.put("acaChangeSeqList",acaChangeSeqList);
+		dataMap.put("applyStatus",applyStatus);
+		staffTlApplyService.updateBackStatus(dataMap);
+		
+		return url;
+	}
+	
+	
+	
+
+}

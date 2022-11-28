@@ -1,0 +1,19 @@
+package kr.or.ddit.dto.common;
+import java.util.Date;
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
+public class ScheduleVO {
+	
+	private String scheCd;
+	private String memId;
+	private String title;
+	private Date startDate;
+	private Date endDate;
+	private String scheDetail;
+}

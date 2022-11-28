@@ -1,0 +1,47 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Staff-Mapper">
+
+	<select id="selectScNoticeList" resultType="scNotice">
+		select *
+		from SC_NOTICE
+		order by cdate desc
+	</select>
+	
+	<select id="selectOneScNotice" parameterType="int" resultType="scNotice">
+		select * from SC_NOTICE
+		where sc_nno = #{scNno}
+	</select>
+	
+	<select id="selectScNnoNextValue" resultType="int">
+		select sc_nno.nextVal
+		from dual
+	</select>
+	
+	<update id="increaseViewCount" parameterType="int">
+		update SC_NOTICE
+		set viewCnt=viewCnt+1
+		where scNno=#{scNno}
+	</update>
+	
+	<update id="insertScNotice" parameterType="scNotice">
+		insert into SC_NOTICE(sc_nno,staff_id,content,cdate,view_cnt,title)
+		values(#{scNno},'han', #{content}, sysdate,#{viewCnt},#{title})
+	</update>	
+	
+		
+	<update id="updateScNotice" parameterType="scNotice">
+		update SC_NOTICE 
+		set title=#{title},content=#{content}		
+		where scNno=#{scNno}
+	</update>
+	
+	<update id="deleteScNotice" parameterType="int" >
+		delete 
+		from SC_NOTICE
+		where sc_nno=#{scNno}
+	</update>
+	
+</mapper>

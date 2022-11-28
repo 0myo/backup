@@ -1,0 +1,52 @@
+package kr.or.ddit.controller.stu;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import kr.or.ddit.dto.stu.CounselProfListVO;
+import kr.or.ddit.dto.stu.StudentVO;
+import kr.or.ddit.service.stu.counsel.CounselProfListService;
+
+@Controller
+@RequestMapping("/stu/counsel")
+public class StuCounselController {
+
+	@Autowired
+	private CounselProfListService counselProfListService;
+	
+	@RequestMapping("list.do")
+	public String list() {
+		String url = "stu/counsel/list";
+		return url;
+	}
+	
+	@RequestMapping("applyMain.do")
+	public String applyMain(HttpServletRequest request, Model model) throws SQLException {
+		String url = "stu/counsel/applyMain";
+		
+		HttpSession session = request.getSession();
+		StudentVO student =(StudentVO) session.getAttribute("member");
+		String stuId=student.getStuCd();
+		List<CounselProfListVO> profCd = counselProfListService.selectCounselProfList(stuId);
+		model.addAttribute("profCd", profCd);
+		System.out.println("profCd" + profCd);
+		return url;
+	}
+	
+	@RequestMapping("registForm")
+	public String registForm() {
+		String url = "stu/counsel/registForm";
+		return url;
+	}
+	
+
+	
+}

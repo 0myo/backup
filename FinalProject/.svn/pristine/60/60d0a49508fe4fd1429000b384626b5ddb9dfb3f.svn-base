@@ -1,0 +1,81 @@
+package kr.or.ddit.service.common;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import kr.or.ddit.dao.common.PortletDAO;
+import kr.or.ddit.dao.common.PortletListDAO;
+import kr.or.ddit.dto.common.PortletVO;
+
+@Service
+public class PortletServiceImpl implements PortletService{
+
+	@Autowired
+	private PortletDAO portletDAO;
+	
+	@Autowired
+	private PortletListDAO portletListDAO;
+
+	@Override
+	public List<PortletVO> getWidgetList(String memId) throws SQLException {
+		List<PortletVO> poList = portletDAO.selectWidgetList(memId);
+		return poList;
+	}
+	
+	@Override
+	public int getTotalCountWidgetList(String memId) throws SQLException {
+		int count = portletDAO.selectTotalCountWidgetList(memId);
+		return count;
+	}
+
+	@Override
+	public PortletVO getWidgetById(PortletVO portlet) throws SQLException {
+		PortletVO po = portletDAO.selectWidgetById(portlet);
+		return po;
+	}
+
+	@Override
+	public void registWidgetList(String memId,String memClassCd) throws SQLException {
+		
+		PortletVO portlet = new PortletVO();
+		portlet.setMemId(memId);
+		
+		//액터 별 기본위젯 
+		List<Integer> defaultWidNoList = portletListDAO.selectDefaultWidgetList(memClassCd);
+		
+		for(Integer widNo : defaultWidNoList) {
+			portlet.setId(widNo);
+			portlet.setPoAvail("selected");
+			portletDAO.insertWidgetByIdAvail(portlet);
+		}
+	
+		//액터 별 기본위젯 외 위젯
+		List<Integer> notDefaultWidNoList = portletListDAO.selectNotDefaultWidgetList(memClassCd);
+		
+		for(Integer widNo : notDefaultWidNoList) {
+			portlet.setId(widNo);
+			portlet.setPoAvail("unselect");
+			portletDAO.insertWidgetByIdAvail(portlet);
+		}
+			
+		
+	}
+	
+	@Override
+	public void saveWidgetNewUser(PortletVO portlet) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void saveWidgetExistingUser(PortletVO portlet) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+}

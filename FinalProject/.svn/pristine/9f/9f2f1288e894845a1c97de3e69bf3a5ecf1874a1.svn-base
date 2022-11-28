@@ -1,0 +1,81 @@
+package kr.or.ddit.service.stu.support;
+
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import kr.or.ddit.command.Criteria;
+import kr.or.ddit.command.PageMaker;
+import kr.or.ddit.dao.stu.support.ShareDAO;
+import kr.or.ddit.dto.stu.StudyShareVO;
+
+public class ShareServiceImpl implements ShareService {
+
+	@Autowired
+	private ShareDAO shareDAO;
+	
+	public void setShareDAO (ShareDAO shareDAO) {
+		this.shareDAO = shareDAO;
+	}
+	
+	
+	@Override
+	public Map<String,Object> getShareList(Criteria cri) throws SQLException {
+		
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		
+		List<StudyShareVO> shareAllList = shareDAO.selectShare(cri);
+		int totalCount = shareDAO.selectAllTotalCount(cri);
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(totalCount);
+		
+		dataMap.put("shareAllList", shareAllList);
+		dataMap.put("pageMaker", pageMaker);
+		
+		return dataMap;
+	}
+	
+	@Override
+	public Map<String,Object> getShareListByLec(Criteria cri) throws SQLException {
+		
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		
+		List<StudyShareVO> shareLecList = shareDAO.selectShareByLec(cri);
+		int totalCount = shareDAO.selectLecTotalCount(cri);
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(totalCount);
+		
+		dataMap.put("shareLecList", shareLecList);
+		dataMap.put("pageMaker", pageMaker);
+		
+		return dataMap;
+	}
+
+	@Override
+	public List<StudyShareVO> getShareOrderByReco() throws SQLException {
+		return shareDAO.selectShareOrderByReco();
+	}
+
+
+	@Override
+	public List<StudyShareVO> getShareByLecOrderByReco() throws SQLException {
+		return shareDAO.selectShareByLecOrderByReco();
+	}
+	
+	@Override
+	public void updateShareByLec(StudyShareVO StudyShare) throws SQLException {
+		shareDAO.updateShareByLec(StudyShare);
+		
+	}
+	
+	
+	
+	
+}

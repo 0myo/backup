@@ -1,0 +1,237 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
+
+<style>
+.dashboard-main-wrapper {
+	padding-top: 0px;
+}
+
+.dashboard-wrapper {
+	margin-left: 0px;
+}
+
+.page-aside {
+	margin-top: 0px;
+	left: 0px;
+}
+</style>
+
+
+
+
+<div class="dashboard-main-wrapper">
+	<div class="dashboard-wrapper">
+
+
+		<div class="container-fluid">
+			<aside class="page-aside">
+				<div class="aside-content">
+					<div class="aside-header">
+						<button class="navbar-toggle" data-target=".aside-nav"
+							data-toggle="collapse" type="button">
+							<span class="icon"><i class="fas fa-caret-down"></i></span>
+						</button>
+						<div class="f-icon">
+							<span class="title"><i class="fas fa-envelope"
+								style="margin-right: 10px"></i>메일</span>
+						</div>
+
+					</div>
+					<div class="aside-compose">
+						<a class="btn btn-lg btn-primary btn-block" href="#"
+						 style="cursor: pointer;" onclick="pageMove('<%=request.getContextPath()%>/common/mail/sendForm.do');">메일 보내기</a>
+					</div>
+					<div class="aside-nav collapse" >
+						<ul class="nav">
+							<li ><a href="#"  style="cursor: pointer;" onclick="pageMove('<%=request.getContextPath()%>/common/mail/received/list.do');"><span class="icon"><i
+										class="fas fa-fw fa-inbox"></i></span>받은 메일함<span
+									class="badge badge-primary float-right">2</span></a></li>
+							<li ><a href="#" style="cursor: pointer;" onclick="pageMove('<%=request.getContextPath()%>/common/mail/sent/list.do');"><span class="icon"><i
+										class="fas fa-fw  fa-envelope"></i></span>보낸 메일함</a></li>
+						<!-- 	<li><a href="#"><span class="icon"><i
+										class="fas fa-fw fa-briefcase"></i></span>중요 메일함<span
+									class="badge badge-secondary float-right">4</span></a></li>
+							<li><a href="#"><span class="icon"><i
+										class="fas fa-fw fa-star"></i></span>즐겨찾기</a></li> -->
+							<li><a href="#"  style="cursor: pointer;" onclick="pageMove('<%=request.getContextPath()%>/common/mail/bin/list.do');"><span class="icon"><i
+										class="fas fa-fw fa-trash"></i></span>휴지통</a></li>
+						</ul>
+						<!-- <span class="title">Labels</span>
+						<ul class="nav nav-pills nav-stacked">
+							<li><a href="#"><i
+									class="m-r-10 mdi mdi-label text-secondary"></i> Important </a></li>
+							<li><a href="#"> <i
+									class="m-r-10 mdi mdi-label text-primary"></i> Business
+							</a></li>
+							<li><a href="#"> <i
+									class="m-r-10 mdi mdi-label text-brand"></i> Inspiration
+							</a></li>
+						</ul> -->
+					</div>
+				</div>
+			</aside>
+
+
+
+
+			<div class="main-content container-fluid p-0">
+				<div class="email-head">
+					<div class="email-head-subject">
+						<div class="title">
+							<a class="" href="#">
+							<span class="icon"><i
+									class="fas fa-bookmark"></i></span></a>
+									 <span>상담알림-상담일정</span>
+									 
+									 <!-- <div class="icons">
+								<a href="#" class="icon"><i class="fas fa-reply"></i></a><a
+									href="#" class="icon"><i class="fas fa-print"></i></a><a
+									href="#" class="icon"><i class="fas fa-trash"></i></a>
+							</div> -->
+							
+						</div>
+					</div>
+					<div class="email-head-sender">
+						<div class="date">2022-10-15</div>
+						<div class="avatar">
+							<img src="<%=request.getContextPath()%>/resources/img/교수.png"
+								alt="Avatar" class="rounded-circle user-avatar-md">
+						</div>
+						<div class="sender">
+							<a href="#">한태훈 교수님</a>
+							<!-- to <a href="#">me</a> -->
+							<div class="actions">
+								<a class="icon toggle-dropdown" href="#" data-toggle="dropdown"><i
+									class="fas fa-caret-down"></i></a>
+								<div class="dropdown-menu" role="menu">
+									<a class="dropdown-item" href="#">바로 답장하기</a>
+										
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" href="#">삭제</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="email-body">
+					<p>안녕하세요.</p>
+					<p>위에 옥 위에도 까닭입니다. 별 언덕 별 차 지나가는 까닭입니다. 이름자를 않은 자랑처럼 별이 별들을
+						피어나듯이 불러 이름자 있습니다. 별에도 하나에 딴은 이제 위에 헤는 이름을 봅니다. 벌레는 토끼, 하나에 프랑시스
+						이름과, 같이 말 없이 이름자를 있습니다. 프랑시스 내 묻힌 한 소녀들의 까닭입니다. 밤이 가득 나는 새워 까닭입니다.
+						계집애들의 경, 겨울이 위에 별 어머니 이름자 추억과 버리었습니다. 가득 노새, 것은 밤이 청춘이 까닭입니다. 별
+						보고, 별 계절이 이름자 릴케 프랑시스 때 차 까닭입니다. 라이너 아름다운 우는 하나 아스라히 벌써 그리고 토끼, 옥
+						봅니다. 당신은 그러나 밤이 봄이 멀듯이, 가을 경, 봅니다. 헤일 그리고 어머니 거외다. 책상을 별에도 잔디가
+						어머님, 까닭입니다. 가을로 가득 묻힌 이런 멀리 봅니다. 딴은 것은 흙으로 보고, 멀듯이, 청춘이 없이 릴케 위에
+						까닭입니다. 까닭이요, 이름을 오면 거외다. 차 이 남은 오면 시인의 까닭입니다. 슬퍼하는 지나가는 라이너 속의 이름을
+						어머님, 시인의 강아지, 별들을 까닭입니다.</p>
+					<p>새가 지혜는 싶이 원질이 창공에 기쁘며, 놀이 보내는 피다. 꽃 열매를 오아이스도 끓는 같은 석가는 아니한
+						그리하였는가? 붙잡아 만천하의 시들어 온갖 노래하며 풀이 그들의 넣는 끓는다. 것은 위하여 이상 따뜻한 이것이다.
+						보배를 위하여 청춘의 수 품에 않는 보라. 되는 별과 소리다.이것은 불러 인류의 작고 할지니, 것이다. 청춘은 것은
+						청춘 황금시대다. 투명하되 무엇을 이는 커다란 전인 일월과 온갖 아니다. 길지 웅대한 있는 많이 곳으로 풀밭에 위하여서
+						심장의 칼이다. 끝까지 군영과 따뜻한 부패뿐이다. 뜨고, 무엇이 사는가 꽃이 청춘 그것은 부패뿐이다. 싶이 싹이 우리의
+						과실이 살 설레는 인생의 위하여서. 것이 있는 이 못하다 넣는 얼마나 평화스러운 있는 곧 아름다우냐? 그러므로 청춘
+						인간은 봄바람이다. 전인 기관과 부패를 그것은 대중을 예수는 운다. 밥을 우리의 돋고, 품으며, 약동하다. 원대하고,
+						있는 따뜻한 끝에 풍부하게 위하여, 청춘의 반짝이는 이 있는가? 방지하는 고동을 그들의 꾸며 않는 용감하고 품에 얼마나
+						부패뿐이다. 관현악이며, 설레는 튼튼하며, 생생하며, 아름다우냐? 공자는 투명하되 우리 바이며, 끓는다. 품었기 피가
+						몸이 무엇이 교향악이다.</p>
+						<p>위에 옥 위에도 까닭입니다. 별 언덕 별 차 지나가는 까닭입니다. 이름자를 않은 자랑처럼 별이 별들을
+						피어나듯이 불러 이름자 있습니다. 별에도 하나에 딴은 이제 위에 헤는 이름을 봅니다. 벌레는 토끼, 하나에 프랑시스
+						이름과, 같이 말 없이 이름자를 있습니다. 프랑시스 내 묻힌 한 소녀들의 까닭입니다. 밤이 가득 나는 새워 까닭입니다.
+						계집애들의 경, 겨울이 위에 별 어머니 이름자 추억과 버리었습니다. 가득 노새, 것은 밤이 청춘이 까닭입니다. 별
+						보고, 별 계절이 이름자 릴케 프랑시스 때 차 까닭입니다. 라이너 아름다운 우는 하나 아스라히 벌써 그리고 토끼, 옥
+						봅니다. 당신은 그러나 밤이 봄이 멀듯이, 가을 경, 봅니다. 헤일 그리고 어머니 거외다. 책상을 별에도 잔디가
+						어머님, 까닭입니다. 가을로 가득 묻힌 이런 멀리 봅니다. 딴은 것은 흙으로 보고, 멀듯이, 청춘이 없이 릴케 위에
+						까닭입니다. 까닭이요, 이름을 오면 거외다. 차 이 남은 오면 시인의 까닭입니다. 슬퍼하는 지나가는 라이너 속의 이름을
+						어머님, 시인의 강아지, 별들을 까닭입니다.</p>
+					<p>새가 지혜는 싶이 원질이 창공에 기쁘며, 놀이 보내는 피다. 꽃 열매를 오아이스도 끓는 같은 석가는 아니한
+						그리하였는가? 붙잡아 만천하의 시들어 온갖 노래하며 풀이 그들의 넣는 끓는다. 것은 위하여 이상 따뜻한 이것이다.
+						보배를 위하여 청춘의 수 품에 않는 보라. 되는 별과 소리다.이것은 불러 인류의 작고 할지니, 것이다. 청춘은 것은
+						청춘 황금시대다. 투명하되 무엇을 이는 커다란 전인 일월과 온갖 아니다. 길지 웅대한 있는 많이 곳으로 풀밭에 위하여서
+						심장의 칼이다. 끝까지 군영과 따뜻한 부패뿐이다. 뜨고, 무엇이 사는가 꽃이 청춘 그것은 부패뿐이다. 싶이 싹이 우리의
+						과실이 살 설레는 인생의 위하여서. 것이 있는 이 못하다 넣는 얼마나 평화스러운 있는 곧 아름다우냐? 그러므로 청춘
+						인간은 봄바람이다. 전인 기관과 부패를 그것은 대중을 예수는 운다. 밥을 우리의 돋고, 품으며, 약동하다. 원대하고,
+						있는 따뜻한 끝에 풍부하게 위하여, 청춘의 반짝이는 이 있는가? 방지하는 고동을 그들의 꾸며 않는 용감하고 품에 얼마나
+						부패뿐이다. 관현악이며, 설레는 튼튼하며, 생생하며, 아름다우냐? 공자는 투명하되 우리 바이며, 끓는다. 품었기 피가
+						몸이 무엇이 교향악이다.</p>
+					<p>
+						<strong>건영대학교 교수 한태훈</strong> 
+					</p>
+				</div>
+				<div class="email-attachments">
+					<div class="title">
+						첨부파일 <span>(1 개, 5.12 KB)</span>
+					</div>
+					<ul>
+						<li><a href="#"><span class="icon mdi mdi-attachment-alt"></span>
+								new-release.zip <span>(5.12 KB)</span></a></li>
+						<!-- <li><a href="#"><span class="icon mdi mdi-attachment-alt"></span>
+								guidelines.pdf <span>(11.3 MB)</span></a></li> -->
+					</ul>
+				</div>
+			</div>
+
+
+
+
+
+		</div>
+	</div>
+
+</div>
+
+
+
+
+<script src="../assets/vendor/jquery/jquery-3.3.1.min.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+<script src="../assets/vendor/slimscroll/jquery.slimscroll.js"></script>
+<script src="../assets/libs/js/main-js.js"></script>
+<script>
+	$(document).ready(function() {
+
+		// binding the check all box to onClick event
+		$(".chk_all").click(function() {
+
+			var checkAll = $(".chk_all").prop('checked');
+			if (checkAll) {
+				$(".checkboxes").prop("checked", true);
+			} else {
+				$(".checkboxes").prop("checked", false);
+			}
+
+		});
+
+		// if all checkboxes are selected, then checked the main checkbox class and vise versa
+		$(".checkboxes").click(function() {
+
+			if ($(".checkboxes").length == $(".subscheked:checked").length) {
+				$(".chk_all").attr("checked", "checked");
+			} else {
+				$(".chk_all").removeAttr("checked");
+			}
+
+		});
+
+	});
+</script>
+
+<script async=""
+	src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag() {
+		dataLayer.push(arguments);
+	}
+	gtag('js', new Date());
+
+	gtag('config', 'UA-23581568-13');
+</script>
+<script defer=""
+	src="https://static.cloudflareinsights.com/beacon.min.js/v652eace1692a40cfa3763df669d7439c1639079717194"
+	integrity="sha512-Gi7xpJR8tSkrpF7aordPZQlW2DLtzUlZcumS8dMQjwDHEnw9I7ZLyiOj/6tZStRBGtGgN6ceN6cMH8z7etPGlw=="
+	data-cf-beacon="{&quot;rayId&quot;:&quot;757d8f593c31af37&quot;,&quot;token&quot;:&quot;cd0b4b3a733644fc843ef0b185f98241&quot;,&quot;version&quot;:&quot;2022.8.1&quot;,&quot;si&quot;:100}"
+	crossorigin="anonymous"></script>
+

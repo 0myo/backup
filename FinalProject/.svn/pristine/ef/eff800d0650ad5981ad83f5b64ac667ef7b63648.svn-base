@@ -1,0 +1,20 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Alarm-Mapper">
+	<select id="selectAlarmList" parameterType="String" resultType="alarm">
+		select *
+		from alarm
+		where mem_id = #{memId}
+	</select>
+
+	<update id="insertAlarm">
+		insert into 
+		ALARM(alarm_seq,mem_id,content,check_cd,cdate,prefix)
+		values(#{alarmSeq}, #{memId},#{content},#{checkCd},sysdate,#{prefix})
+	</update>
+	
+	<select id="selecAlarmSeqNext" resultType="int">
+		select alarm_seq.nextval as alarm_seq from dual
+	</select>
+</mapper>

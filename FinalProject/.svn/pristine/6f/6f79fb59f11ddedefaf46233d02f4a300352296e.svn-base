@@ -1,0 +1,88 @@
+package kr.or.ddit.controller.staff;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import kr.or.ddit.dto.staff.StaffDualVO;
+import kr.or.ddit.dto.staff.StaffMajorChangeVO;
+import kr.or.ddit.service.staff.StaffDualService;
+import kr.or.ddit.service.staff.StaffMajorChangeService;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Controller
+@RequestMapping("/staff/stuManage")
+public class StuManageController {
+	
+	@Autowired
+	private StaffMajorChangeService staffMajorChangeService;
+	
+	@Autowired
+	private StaffDualService staffDualService;
+	
+	
+	@GetMapping("/graduate/list.do")
+	public String main(){
+		String url="staff/stuManage/graduateList";
+		return url;
+	}
+	
+	@GetMapping("/list")
+	public String list(){
+		String url="staff/stuManage/list";
+		return url;
+	}
+	
+	@GetMapping("/tl/list")
+	public String tlList(){
+		String url="staff/stuManage/tlList";
+		return url;
+	}
+	
+	@GetMapping("/majorChange/list")
+	public String mcList( Model model) throws Exception{
+		
+		String url="staff/stuManage/majorChangeList";
+		
+		List<StaffMajorChangeVO> stList = staffMajorChangeService.selectStaffMajorChangeList();
+		
+		model.addAttribute("stList", stList);
+		
+		return url;
+	}
+	
+	@RequestMapping("/majorChange/apply")
+	public String majorChangeApply(HttpServletRequest request,String applyStatus)throws Exception{
+		String url="redirect:/staff/stuManage/majorChange/list";
+		String[] majorChaSeqList= (String[])request.getParameterValues("checkMajorCha");
+		
+		Map<String,Object> dataMap = new HashMap<String,Object>();
+		dataMap.put("majorChaSeqList",majorChaSeqList);
+		dataMap.put("applyStatus",applyStatus);
+		staffMajorChangeService.updateApplyStatus(dataMap);
+		
+		return url;
+	}
+	
+	@GetMapping("/dual/list")
+	public String dualList(Model model) throws Exception{
+		String url="staff/stuManage/dualList";
+		
+		List<StaffDualVO> sdList = staffDualService.selectStaffDualList();
+		
+		model.addAttribute("sdList", sdList);
+		
+		return url;
+	}
+	
+
+}

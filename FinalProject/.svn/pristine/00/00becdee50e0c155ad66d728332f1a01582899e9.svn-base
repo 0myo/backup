@@ -1,0 +1,25 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="StuAssignment-Mapper">
+
+
+
+	
+	<select id="selectAssignmentListByLecCd" parameterType="lec" resultType="myLecAssignment">
+ select ab.ass_bno,ab.lec_cd,ab.title,ab.create_date,ab.due_date,ab.eval_rate,ab.content,bc.submit_date,bc.score,sub_eval_status_cd from
+   (select * from assignment a
+    where a.lec_cd=#{lecCd}) ab,
+      (select a.ass_bno,a.lec_cd,a.title,create_date,due_date,eval_rate,content,submit_date,score, sub_eval_status_cd from assignment a, ass_submit b
+    where a.ass_bno=b.ass_bno
+    and a.lec_cd=#{lecCd}
+    and stu_cd =#{stuCd}
+    order by create_date desc) bc
+    where ab.ass_bno=bc.ass_bno(+)
+    and ab.lec_cd=bc.lec_cd(+)
+    order by ab.create_date desc
+	</select>
+
+	
+</mapper>

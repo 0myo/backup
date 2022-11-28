@@ -1,0 +1,21 @@
+package kr.or.ddit.service.stu.tuition;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import kr.or.ddit.command.Criteria;
+import kr.or.ddit.dto.stu.ScholApplyVO;
+import kr.or.ddit.dto.stu.ScholManageVO;
+import kr.or.ddit.dto.stu.StuScholApplyListVO;
+import kr.or.ddit.dto.stu.StudentVO;
+import kr.or.ddit.dto.stu.StudyShareVO;
+import kr.or.ddit.dto.stu.TuitionVO;
+
+
+public interface TuitionService {
+	
+	List<TuitionVO> selectStuTuitionList(String stuCd) throws SQLException;
+
+}

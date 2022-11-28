@@ -1,0 +1,15 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Exercise-Mapper">
+	
+	<select id="selectBoardList" resultType="exercise">
+		select * from exercise
+	</select>
+	<insert id="registBoard">
+		insert into exercise
+		values (#{num},#{subject},#{writer},#{mail},#{password},#{content},#{hit},#{wip},sysdate)
+	</insert>
+
+</mapper>

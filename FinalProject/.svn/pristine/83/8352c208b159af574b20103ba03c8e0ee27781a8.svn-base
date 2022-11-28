@@ -1,0 +1,48 @@
+package kr.or.ddit.dao.common;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+
+import kr.or.ddit.dto.common.AlarmVO;
+
+public class AlarmDAOImpl implements AlarmDAO {
+
+	private SqlSession session;
+	public void setSession(SqlSession session) {
+		this.session = session;
+	}
+
+	@Override
+	public List<AlarmVO> selectUchkList(String memId) throws SQLException {
+		List<AlarmVO> alarmList = session.selectList("Alarm-Mapper.selectUchkList",memId);
+		return alarmList;
+	}
+
+	@Override
+	public List<AlarmVO> selectChkList(String memId) throws SQLException {
+		List<AlarmVO> alarmList = session.selectList("Alarm-Mapper.selectChkList",memId);
+		return alarmList;
+	}
+
+	@Override
+	public int selectAlarmTotalCount(String memId) throws SQLException {
+		int count = session.selectOne("Alarm-Mapper.selectAlarmTotalCount",memId);
+		return count;
+	}
+	
+	@Override
+	public void insertAlarm(AlarmVO alarm) throws SQLException {
+		session.update("Alarm-Mapper.insertAlarm", alarm);
+	}
+
+
+	@Override
+	public int selectAlarmSeqNext() {
+		int alramSeq = session.selectOne("Alarm-Mapper.selecAlarmSeqNext");
+		return alramSeq;
+	}
+
+
+}

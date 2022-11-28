@@ -1,0 +1,31 @@
+package kr.or.ddit.dao.stu;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import org.apache.ibatis.session.RowBounds;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+
+import com.sun.swing.internal.plaf.metal.resources.metal;
+
+import kr.or.ddit.command.Criteria;
+import kr.or.ddit.dto.stu.StudentVO;
+
+public class InfoDAOImpl implements InfoDAO{
+
+	private SqlSession session;
+
+	public void setSqlSession(SqlSession session) {
+		this.session = session;
+	}
+
+	@Override
+	public StudentVO selectInfo(String id) throws SQLException {
+		StudentVO student = session.selectOne("Student-Mapper.selectInfo",id);
+
+		return student;
+	}
+
+	
+}

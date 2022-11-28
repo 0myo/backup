@@ -1,0 +1,20 @@
+package kr.or.ddit.dto.stu;
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
+public class SemesterStuVO {
+	
+	private String semeCd; // 학사년도학기코드
+	private String stuCd; // 학번
+	private String grade; // 학년
+	private String stuSemester; // 학기
+	private int totalState; // 종합상태점수
+	private int attendPoint; // 종합출결점수
+	private int marksPoint; // 종합성적점수
+	
+}

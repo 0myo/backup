@@ -1,0 +1,84 @@
+package kr.or.ddit.dao.prof;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import org.apache.ibatis.session.RowBounds;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+
+import com.sun.swing.internal.plaf.metal.resources.metal;
+
+import kr.or.ddit.command.Criteria;
+import kr.or.ddit.dto.LectureNoticeVO;
+import kr.or.ddit.dto.common.MemberVO;
+
+public class LectureNoticeDAOImpl implements LectureNoticeDAO{
+
+	private SqlSession session;
+
+	public void setSqlSession(SqlSession session) {
+		this.session = session;
+	}
+
+	@Override
+	public List<LectureNoticeVO> selectLectureNoticeListByLecCd(Criteria cri, String lecCd) throws SQLException {
+		
+		int offset = cri.getStartRowNum();
+		int limit = cri.getPerPageNum();
+		RowBounds rowBounds = new RowBounds(offset,limit);
+		
+		List<LectureNoticeVO> noticeList = 
+				session.selectList("LectureNotice-Mapper.selectLectureNoticeListByLecCd",lecCd,rowBounds);
+		return noticeList;
+	}
+
+	@Override
+	public int selectLectureNoticeTotalCountByLecCd(Criteria cri, String lecCd) throws SQLException {
+		int count = session.selectOne("LectureNotice-Mapper.selectLectureNoticeTotalCountByLecCd", lecCd);
+		return count;
+	}
+
+	@Override
+	public LectureNoticeVO selectLectureNoticeByLecNoticeNo(LectureNoticeVO lecNotice) throws SQLException {
+		LectureNoticeVO notice = session.selectOne("LectureNotice-Mapper.selectLectureNoticeByLecNoticeNo",lecNotice); 
+		return notice;
+	}
+
+	@Override
+	public LectureNoticeVO selectLectureNoticeByImage(String imageFile) throws SQLException {
+		LectureNoticeVO notice = session.selectOne("LectureNotice-Mapper.selectLectureNoticeByImage",imageFile);
+		return notice;
+	}
+
+	@Override
+	public void insertLectureNotice(LectureNoticeVO lecNotice) throws SQLException {
+		session.update("LectureNotice-Mapper.insertLectureNotice",lecNotice);
+	}
+
+	@Override
+	public void updateLectureNotice(LectureNoticeVO lecNotice) throws SQLException {
+		session.update("LectureNotice-Mapper.updateLectureNotice",lecNotice);
+		
+	}
+
+	@Override
+	public void deleteLectureNotice(int lecNoticeNo) throws SQLException {
+		session.update("LectureNotice-Mapper.deleteLectureNotice",lecNoticeNo);
+		
+	}
+
+	@Override
+	public void increaseViewCnt(int lecNoticeNo) throws SQLException {
+		session.update("LectureNotice-Mapper.increaseViewCnt",lecNoticeNo);
+	}
+
+	@Override
+	public int selectLectureNoticeSeqNext() throws SQLException {
+		int seq_num = session.selectOne("LectureNotice-Mapper.selectLectureNoticeSeqNext");
+		return seq_num;
+	}
+
+
+	
+}

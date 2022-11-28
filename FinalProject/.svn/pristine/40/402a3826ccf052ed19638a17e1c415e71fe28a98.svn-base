@@ -1,0 +1,94 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Email-Mapper">
+	<select id="selectReceiveList" parameterType="String" resultType="mail">
+		select note_seq, title, send_date, recv_chk,
+		(select name 
+           from member
+          where mem_id = sender_Id) as senderId
+		  from inbox
+		  where receiver_id = #{memId}
+		    and bin_status_cd = 'inmail'
+		  order by send_date desc
+	</select>
+	<select id="selectSendList" parameterType="String" resultType="mail">
+		select sent_note_seq, title, send_date, 
+		(select name 
+           from member
+          where mem_id = receiver_id) as senderId
+		  from sent_inbox
+		  where sender_id = #{memId}
+		    and bin_status_cd = 'inmail'
+		  order by send_date desc
+	</select>
+	
+	<select id="selectMailDetail" parameterType="int" resultType="mail">
+		select note_seq, title, send_date, content,
+		(select name 
+           from member
+          where mem_id = sender_Id) as senderId
+		  from inbox
+		  where note_seq=#{noteSeq}
+	</select>
+	
+	<insert id="insertReceiveInfo" parameterType="inbox">
+		insert into inbox
+		(note_seq, sender_id, receiver_id, title, content, send_date, recv_chk)
+        
+		values(#{noteSeq}, #{senderId}, #{receiverId}, #{title}, #{content}, sysdate, '안읽음')
+
+	</insert>
+	
+	<insert id="insertSendMailInfo" parameterType="inbox">
+		insert into sent_inbox
+		(sent_note_seq, sender_id, receiver_id, title, content, send_date)
+        
+		values(#{sentNoteSeq}, #{senderId}, #{receiverId}, #{title}, #{content}, sysdate)
+
+	</insert>
+	
+	<select id="selectNoteSeqNextVal" resultType="int">
+		select note_seq.nextval from dual
+	</select>
+	
+	<select id="selectSentNoteSeqNextVal" resultType="int">
+		select sent_note_seq.nextval from dual
+	</select>
+	
+	<select id="selectCountMail" resultType="int">
+		select count(recv_chk)
+		  from inbox
+		 where receiver_id = #{receiverId}
+		   and recv_chk = '안읽음'
+	</select>
+	
+	<update id="updateReadCheck" parameterType="inbox">
+		update inbox 
+		   set recv_chk = '읽음'
+		 where note_seq = #{noteSeq}
+	</update>
+	
+	<select id="selectReceiveBin" parameterType="String" resultType="mail">
+		select note_seq, title, send_date,
+		(select name 
+           from member
+          where mem_id = sender_Id) as senderId
+		  from inbox
+		  where receiver_id = #{memId}
+            and bin_status_cd = 'inbin'
+		  order by send_date desc
+	</select>
+	
+	<select id="selectSentBin" parameterType="String" resultType="mail">
+		select sent_note_seq, title, send_date, 
+		(select name 
+           from member
+          where mem_id = receiver_id) as senderId
+		  from sent_inbox
+		  where sender_id = #{memId}
+            and bin_status_cd = 'inbin'
+		  order by send_date desc
+	</select>
+</mapper>

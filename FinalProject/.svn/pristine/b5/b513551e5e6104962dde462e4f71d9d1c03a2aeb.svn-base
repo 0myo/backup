@@ -1,0 +1,18 @@
+package kr.or.ddit.service.stu.support;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import kr.or.ddit.command.Criteria;
+import kr.or.ddit.dto.stu.StuShaReplyVO;
+
+public interface ShaReplyService {
+
+	List<StuShaReplyVO> getStuShaReply(Criteria cri) throws SQLException;
+	
+	int getCountReply(int shaBno) throws SQLException;
+	
+	void updateReply(StuShaReplyVO ShaReply) throws SQLException;
+	void insertReply(StuShaReplyVO ShaReply) throws SQLException;
+	void deleteReply(int shaRno) throws SQLException;
+}

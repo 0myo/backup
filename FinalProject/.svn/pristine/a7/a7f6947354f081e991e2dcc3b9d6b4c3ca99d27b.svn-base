@@ -1,0 +1,20 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+    
+<mapper namespace="StuSupport-Mapper">
+
+	<select id="selectSurveyForm"  resultType="surveyForm">
+		select *
+		from SURVEY_FORM
+	</select>
+	<select id="selectScriptList" resultType="string">
+		select script_content from interview_script where class_cd='voice'
+	</select>
+	<select id="selectFaceScript" resultType="string">
+		select script_content from interview_script where class_cd='face'
+	</select>
+
+	
+</mapper>

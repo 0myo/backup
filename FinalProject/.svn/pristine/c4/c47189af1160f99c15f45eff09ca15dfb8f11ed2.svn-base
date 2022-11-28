@@ -1,0 +1,25 @@
+package kr.or.ddit.service.staff;
+
+import java.sql.SQLException;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import kr.or.ddit.dao.staff.ExcelDAO;
+
+
+
+@Service
+public class ExcelServiceImpl implements ExcelService {
+
+	@Autowired
+	private ExcelDAO excelDAO;
+	
+	@Override
+	public void insertExcel(Map<String, String> mapData) throws SQLException {
+		
+		excelDAO.insertExcel(mapData);
+	}
+
+}

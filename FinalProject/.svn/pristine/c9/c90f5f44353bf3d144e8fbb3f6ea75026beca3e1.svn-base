@@ -1,0 +1,12 @@
+package kr.or.ddit.service.common;
+
+import java.sql.SQLException;
+import java.util.Map;
+
+public interface AlarmService {
+	
+	Map<String,Object> getAlarmList(String memId)throws SQLException;
+
+
+//	void registAlarm(AlarmVO alarm)throws SQLException;
+}

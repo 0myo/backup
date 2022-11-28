@@ -1,0 +1,45 @@
+package kr.or.ddit.dao.prof;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import kr.or.ddit.command.Criteria;
+import kr.or.ddit.dto.prof.SyllabusVO;
+import lombok.Setter;
+
+public class SyllabusDAOImpl implements SyllabusDAO{
+
+	private SqlSession session;
+
+	public void setSqlSession(SqlSession session) {
+		this.session = session;
+	}
+	
+	@Override
+	public List<SyllabusVO> selectSyllabusList(Criteria cri,String profId) throws SQLException {
+		
+		return null;
+	}
+
+	@Override
+	public int selectSyllabusTotalCount(Criteria cri) throws SQLException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public SyllabusVO selectSyllabusBysylCd(String sylCd) throws SQLException {
+		SyllabusVO syllabus = session.selectOne("Syllabus-Mapper.selectSyllabusBySylCd",sylCd);
+		return syllabus;
+	}
+
+	@Override
+	public void insertSyllabus(SyllabusVO syllabusVO) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

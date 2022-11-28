@@ -1,0 +1,21 @@
+package kr.or.ddit.dao.stu.lec;
+
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+
+import kr.or.ddit.dto.stu.LecVO;
+import kr.or.ddit.dto.stu.MyLecAssignmentVO;
+
+public class MyLecAssignmentDAOImpl implements MyLecAssignmentDAO{
+	private SqlSession session;
+
+	public void setSqlSession(SqlSession session) {
+		this.session = session;
+	}
+
+	@Override
+	public List<MyLecAssignmentVO> selectMyAssignmentList(LecVO lec) {
+		return session.selectList("StuAssignment-Mapper.selectAssignmentListByLecCd",lec);
+	}
+}

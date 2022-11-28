@@ -1,0 +1,18 @@
+package kr.or.ddit.service.common;
+
+import java.sql.SQLException;
+
+import kr.or.ddit.dao.common.SemesterDAO;
+import kr.or.ddit.dto.common.SemesterVO;
+
+public class SemesterServiceImpl implements SemesterService {
+	
+	private SemesterDAO semesterDAO;
+	public void setSemesterDAO(SemesterDAO semesterDAO) {
+		this.semesterDAO=semesterDAO;
+	}
+	@Override
+	public SemesterVO selectAvailableSemester() throws SQLException {
+		return semesterDAO.selectAvailableSemester();
+	}
+}

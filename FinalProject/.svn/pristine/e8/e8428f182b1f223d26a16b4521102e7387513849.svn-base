@@ -1,0 +1,33 @@
+package kr.or.ddit.controller.stu;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/stu/schol")
+public class StuScholController {
+
+	@RequestMapping("list")
+	public String list() {
+		String url = "stu/schol/list";
+		return url;
+	}
+	
+	@RequestMapping("registForm")
+	public String registForm() {
+		String url = "stu/schol/registForm";
+		return url;
+	}
+	
+	@RequestMapping("applyList.do")
+	public String applyList() {
+		String url = "stu/schol/applyList";
+		return url;
+	}
+	
+	
+
+	
+}

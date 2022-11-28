@@ -1,0 +1,151 @@
+package kr.or.ddit.service.common;
+
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import kr.or.ddit.command.CriteriaLec;
+import kr.or.ddit.command.PageMakerLec;
+import kr.or.ddit.dao.common.EmailDAO;
+import kr.or.ddit.dto.common.MailVO;
+import lombok.extern.slf4j.Slf4j;
+@Service
+@Slf4j
+public class EmailServiceImpl implements EmailService {
+	@Autowired
+	private EmailDAO emailDAO;
+	
+	@Override
+	public int getCountMail(String memId) throws SQLException {
+		int count = emailDAO.selectCountMail(memId);
+		return count;
+	}
+	
+	@Override
+	public Map<String, Object> selectReceiveList(CriteriaLec cri) throws SQLException {
+		
+		CriteriaLec receivecri = (CriteriaLec) cri;
+		
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		
+		List<MailVO> receiveList = emailDAO.selectReceiveList(receivecri);
+		log.debug("receiveList : "+receiveList);
+		int countReceiveMailList = emailDAO.countReceiveMailList(receivecri);
+		log.debug("토탈카운트 : " + countReceiveMailList);
+		log.debug("크리테리아 : " + cri);
+		PageMakerLec pageMaker = new PageMakerLec();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(countReceiveMailList);
+
+		log.debug("페이지메이커 : " + pageMaker);
+		dataMap.put("receiveList", receiveList);
+		dataMap.put("pageMaker", pageMaker);
+		
+		return dataMap;
+	}
+	
+	@Override
+	public Map<String, Object> selectSendList(CriteriaLec cri) throws SQLException {
+		
+		log.debug("서비스 : cri"+cri);
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		
+		List<MailVO> sentList = emailDAO.selectSendList(cri);
+		
+		int countSentMailList = emailDAO.countSentMailList(cri);
+		
+		PageMakerLec pageMaker = new PageMakerLec();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(countSentMailList);
+		
+		dataMap.put("sentList", sentList);
+		dataMap.put("pageMaker", pageMaker);
+		
+		return dataMap;
+	}
+	
+	@Override
+	public Map<String, List<MailVO>> selectBinList(String memId) throws SQLException {
+		Map<String, List<MailVO>> binList = new HashMap<String, List<MailVO>>();
+		List<MailVO> receive = emailDAO.selectReceiveBin(memId);
+		List<MailVO> sent = emailDAO.selectSentBin(memId);
+		log.debug("y서비스확인"+receive.size());
+		log.debug("서비스확인"+sent.size());
+		binList.put("receive", receive);
+		binList.put("sent", sent);
+		
+		return binList;
+	}
+
+	@Override
+	public MailVO selectMailDetail(int noteSeq) throws SQLException {
+		MailVO mailDetail = emailDAO.selectMailDetail(noteSeq);
+		
+		return mailDetail;
+	}
+
+	@Override
+	public MailVO insertMailInfo(MailVO mail) throws SQLException {
+		int noteSeq = emailDAO.selectNoteSeqNextVal();
+		mail.setNoteSeq(noteSeq);
+		emailDAO.insertReceiveInfo(mail);
+		
+		int sentNoteSeq = emailDAO.selectSentNoteSeqNextVal();
+		mail.setSentNoteSeq(sentNoteSeq);
+		
+		
+		
+		
+		emailDAO.insertSendMailInfo(mail);
+		return mail;
+		
+		
+	}
+
+	@Override
+	public void updateReadCheck(MailVO mail) throws SQLException {
+		emailDAO.updateReadCheck(mail);
+		
+	}
+
+	@Override
+	public void updateReceiveToBin(MailVO mail) throws SQLException {
+		emailDAO.updateInboxMailDel(mail);
+		
+	}
+	@Override
+	public void updateSentToBin(MailVO mail) throws SQLException {
+		log.debug("서비스체크"+mail);
+		emailDAO.updateSentInboxMailDel(mail);
+		
+	}
+
+	@Override
+	public void updateReturnReceive(MailVO mail) throws SQLException {
+		emailDAO.updateBinMailToReceive(mail);
+
+	}
+	@Override
+	public void updateReturnSent(MailVO mail) throws SQLException {
+		emailDAO.updateBinMailToSent(mail);
+		
+	}
+
+	@Override
+	public int countReceiveMailList(CriteriaLec cri) throws SQLException {
+		int count = emailDAO.countReceiveMailList(cri);
+		return count;
+	}
+
+	@Override
+	public int countSentMailList(CriteriaLec cri) throws SQLException {
+		int count = emailDAO.countSentMailList(cri);
+		return count;
+	}
+
+
+}

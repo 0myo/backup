@@ -1,0 +1,28 @@
+package kr.or.ddit.dto.staff;
+
+import java.util.Date;
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
+public class StaffTlApplyVO {
+
+	private String majorName;
+	private String colName;
+	
+	//
+	private String stuCd;
+	private String name;
+	private String grade;
+	private String tlAppSeme;
+	private String backSeme;
+	private String tlClassCd;
+	private String applyStatusCd;
+	
+	
+	
+}

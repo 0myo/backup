@@ -1,0 +1,25 @@
+package kr.or.ddit.controller.stu;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/stu/score")
+public class StuScoreController {
+
+	@RequestMapping("/semester/list")
+	public String semester() {
+		String url = "stu/score/semester";
+		return url;
+	}
+	
+	@RequestMapping("/total/list")
+	public String total() {
+		String url = "stu/score/total";
+		return url;
+	}
+
+	
+}

@@ -1,0 +1,10 @@
+package kr.or.ddit.service.stu.lec;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import kr.or.ddit.dto.stu.ApplyPageVO;
+
+public interface ApplyPageService {
+	public List<ApplyPageVO> getLectureList()throws SQLException;
+}

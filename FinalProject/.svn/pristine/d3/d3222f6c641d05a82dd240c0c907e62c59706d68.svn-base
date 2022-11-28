@@ -1,0 +1,45 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>사용자등록</title>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+</head>
+
+
+	<body>
+	    <h1>사용자등록</h1><br>
+	    <p> 양식파일을 다운로드 하시고 파일내에 있는 모든 항목들을 채워서 업로드하셔야 정상적으로 등록됩니다.</p>
+	    <!-- <a class="button" href="/ai/resources/doc/사용자등록.xlsx" download="사용자등록양식.xlsx">양식다운로드</a><br><br> -->
+	     <button  onclick="location.href='/ai/resources/doc/사용자등록양식.xlsx'" download="사용자등록양식.xlsx">양식다운로드</button> <br><br> 
+	     <form action="" method="post" enctype="multipart/form-data"  >
+	          <input type="file" name="myExcel" id="myExcel"  value="" accept=".xlsx"><br>
+	     </form><br>
+	     <input type="button"  value="업로드" onclick="excelUpload()">
+ 
+
+<script>
+	function excelUpload(){
+		var vfile = document.querySelector("#myExcel").files[0];
+		console.log(vfile);
+		var vformData = new FormData();
+		vformData.append("excelFile",vfile);  // 요게 있어야 함
+		
+		$.ajax({
+			url : "${webPath}/staff/stuManage/upload",
+			type : 'post',
+		 	data : vformData,
+			cache : false,
+		 	contentType: false,  // 필수
+		 	processData: false,	// 필수
+			success : function(data) {
+				console.log(data);
+	        },
+		});
+		
+	}
+</script>
+</body>
+</html>

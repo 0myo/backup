@@ -1,0 +1,11 @@
+package kr.or.ddit.dao.stu.aca;
+
+import java.sql.SQLException;
+
+
+import kr.or.ddit.dto.stu.MajorChangeVO;
+
+public interface MajorChangeDAO {
+
+	MajorChangeVO selectMajorChange(String stuCd) throws SQLException;
+}

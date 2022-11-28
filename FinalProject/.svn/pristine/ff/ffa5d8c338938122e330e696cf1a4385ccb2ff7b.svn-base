@@ -1,0 +1,5 @@
+package kr.or.ddit.dto.staff;
+
+public class StaffMajorChangeVO {
+
+}

@@ -1,0 +1,64 @@
+package kr.or.ddit.service.common;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import kr.or.ddit.dao.common.EmailDAO;
+
+import kr.or.ddit.dto.common.MailVO;
+import lombok.extern.slf4j.Slf4j;
+@Service
+@Slf4j
+public class EmailServiceImpl implements EmailService {
+	@Autowired
+	private EmailDAO emailDAO;
+	
+	@Override
+	public int getCountMail(String memId) throws SQLException {
+		int count = emailDAO.selectCountMail(memId);
+		return count;
+	}
+	
+	@Override
+	public List<MailVO> selectReceiveList(String memId) throws SQLException {
+		List<MailVO> ReceiveList = emailDAO.selectReceiveList(memId);
+		
+		return ReceiveList;
+	}
+	
+	@Override
+	public List<MailVO> selectSendList(String memId) throws SQLException {
+		List<MailVO> sendList = emailDAO.selectSendList(memId);
+		
+		return sendList;
+	}
+
+	@Override
+	public MailVO selectMailDetail(int noteSeq) throws SQLException {
+		MailVO mailDetail = emailDAO.selectMailDetail(noteSeq);
+		log.debug("ScholApply서비스확인"+mailDetail);
+		return mailDetail;
+	}
+
+	@Override
+	public void insertMailInfo(MailVO mail) throws SQLException {
+		int noteSeq = emailDAO.selectNoteSeqNextVal();
+		mail.setNoteSeq(noteSeq);
+		emailDAO.insertReceiveInfo(mail);
+
+		
+		int sentNoteSeq = emailDAO.selectSentNoteSeqNextVal();
+		mail.setSentNoteSeq(sentNoteSeq);
+	
+		
+		emailDAO.insertSendMailInfo(mail);
+		log.debug("서비스 나감.");
+		
+	}
+
+
+
+}

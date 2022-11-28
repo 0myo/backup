@@ -1,0 +1,20 @@
+package kr.or.ddit.dao.stu;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import kr.or.ddit.command.Criteria;
+import kr.or.ddit.dto.stu.StudentVO;
+
+
+
+public interface InfoDAO {
+
+	StudentVO selectInfo(String id)throws SQLException;
+	
+	void updateInfo(StudentVO student) throws SQLException;
+	void updateAccount(StudentVO student) throws SQLException;
+	
+	
+}
+

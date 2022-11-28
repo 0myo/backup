@@ -1,0 +1,13 @@
+package kr.or.ddit.service.common;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import kr.or.ddit.dto.common.AlarmVO;
+
+public interface AlarmService {
+	
+	List<AlarmVO> getAlarmList(String memId)throws SQLException;
+//	void registAlarm(AlarmVO alarm)throws SQLException;
+
+}

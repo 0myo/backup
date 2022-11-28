@@ -1,0 +1,58 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<div class="main-content-jsp">
+	<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+		<div class="card">
+			<h3 class="card-header">강의평가 목록</h3>
+			<div class="card-body">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>교수명</th>
+							<th>이수구분</th>
+							<th>이수학점</th>
+							<th>강의명</th>
+							<th>평가상태</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="evalRow">
+							<td>이혜림</td>
+							<td>교필</td>
+							<td>3</td>
+							<td>글쓰기 기초</td>
+							<td>완료</td>
+						</tr>
+						<tr>
+							<td>2</td>
+							<td>Jacob</td>
+							<td>Thornton</td>
+							<td>@fat</td>
+							<td>@fat</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- ================================================= -->
+<!-- MAIN-CONTENT 끝 -->
+<!-- ================================================= -->
+<script>
+//강의 평가 폼으로 넘어가는 url 주소.
+//강의평가 코드를 넘겨서 해당 강의평가테이블의 강의코드로 활용.
+var evalRow = document.querySelectorAll('.evalRow');
+for(var i=0;i<evalRow.length;i++){
+	evalRow[i].style.cursor="pointer";
+	evalRow[i].addEventListener('click',function(){
+		location.href = "<%=request.getContextPath()%>/stu/lec/eval/registForm.do?lecCd=dddd"
+	})
+}
+
+
+
+<%-- function pageMove(url){
+	location.href = "<%=request.getContextPath()%>/"+url;
+} --%>
+</script>

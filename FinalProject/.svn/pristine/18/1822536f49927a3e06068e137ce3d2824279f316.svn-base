@@ -1,0 +1,13 @@
+package kr.or.ddit.dao.staff;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import kr.or.ddit.dto.staff.StaffTlApplyVO;
+
+public interface StaffTlApplyDAO {
+
+	List<StaffTlApplyVO> selectStaffTlApplyList1() throws SQLException;
+	List<StaffTlApplyVO> selectStaffTlApplyList2() throws SQLException;
+	
+}

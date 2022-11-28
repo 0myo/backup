@@ -1,0 +1,48 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Mark-Mapper">
+
+	<select id ="selectAllStudents" parameterType="String" resultType="mark">
+	select a.stu_cd,final_marks,final_score,name,COL_NAME_FUNC(a.stu_cd) as col_name,MAJOR_NAME_FUNC(a.stu_cd) as major_name from lec a, student b
+		where a.lec_cd=#{lecCd}
+		and a.stu_cd=b.stu_cd
+		and mylec_status_cd = 's'
+		order by name
+	</select>
+
+
+	<select id="selectAssScore" parameterType="String" resultType="mark">
+	select a.stu_cd,sum(score*eval_rate*0.01) as ass_Score
+	    from ass_submit a,assignment b
+	    where a.ass_bno=b.ass_bno
+	    and a.lec_cd =#{LecCd}
+	    group by a.stu_cd
+	    order by a.stu_cd
+	</select>
+	<select id="selectAttendInfo" parameterType="String" resultType="mark">
+	select stu_cd,attend_status_cd,count(*) as attend_count from attend
+		where lec_cd =#{LecCd}
+		group by stu_cd,attend_status_cd
+		order by lec_cd
+	</select>
+	<select id="selectMidScore" parameterType="String" resultType="mark">
+	select stu_cd,score as mid_Score from exam_apply where exam_seq in (select exam_seq from exam
+		where exam_div_cd='mid'
+		and lec_cd =#{LecCd})
+		order by stu_cd
+	</select>
+	<select id="selectFinScore" parameterType="String" resultType="mark">
+	select stu_cd,score as fin_Score from exam_apply where exam_seq in (select exam_seq from exam
+		where exam_div_cd='fin'
+		and lec_cd =#{LecCd})
+		order by stu_cd
+	</select>
+	
+	<select id="selectRatio" parameterType="String" resultType="mark">
+	select mid_ratio,final_ratio,assign_ratio,attend_ratio from marks_std where syl_cd = #{lecCd}
+	</select>
+
+
+</mapper>

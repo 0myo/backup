@@ -1,0 +1,20 @@
+package kr.or.ddit.service.stu.lec;
+
+import java.util.List;
+
+import kr.or.ddit.dao.stu.lec.MyLecAssignmentDAO;
+import kr.or.ddit.dto.stu.LecVO;
+import kr.or.ddit.dto.stu.MyLecAssignmentVO;
+
+public class MyLecAssignmentServiceImpl implements MyLecAssignmentService {
+	MyLecAssignmentDAO myLecAssignmentDAO;
+	public void setMyLecAssignmentDAO(MyLecAssignmentDAO myLecAssignmentDAO) {
+		this.myLecAssignmentDAO=myLecAssignmentDAO;
+	}
+	
+	@Override
+	public List<MyLecAssignmentVO> selectMyAssignmentList(LecVO lec) {
+		return myLecAssignmentDAO.selectMyAssignmentList(lec);
+	}
+
+}

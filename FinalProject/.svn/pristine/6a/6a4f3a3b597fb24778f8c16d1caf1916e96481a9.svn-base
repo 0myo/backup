@@ -1,0 +1,54 @@
+package kr.or.ddit.service.staff;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import kr.or.ddit.command.Criteria;
+import kr.or.ddit.dao.staff.ScNoticeDAO;
+import kr.or.ddit.dto.staff.ScNoticeVO;
+
+public class ScNoticeServiceImpl implements ScNoticeService{
+	
+	@Autowired
+	private ScNoticeDAO scNoticeDAO;
+	
+	public void setScNoticeDAO(ScNoticeDAO scNoticeDAO) {
+		this.scNoticeDAO = scNoticeDAO;
+	}
+	
+	@Override
+	public List<ScNoticeVO> getScNoticeList(Criteria cri) throws SQLException {
+		List<ScNoticeVO> sList = scNoticeDAO.selectScNoticeList(cri);
+		return sList;
+	}
+
+	@Override
+	public ScNoticeVO selectOneScNotice(int scNno) throws SQLException {
+		ScNoticeVO sOne = scNoticeDAO.selectOneScNotice(scNno) ;
+		return sOne;
+	}
+
+	@Override
+	public void regist(ScNoticeVO scNotice) throws SQLException{
+		int scNno = scNoticeDAO.selectScNnoNextValue();
+		scNotice.setScNno(scNno);
+		scNoticeDAO.insertscNotice(scNotice);
+		
+	}
+
+	@Override
+	public void modify(ScNoticeVO scNotice) throws SQLException {
+		scNoticeDAO.updatescNotice(scNotice);
+		
+	}
+
+	@Override
+	public void delete(int lecNoticeNo) throws SQLException {
+		scNoticeDAO.deletescNotice(lecNoticeNo);
+		
+	}
+
+
+}
